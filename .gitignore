@@ -1,0 +1,10 @@
+# Git ignore following
+
+# Thư viện node.js
+node_modules/
+
+# Folder config file
+Desktop.ini
+
+# Editors
+.vscode
