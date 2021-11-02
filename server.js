@@ -4,6 +4,7 @@ const expressHandlebars = require('express-handlebars')
 
 // Router
 const route = require('./server/routes/index')
+const mangaRoute = require('./server/routes/manga')
 
 const app = express();
 const port = 3000;
@@ -26,6 +27,9 @@ app.use(express.static('public'))
 
 // Home page
 app.use('/', route)
+
+// Manga branch page (manga-detail, manga-reading)
+app.use('/manga/', mangaRoute)
 
 app.listen(port, function(){
     console.log('Server is running on Port '+ port);
