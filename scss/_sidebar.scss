@@ -1,0 +1,125 @@
+@import "vaviables";
+
+.bg-cover {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.manga_sidebar_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 1rem;
+
+  h4 {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .manga_sidebar_option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+
+    .sidebar_option_item {
+      list-style: none;
+      margin: 0 3px;
+      cursor: pointer;
+      color: $border-1;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .avtive {
+      color: $white-color;
+      font-weight: 900;
+    }
+  }
+}
+
+.manga_topviews_item {
+  margin-bottom: 2rem;
+
+  .manga_topviews_item_cover {
+    height: 190px;
+    position: relative;
+    border-radius: 5px;
+    .ep {
+      top: 10px;
+      left: 10px;
+      background-color: $bg-text-cover-1;
+      color: $white-color;
+    }
+
+    .view {
+      top: 10px;
+      right: 10px;
+      background-color: $bg-text-cover-2;
+      color: $white-color;
+    }
+
+    .name {
+      position: absolute;
+      bottom: 0px;
+      left: 10px;
+
+      a {
+        color: $white-color;
+        font-weight: 700;
+        line-height: 1.3rem;
+        text-decoration: none;
+        text-align: start;
+        font-size: 18px;
+        font-family: $fm-nunito;
+        text-shadow: 0px 0px 5px #000;
+      }
+    }
+  }
+
+  .manga_topviews_item_text {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+.manga_newcomment_item {
+  position: relative;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  .manga_newcomment_item_cover {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-right: 10px;
+    flex: 1;
+    &:after {
+      content: "";
+      display: block;
+      padding-top: 141.42%;
+    }
+  }
+  .manga_newcomment_item_text {
+    flex: 3;
+    margin-top: 10px;
+    .name {
+      color: $white-color;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .views {
+      color: $white-color;
+      font-size: 14px;
+    }
+  }
+}

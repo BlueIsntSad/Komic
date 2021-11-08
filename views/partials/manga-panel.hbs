@@ -1,0 +1,57 @@
+{{#each categories}}
+        <div class="manga_catetegory mb-4">
+            <div class="row category_item">
+                <h4 class="col-lg-8 col-md-8 col-sm-12 section_title">
+                    <a href="/categories/{{this._id}}">
+                        {{this.name}}
+                    </a>
+                </h4>
+                <h5 class="col-lg-4 col-md-4 col-sm-12 section_link">
+                    <a href="/categories/{{this._id}}">
+                        view all
+                    </a>
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </h5>
+                <div class="col-lg-4 col-md-4 col-sm-12 section_sort">
+                    <h5 class="section_sort_title">
+                        Order by:
+                    </h5>
+                    <form action="/categories/{{this._id}}" method="GET" id="submit_sort" class="section_sort_form">
+                        <select name="sort" id="sort" class="section_sort_select">
+                            <option value="namea_z" class="sort_select_option">A-Z</option>
+                            <option value="must_views" class="sort_select_option">Views &#xf062;</option>
+                            <option value="namez_a" class="sort_select_option">Z-A</option>
+                            <option value="least_views" class="sort_select_option">Views  &#xf063;</option>
+                        </select>
+                    </form>
+                </div>
+                
+            </div>
+            <div class="row">
+                {{#each this.products}}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="manga_item">
+                            <div class="manga_item_cover bg-cover"  style="background-image: url({{this.cover}});">
+                                <div class="text ep">{{this.finishedEp}} / {{this.totalEp}}</div>
+                                <div class="text view">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    {{this.views}}
+                                </div>
+                                <div class="text comment">
+                                        <i class="fa fa-comments" aria-hidden="true"></i>
+                                    {{this.comments}}
+                                </div>
+                            </div>
+                            <div class="manga_item_text pt-1">
+                                <h5 class="name">
+                                    <a href="manga/{{this.id}}">
+                                        {{this.name}}
+                                    </a>
+                                </h5>      
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}   
+            </div>                         
+        </div>       
+    {{/each}}

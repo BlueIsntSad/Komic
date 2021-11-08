@@ -1,2 +1,37 @@
-<h1>Home Page</h1>
-<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto, atque.</p>
+ <!---body content-->
+
+<section class="slider">
+    <div class="container">
+        <div class="manga_slider">
+            {{#each news}}
+                <div class="manga_slider_item bg-cover"  style="background-image: url({{this.cover}});">
+                    <div class="manga_slider_item_text">
+                        <h3 class="name">{{this.name}}</h3>
+                        <span class="description">{{this.description}}</span>
+                        <a href="/anime/{{this.id}}" class="link">
+                            <span>
+                                watch now
+                            </span>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<section class="manga">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 mt-4">
+                {{> manga-panel categories=categories }}       
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                {{> sidebar topViews = topViews newComment = newComment}}
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/js/home.js"></script>
