@@ -1,8 +1,12 @@
 @import "vaviables";
+@import "base";
+
 @import "home";
 @import "manga-panel";
 @import "sidebar";
 @import "categories";
+@import "manga-details";
+@import "manga-reading";
 
 html,
 body {

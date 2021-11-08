@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "watch": "sass --watch sass:public/css"
+    "watch": "sass --watch scss:public/css"
   },
   "author": "team19",
   "license": "ISC",
