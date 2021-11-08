@@ -1,4 +1,5 @@
 # Git ignore following
+.git
 
 # Thư viện node.js
 node_modules/

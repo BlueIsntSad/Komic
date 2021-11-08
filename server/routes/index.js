@@ -7,4 +7,6 @@ const controller = require('../controllers/index');
 // GET home page
 router.get('/', controller.index)
 
+//GET categories page
+router.get('/categories', controller.categories )
 module.exports = router;
