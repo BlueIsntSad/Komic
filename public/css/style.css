@@ -160,7 +160,7 @@ a:focus {
   top: 50%;
   width: 65px;
   height: 65px;
-  border: 8px solid #0b0c2a;
+  border: 8px solid #fff;
   outline: none;
   z-index: 5;
   font-size: 0;
@@ -501,13 +501,8 @@ a:focus {
 }
 
 /*---------------------
-  Anime Details
+  Manga Details
 -----------------------*/
-img {
-  height: 100%;
-  overflow: hidden;
-}
-
 .manga_details_rating .rating i {
   font-size: 21px;
   color: #e89f12;
@@ -533,10 +528,10 @@ img {
 }
 .manga_review .review-item .avatar:before {
   position: absolute;
-  right: -30px;
+  right: -32px;
   top: 15px;
   border-top: 15px solid transparent;
-  border-left: 14px solid #f4f4f4;
+  border-left: 15px solid #f4f4f4;
   content: "";
   transform: rotate(45deg);
 }
@@ -545,26 +540,25 @@ img {
   width: 50px;
   border-radius: 50%;
 }
-.manga_review .review-item .text {
+.manga_review .review-item .comment {
   overflow: hidden;
   background: #f4f4f4;
   border-radius: 10px;
 }
-.manga_review .review-item .text h6 {
+.manga_review .review-item .comment h6 {
   color: black;
-  font-weight: 700;
+  margin-bottom: 10px;
 }
-.manga_review .review-item .text h6 span {
+.manga_review .review-item .comment h6 span {
   color: gray;
-  font-weight: 400;
 }
-.manga_review .review-item .text p {
+.manga_review .review-item .comment p {
   color: gray;
-  line-height: 23px;
 }
 
 .manga_comment form textarea {
   background-color: #f4f4f4;
+  height: 100px;
   border: none;
   border-radius: 5px;
   resize: none;
@@ -583,7 +577,7 @@ body {
   height: 100%;
   font-family: "Mulish", sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #0b0c2a;
+  background: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */
