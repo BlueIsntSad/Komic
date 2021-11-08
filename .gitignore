@@ -4,7 +4,7 @@
 node_modules/
 
 # Folder config file
-Desktop.ini
+desktop.ini
 
 # Editors
 .vscode
