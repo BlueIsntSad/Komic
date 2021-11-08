@@ -5,6 +5,7 @@ node_modules/
 
 # Folder config file
 desktop.ini
+.env
 
 # Editors
 .vscode
