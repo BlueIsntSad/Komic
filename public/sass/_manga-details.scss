@@ -1,0 +1,96 @@
+/*---------------------
+  Anime Details
+-----------------------*/
+$background-shadow: #f4f4f4;
+//$background-shadow: #f8f9fa;
+$primary-color: #fb770d;
+
+img {
+	height: 100%;
+    overflow: hidden;
+}
+
+.manga_details_rating {
+	.rating {
+		i {
+			font-size: 21px;
+			color: #e89f12;
+			display: inline-block;
+		}
+	}
+
+	span {
+		display: block;
+		font-size: 18px;
+	}
+}
+
+.manga_details_btn a {
+	font-weight: 700;
+	letter-spacing: 2px;
+	border-radius: 4px;
+}
+
+.manga_review {
+	.review-item {
+		overflow: hidden;
+
+		.avatar {
+			float: left;
+			position: relative;
+
+			&:before {
+				position: absolute;
+				right: -30px;
+				top: 15px;
+				border-top: 15px solid transparent;
+				border-left: 14px solid $background-shadow;
+				content: "";
+				transform: rotate(45deg);
+			}
+			
+			img {
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+			}
+		}
+
+		.text {
+			overflow: hidden;
+			background: $background-shadow;
+			border-radius: 10px;
+
+			h6 {
+				color: black;
+				font-weight: 700;
+		
+				span {
+					color: gray;
+					font-weight: 400;
+				}
+			}
+		
+			p {
+				color: gray;
+				line-height: 23px;
+			}
+		}
+	}
+}
+
+.manga_comment {
+	form {
+		textarea {
+			background-color: $background-shadow;
+			border: none;
+			border-radius: 5px;
+			resize: none;
+		}
+
+		button {
+			color:white;
+			letter-spacing: 2px;
+		}
+	}
+}

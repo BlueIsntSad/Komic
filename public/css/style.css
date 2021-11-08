@@ -1,0 +1,144 @@
+/*----------------------------------------*/
+/* Template default CSS
+/*----------------------------------------*/
+html,
+body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  background: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: #111111;
+}
+
+p {
+  color: #3d3d3d;
+  margin: 0 0 15px 0;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+  outline: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  outline: none;
+  color: white;
+}
+
+/*---------------------
+  Helper CSS
+-----------------------*/
+.section-title {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.section-title h4,
+.section-title h5 {
+  color: black;
+  line-height: 21px;
+  text-transform: uppercase;
+  padding-left: 20px;
+  position: relative;
+}
+.section-title h4:after,
+.section-title h5:after {
+  position: absolute;
+  left: 0;
+  top: -6px;
+  height: 32px;
+  width: 4px;
+  background: #fb770d;
+  content: "";
+}
+
+/*---------------------
+  Anime Details
+-----------------------*/
+img {
+  height: 100%;
+  overflow: hidden;
+}
+
+.manga_details_rating .rating i {
+  font-size: 21px;
+  color: #e89f12;
+  display: inline-block;
+}
+.manga_details_rating span {
+  display: block;
+  font-size: 18px;
+}
+
+.manga_details_btn a {
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 4px;
+}
+
+.manga_review .review-item {
+  overflow: hidden;
+}
+.manga_review .review-item .avatar {
+  float: left;
+  position: relative;
+}
+.manga_review .review-item .avatar:before {
+  position: absolute;
+  right: -30px;
+  top: 15px;
+  border-top: 15px solid transparent;
+  border-left: 14px solid #f4f4f4;
+  content: "";
+  transform: rotate(45deg);
+}
+.manga_review .review-item .avatar img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.manga_review .review-item .text {
+  overflow: hidden;
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+.manga_review .review-item .text h6 {
+  color: black;
+  font-weight: 700;
+}
+.manga_review .review-item .text h6 span {
+  color: gray;
+  font-weight: 400;
+}
+.manga_review .review-item .text p {
+  color: gray;
+  line-height: 23px;
+}
+
+.manga_comment form textarea {
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 5px;
+  resize: none;
+}
+.manga_comment form button {
+  color: white;
+  letter-spacing: 2px;
+}
+
+.manga_chapter .date, .manga_chapter .bookmark {
+  color: lightgray;
+}
+
+/*# sourceMappingURL=style.css.map */

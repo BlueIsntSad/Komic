@@ -1,79 +1,229 @@
 <!--Breadcrumb-->
+{{> breadcrumb }}
 
 <!--Anime section-->
 <section>
   <div class="container">
     <div class="manga_details_content">
       <div class="row">
-        <div class="col-3">
-          <img src="img/cover.png" class="img-fluid" />
+        <div class="col-lg-3">
+          <div class="anime_details_pic card mb-5" style="background-size: cover;">
+            <img src="img/cover.png" class="card-img" />
+          </div>
         </div>
-        <div class="col-9">
-          <div class="anime_details_title">
-            <h3>Lorem ipsum dolor: Lorem ipsum dolor sit</h3>
-            <span>リベンジャーズ, Feito／sutei naito</span>
-          </div>
-          <div class="anime_details_rating">
-            <div class="rating">
-              <a href="#"><i class="fas fa-star"></i></a>
-              <a href="#"><i class="fas fa-star"></i></a>
-              <a href="#"><i class="fas fa-star"></i></a>
-              <a href="#"><i class="fas fa-star-half-alt"></i></a>
-              <a href="#"><i class="far fa-star"></i></a>
+        <div class="col-lg-9">
+          <div class="row mb-3">
+            <div class="col-md-9 manga_details_title text-wrap">
+              <h3 class="mb-2"><b>Lorem ipsum dolor: Lorem ipsum adipisicing</b></h3>
+              <span>リベンジャーズ, Feito／sutei naito</span>
             </div>
-						<span>6.969 Bình chọn</span>
-          </div>
-					<div class="anime_details_description">
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque esse excepturi explicabo dolore quo corrupti similique itaque tempora, molestiae deserunt veniam iure fugit voluptatibus provident vitae quibusdam in tempore pariatur!</p>
-					</div>
-					<div class="anime_details_widget">
-						<div class="row">
-							<div class="col-lg-6 col-md-6">
-								<ul>
-									<li><span>Tác giả: </span>Lorem ipsum</li>
-									<li><span>Ngày phát hành: </span>30-2-2077</li>
-									<li><span>Tình trạng: </span>Đang tiến hành</li>
-                  <li><span>Dịch giả: </span>Dolor sit amet</li>
-								</ul>
-							</div>
-							<div class="col-lg-6 col-md-6">
-								<ul>
-									<li><span>Số chương: </span>20/25</li>
-                  <li><span>Cập nhật lần cuối: </span>2 ngày trước</li>
-									<li><span>Đang theo dõi: </span>4,242</li>
-									<li><span>Lượt xem: </span>1,234,567</li>
-								</ul>
-							</div>
-						</div>
-            <div class="categories">
-              <ul class="list-inline">
-                <li class="list-inline-item"><a href="categories/action" class="badge badge-primary">Action</a></li>
-                <li class="list-inline-item"><a href="categories/Adventure" class="badge badge-primary">Adventure</a></li>
-                <li class="list-inline-item"><a href="categories/Mystery" class="badge badge-primary">Mystery</a></li>
-                <li class="list-inline-item"><a href="categories/Supernatural" class="badge badge-primary">Supernatural</a></li>
-              </ul>              
+            <div class="col-md-3 manga_details_rating">
+              <div class="rating list-inline my-2">
+                <a href="#"><i class="fas fa-star"></i></a>
+                <a href="#"><i class="fas fa-star"></i></a>
+                <a href="#"><i class="fas fa-star"></i></a>
+                <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                <a href="#"><i class="far fa-star"></i></a>
+              </div>
+              <span>6.969 Bình chọn</span>
             </div>
-					</div>
-          <div class="anime_details_btn">
-            <a class="btn btn-primary" href="#" role="button"><i class="far fa-bookmark"></i> Follow</a>
-            <a class="btn btn-primary" href="#" role="button">Tiếp tục đọc</a>
-            <a class="btn btn-primary" href="#" role="button">Chương đầu tiên</a>
           </div>
+          <div class="categories mb-3">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a href="#" role="button"
+                  class="btn badge rounded-pill bg-primary">Action</a></li>
+              <li class="list-inline-item"><a href="#" role="button"
+                  class="btn badge rounded-pill bg-secondary">Adventure</a></li>
+              <li class="list-inline-item"><a href="#" role="button"
+                  class="btn badge rounded-pill bg-danger">Mystery</a></li>
+              <li class="list-inline-item"><a href="#" role="button"
+                  class="btn badge rounded-pill bg-warning">Supernatural</a></li>
+            </ul>
+          </div>
+          <div class="manga_details_description mb-2">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio labore soluta ducimus praesentium,
+              enim necessitatibus quas nihil unde obcaecati dolor totam molestias possimus voluptatem delectus aperiam
+              ea optio, cupiditate sapiente. Ab hic est magnam praesentium fugiat nihil eaque commodi rem tempore illum
+              ut, sequi repellendus quae. Dolores eligendi eos nostrum impedit nobis voluptatum asperiores totam. A
+              iusto numquam laboriosam culpa!</p>
+          </div>
+          <div class="manga_details_widget">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <dl class="row">
+                  <dt class="col-sm-5">Tác giả:</dt>
+                  <dd class="col-sm-7">Lorem ipsum</dd>
+
+                  <dt class="col-sm-5">Ngày phát hành:</dt>
+                  <dd class="col-sm-7">30-2-2077</dd>
+
+                  <dt class="col-sm-5">Tình trạng:</dt>
+                  <dd class="col-sm-7">Đang tiến hành</dd>
+
+                  <dt class="col-sm-5">Dịch giả:</dt>
+                  <dd class="col-sm-7">Dolor sit amet</dd>
+                </dl>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <dl class="row">
+                  <dt class="col-sm-5">Số chương:</dt>
+                  <dd class="col-sm-7">20/25</dd>
+
+                  <dt class="col-sm-5">Cập nhật:</dt>
+                  <dd class="col-sm-7">2 ngày trước</dd>
+
+                  <dt class="col-sm-5">Đang theo dõi:</dt>
+                  <dd class="col-sm-7">4,242</dd>
+
+                  <dt class="col-sm-5">Lượt xem:</dt>
+                  <dd class="col-sm-7">1,234,567</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="manga_details_btn mt-2">
+            <a class="btn btn-danger py-2 mx-1" id="follow-btn" href="#" role="button">
+              <i class="far fa-bookmark me-2"></i>Theo dõi</a>
+            <a class="btn btn-danger py-2 mx-1" id="firstC-btn" href="#" role="button">
+              Tiếp tục đọc</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="manga_chapter">
+      <div class="row">
+        <div class="section-title d-flex">
+          <h5 class="flex-grow-1">Danh sách chương</h5>
+          <button type="button" class="btn btn-primary">Primary</button>
+        </div>
+        <div class="list-group mb-2">
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 0</span>
+            <span class="fst-italic p-3 flex-grow-1">Quaerat, officiis?</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#1</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 1</span>
+            <span class="fst-italic p-3 flex-grow-1">Adipisicing elit</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#2</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 2</span>
+            <span class="fst-italic p-3 flex-grow-1">Nesciunt, eveniet</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#3</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 2.2</span>
+            <span class="fst-italic p-3 flex-grow-1">Dolor sit amet consectetur</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#4</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 3</span>
+            <span class="fst-italic p-3 flex-grow-1">Nemo porro odit mollitia earum</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#5</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 0</span>
+            <span class="fst-italic p-3 flex-grow-1">Quaerat, officiis?</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#1</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 1</span>
+            <span class="fst-italic p-3 flex-grow-1">Adipisicing elit</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#2</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 2</span>
+            <span class="fst-italic p-3 flex-grow-1">Nesciunt, eveniet</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#3</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 2.2</span>
+            <span class="fst-italic p-3 flex-grow-1">Dolor sit amet consectetur</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#4</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <span class="fw-bold p-3">Chương 3</span>
+            <span class="fst-italic p-3 flex-grow-1">Nemo porro odit mollitia earum</span>
+            <span class="date p-3">30-2-2077</span>
+            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
+            <span class="p-3">#5</span>
+          </a>
+        </div>
+        <div class="paginate p-2">
+          <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <div class="anime_review"></div>
-        <div class="anime_comment">
-          <h5>Your comment</h5>
-          <form class="">
-            <textarea class="form-control" placeholder="Your Comment"></textarea>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>  Review</button>
-          </form>
-        </div>
+        {{>reviews}}
       </div>
       <div class="col-lg-4 col-md-4">
+        <div class="manga_details_other">
+          <div class="section-title">
+            <h5>Bạn có thể thích...</h5>
+          </div>
+          <div class="sidebar_item set-bg" data-setbg='img/cover.png'>
+            <div class="ep">12 / 20</div>
+            <div class="view">9566</div>
+            <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
+          </div>
+          <div class="sidebar_item set-bg" data-setbg='img/cover.png'>
+            <div class="ep">12 / 20</div>
+            <div class="view">9566</div>
+            <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
+          </div>
+          <div class="sidebar_item set-bg" data-setbg='img/cover.png'>
+            <div class="ep">12 / 20</div>
+            <div class="view">9566</div>
+            <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
+          </div>
+          <div class="sidebar_item set-bg" data-setbg='img/cover.png'>
+            <div class="ep">12 / 20</div>
+            <div class="view">9566</div>
+            <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
+          </div>
+          <div class="sidebar_item set-bg" data-setbg='img/cover.png'>
+            <div class="ep">12 / 20</div>
+            <div class="view">9566</div>
+            <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>

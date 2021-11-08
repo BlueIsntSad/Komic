@@ -1,10 +1,15 @@
 const express = require('express');
-const manga_router = express.Router();
+const router = express.Router();
 
 // Require controller
-const controller = require('../controllers/manga');
+const controller = require('../controllers/manga.js');
 
-// GET manga page details page
-manga_router.get('/', controller.index)
+// GET manga details page
+router.get('/', controller.index)
 
-module.exports = manga_router;
+// GET manga reading page
+router.get('/ep', controller.read)
+
+router.get('/add', controller.add)
+
+module.exports = router;
