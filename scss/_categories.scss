@@ -1,8 +1,8 @@
 @import "vaviables";
 
 .nav_breadcrumb {
-  --bs-breadcrumb-divider: "";
-  font-family: FontAwesome;
+  --bs-breadcrumb-divider: "\e5e1";
+  font-family: "Material Icons";
   background-color: "transparent";
   font-size: 13px;
   .breadcrumb {

@@ -106,8 +106,8 @@
     width: 65px;
     height: 65px;
     border: 8px solid $bg-page;
-    outline: none;
-    z-index: 5;
+    outline: hidden;
+    z-index: 1;
     font-size: 0;
     background-color: $secondary-color;
     cursor: pointer;
@@ -120,11 +120,10 @@
   .slick-prev {
     left: 0;
     transform: translate(-50%, -50%) rotate(45deg);
-
     &::after {
       content: "\f053";
-      font-family: FontAwesome;
-      font-weight: normal;
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
       font-style: normal;
       margin: 0px 0px 0px 0px;
       padding-right: 5px;
@@ -140,9 +139,9 @@
     right: 0;
     transform: translate(50%, -50%) rotate(45deg);
     &::after {
-      content: "\f054";
-      font-family: FontAwesome;
-      font-weight: normal;
+      content: "\f105";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
       font-style: normal;
       margin: 0px 0px 0px 0px;
       padding-left: 5px;
