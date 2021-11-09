@@ -1,3 +1,10 @@
+$desktop: "only screen and (min-width: 1400px)";
+$laptop: "only screen and (min-width: 1200px) and (max-width: 1399px)";
+$lg: "only screen and (min-width: 992px) and (max-width: 1199px)";
+$md: "only screen and (min-width: 768px) and (max-width: 991px)";
+$xs: "(max-width: 767px)";
+$sm: "only screen and (min-width: 576px) and (max-width: 767px)";
+
 $primary-color: #e53637;
 $secondary-color: #0c2b4b;
 $white-color: #ffffff;
@@ -12,7 +19,7 @@ $border: #ebebeb;
 $border-1: #e1e1e1;
 $bg-text-cover-1: #e53637;
 $bg-text-cover-2: #3d3d3d;
-$bg-page: #0b0c2a;
+$bg-page: #fff;
 $fm-unna: "Unna", serif;
 $fm-nunito: "Nunito Sans", sans-serif;
 $breadcrumb-divider: quote(">");

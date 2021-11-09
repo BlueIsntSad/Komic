@@ -1,14 +1,8 @@
 /*---------------------
-  Anime Details
+  Manga Details
 -----------------------*/
 $background-shadow: #f4f4f4;
-//$background-shadow: #f8f9fa;
 $primary-color: #fb770d;
-
-img {
-	height: 100%;
-    overflow: hidden;
-}
 
 .manga_details_rating {
 	.rating {
@@ -34,17 +28,17 @@ img {
 .manga_review {
 	.review-item {
 		overflow: hidden;
-
+		
 		.avatar {
 			float: left;
 			position: relative;
 
 			&:before {
 				position: absolute;
-				right: -30px;
+				right: -32px;
 				top: 15px;
 				border-top: 15px solid transparent;
-				border-left: 14px solid $background-shadow;
+				border-left: 15px solid $background-shadow;
 				content: "";
 				transform: rotate(45deg);
 			}
@@ -56,24 +50,22 @@ img {
 			}
 		}
 
-		.text {
+		.comment {
 			overflow: hidden;
 			background: $background-shadow;
 			border-radius: 10px;
 
 			h6 {
 				color: black;
-				font-weight: 700;
+				margin-bottom: 10px;
 		
 				span {
 					color: gray;
-					font-weight: 400;
 				}
 			}
-		
+
 			p {
 				color: gray;
-				line-height: 23px;
 			}
 		}
 	}
@@ -83,6 +75,7 @@ img {
 	form {
 		textarea {
 			background-color: $background-shadow;
+			height: 100px;
 			border: none;
 			border-radius: 5px;
 			resize: none;
