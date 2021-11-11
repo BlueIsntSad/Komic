@@ -161,8 +161,8 @@ a:focus {
   width: 65px;
   height: 65px;
   border: 8px solid #fff;
-  outline: none;
-  z-index: 5;
+  outline: hidden;
+  z-index: 1;
   font-size: 0;
   background-color: #0c2b4b;
   cursor: pointer;
@@ -178,8 +178,8 @@ a:focus {
 }
 .manga_slider .slick-prev::after {
   content: "\f053";
-  font-family: FontAwesome;
-  font-weight: normal;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   font-style: normal;
   margin: 0px 0px 0px 0px;
   padding-right: 5px;
@@ -195,9 +195,9 @@ a:focus {
   transform: translate(50%, -50%) rotate(45deg);
 }
 .manga_slider .slick-next::after {
-  content: "\f054";
-  font-family: FontAwesome;
-  font-weight: normal;
+  content: "\f105";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   font-style: normal;
   margin: 0px 0px 0px 0px;
   padding-left: 5px;
@@ -448,8 +448,8 @@ a:focus {
 }
 
 .nav_breadcrumb {
-  --bs-breadcrumb-divider: "";
-  font-family: FontAwesome;
+  --bs-breadcrumb-divider: "";
+  font-family: "Material Icons";
   background-color: "transparent";
   font-size: 13px;
 }
@@ -570,6 +570,10 @@ a:focus {
 
 .manga_chapter .date, .manga_chapter .bookmark {
   color: lightgray;
+}
+
+.height-fix li a {
+  height: 30px;
 }
 
 html,
