@@ -2,6 +2,23 @@
   Manga Details
 -----------------------*/
 $background-shadow: $k-background;//#f4f4f4;
+/*.anime_details_pic {
+	img {
+		position: relative;
+		overflow: hidden;
+	}
+}*/
+.manga_details {
+	background: $k-background;
+
+	.manga_chapter {
+		background: #fff;
+	}
+}
+
+.manga_details_content {
+	background: #fff;
+}
 
 .manga_details_rating {
 	.rating {
@@ -25,6 +42,8 @@ $background-shadow: $k-background;//#f4f4f4;
 }
 
 .manga_review {
+	background: #fff;
+	
 	.review-item {
 		overflow: hidden;
 		
@@ -71,6 +90,7 @@ $background-shadow: $k-background;//#f4f4f4;
 }
 
 .manga_comment {
+	background: #fff;
 	form {
 		textarea {
 			background-color: $background-shadow;
@@ -85,4 +105,8 @@ $background-shadow: $k-background;//#f4f4f4;
 			letter-spacing: 2px;
 		}
 	}
+}
+
+.manga_details_other {
+	background: #fff;
 }
