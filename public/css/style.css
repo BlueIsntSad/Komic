@@ -531,7 +531,7 @@ a:focus {
   right: -32px;
   top: 15px;
   border-top: 15px solid transparent;
-  border-left: 15px solid #f4f4f4;
+  border-left: 15px solid #f2f5f7;
   content: "";
   transform: rotate(45deg);
 }
@@ -542,7 +542,7 @@ a:focus {
 }
 .manga_review .review-item .comment {
   overflow: hidden;
-  background: #f4f4f4;
+  background: #f2f5f7;
   border-radius: 10px;
 }
 .manga_review .review-item .comment h6 {
@@ -557,7 +557,7 @@ a:focus {
 }
 
 .manga_comment form textarea {
-  background-color: #f4f4f4;
+  background-color: #f2f5f7;
   height: 100px;
   border: none;
   border-radius: 5px;

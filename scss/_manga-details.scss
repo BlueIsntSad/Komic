@@ -1,8 +1,7 @@
 /*---------------------
   Manga Details
 -----------------------*/
-$background-shadow: #f4f4f4;
-$primary-color: #fb770d;
+$background-shadow: $k-background;//#f4f4f4;
 
 .manga_details_rating {
 	.rating {
