@@ -1,18 +1,16 @@
-<!--Breadcrumb-->
-{{> breadcrumb }}
-
-<!--<nav class="navbar navbar-light bg-dark">
+<nav class="navbar navbar-light bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#" style="color: white;">
       <i class="fab fa-bootstrap" style="color: yellow;"></i>
       Bootstrap
     </a>
   </div>
-</nav>-->
+</nav>
 
 <!--Manga section-->
-<section class="manga_details p-5">
-  <div class="container mt-5 px-5">
+<section class="manga_details py-3">
+  <div class="container">
+    {{> breadcrumb }}
     <div class="manga_details_content my-5 shadow-lg rounded-3">
       <div class="row p-4 g-3">
         <div class="col-lg-4 col-xl-3">
@@ -99,11 +97,11 @@
         </div>
       </div>
     </div>
-    <div class="manga_chapter my-5 shadow-lg rounded-3">
+    <div class="manga_chapter_table my-5 shadow-lg rounded-3">
       <div class="col p-4">
         <div class="section-title m-3 d-flex">
           <h5 class="flex-grow-1">Danh sách chương</h5>
-          <button type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-dark">
             <i class="fas fa-sort-amount-up-alt"></i>
           </button>
         </div>
@@ -201,10 +199,11 @@
       </div>
     </div>
     <div class="row my-5">
-      <div class="col-8 pe-4">
+      <div class="col-lg-8 col-md-12 pe-4">
         {{>reviews}}
       </div>
-      <div class="col-4">
+      <div class="col-lg-4 col-md-12">
+        {{> sidebar topViews = topViews newComment = newComment}}
         <div class="manga_details_other shadow-lg rounded-3 p-4">
           <div class="col">
             <div class="section-title my-3">

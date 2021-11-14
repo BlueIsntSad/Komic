@@ -1,7 +1,7 @@
 /*---------------------
   Manga Details
 -----------------------*/
-$background-shadow: $k-background;//#f4f4f4;
+$background-shadow: $k-background;
 /*.anime_details_pic {
 	img {
 		position: relative;
@@ -9,36 +9,60 @@ $background-shadow: $k-background;//#f4f4f4;
 	}
 }*/
 .manga_details {
-	background: $k-background;//#E7A71B;
+	background: $k-background;
 
-	.manga_chapter {
+	.manga_sidebar {
+		.manga_sidebar_topviews {
+			background: #fff;
+			.section_title {
+				color: black;
+			}
+			.manga_sidebar_option {
+				display: none;
+			}
+		}
+
+		.manga_sidebar_newcomment {
+			display: none;
+		}
+
+	}
+
+	.manga_details_content {
 		background: #fff;
 	}
-}
-
-.manga_details_content {
-	background: #fff;
-}
-
-.manga_details_rating {
-	.rating {
-		i {
-			font-size: 21px;
-			color: #e89f12;
-			display: inline-block;
+	
+	.manga_details_rating {
+		.rating {
+			i {
+				font-size: 21px;
+				color: #e89f12;
+				display: inline-block;
+			}
+		}
+	
+		span {
+			display: block;
+			font-size: 18px;
 		}
 	}
-
-	span {
-		display: block;
-		font-size: 18px;
+	
+	.manga_details_btn a {
+		font-weight: 700;
+		letter-spacing: 2px;
+		border-radius: 4px;
 	}
-}
-
-.manga_details_btn a {
-	font-weight: 700;
-	letter-spacing: 2px;
-	border-radius: 4px;
+	
+	.manga_chapter_table {
+		background: #fff;
+		.date, .bookmark {
+            color: lightgray
+        }
+	}
+		
+	.manga_details_other {
+		background: #fff;
+	}
 }
 
 .manga_review {
@@ -105,8 +129,4 @@ $background-shadow: $k-background;//#f4f4f4;
 			letter-spacing: 2px;
 		}
 	}
-}
-
-.manga_details_other {
-	background: #fff;
 }
