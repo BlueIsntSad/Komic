@@ -1,46 +1,52 @@
 
 <div class="manga_sidebar">
-    <div class="manga_sidebar_topviews mb-5 mt-4">
+    <div class="manga_sidebar_topviews mb-5 mt-4" id="manga_sidebar_topviews">
         <div class="manga_sidebar_title">
             <h4 class="section_title">
                 top views  
             </h4>
             <ul class="manga_sidebar_option" >
-                <li class="sidebar_option_item avtive">Day</li>
-                <li class="sidebar_option_item">Week</li>
-                <li class="sidebar_option_item">Month</li>
-                <li class="sidebar_option_item">Years</li>
+                <li class="sidebar_option_item active" id="topView1" onclick="getTopView(1)">Day</li>
+                <li class="sidebar_option_item" id="topView2" onclick="getTopView(2)">Week</li>
+                <li class="sidebar_option_item" id="topView3" onclick="getTopView(3)">Month</li>
+                <li class="sidebar_option_item" id="topView4" onclick="getTopView(4)">Years</li>
             </ul>
         </div>
         {{#each topViews}}
             <div class="manga_topviews_item">
-                <div class="manga_topviews_item_cover bg-cover"  style="background-image: url({{this.cover}});">
-                    <div class="text ep">{{this.finishedEp}} / {{this.totalEp}}</div>
+                <a href="/manga/{{this.id}}">
+                <div class="manga_topviews_item_cover bg-cover"  style="background-image: url({{this.cover}});" >
+                    
+                </div>
+                </a>
+                <div class="text ep">{{this.finishedEp}} / {{this.totalEp}}</div>
                     <div class="text view">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         {{this.views}}
                     </div>
                     <h5 class="name">
-                        <a href="manga/{{this.id}}">
+                        <a href="/manga/{{this.id}}">
                             {{this.name}}
                         </a>
                     </h5>
-                </div>
             </div>
         {{/each}}
     </div>
     <div class="manga_sidebar_newcomment">
-        <div>
+        <div class="manga_sidebar_title">
             <h4 class="section_title">
                 new comment 
             </h4>
         </div>
         {{#each newComment}}
             <div class="manga_newcomment_item">
-                <div class="manga_newcomment_item_cover bg-cover"  style="background-image: url({{this.cover}});">
-                </div>
+                <a class="manga_newcomment_item_cover bg-cover"  style="background-image: url({{this.cover}});" href="/manga/{{this.id}}">
+                </a>
                 <div class="manga_newcomment_item_text">
-                    <h5 class="name">{{this.name}}</h5>
+                    <a href="/manga/{{this.id}}">
+                        <h5 class="name">{{this.name}}</h5>
+                    </a>
+                   
                     <div class="views">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         {{this.views}} views
@@ -50,3 +56,4 @@
         {{/each}}
     </div>
 </div>
+<script type="text/javascript" src="/js/sidebar.js"></script>
