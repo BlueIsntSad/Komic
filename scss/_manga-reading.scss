@@ -1,9 +1,20 @@
-.manga_chapter {
-    .date, .bookmark {
-        color: lightgray
-    }
-}
+.manga_reading {
+	background: $k-background;
 
-.height-fix li a {
-    height: 30px;
+    .manga_chapter {
+        background: #fff;
+        .chapter_control {
+            .dropdown-item.active {
+                background-color: $k-primary-color;
+            }
+        }
+    }
+    
+    .height-fix li a {
+        height: 30px;
+    }
+
+    .manga_details_other {
+        background: #fff;
+    }
 }
