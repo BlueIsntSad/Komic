@@ -33,10 +33,10 @@
       .name {
         font-size: 2.5rem;
         font-weight: 700;
-        color: $n-black-color;
+        color: $black-color;
         border-radius: 4px;
         transition: all 0.4s;
-        text-shadow: 1 -1 3px $n-black-color;
+        text-shadow: 1 -1 3px $black-color;
       }
 
       .link {
@@ -51,7 +51,7 @@
 
         span {
           padding: 8px 13px;
-          background-color: $bg-text-cover-1;
+          //background-color: $bg-text-cover-1;
           border-radius: 5px 0 0 5px;
           font-weight: 600;
           letter-spacing: 2px;
@@ -62,7 +62,7 @@
         }
 
         i {
-          background-color: $bg-text-cover-1;
+          //background-color: $bg-text-cover-1;
           border-radius: 0 5px 5px 0;
           margin-left: 5px;
           height: 100%;
@@ -90,7 +90,7 @@
       border-radius: 50%;
       width: 10px;
       height: 10px;
-      background-color: $border;
+      //background-color: $border;
       border: 0px;
       outline: none;
       cursor: pointer;
@@ -108,11 +108,11 @@
     top: 50%;
     width: 65px;
     height: 65px;
-    border: 8px solid $n-background;
+    //border: 8px solid $n-background;
     outline: hidden;
     z-index: 1;
     font-size: 0;
-    background-color: $secondary-color;
+    //background-color: $secondary-color;
     cursor: pointer;
 
     @media only screen and (max-device-width: 540px) {

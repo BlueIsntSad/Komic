@@ -10,7 +10,7 @@
   position: relative;
   text-transform: uppercase;
   font-weight: 900;
-  color: $n-text-color;
+  //color: $n-text-color;
   padding-left: 10px;
   &:after {
     content: "";
@@ -19,12 +19,12 @@
     bottom: 0;
     height: 110%;
     width: 4px;
-    color: $bg-text-cover-1;
-    background-color: $bg-text-cover-1;
+    //color: $bg-text-cover-1;
+    //background-color: $bg-text-cover-1;
   }
 
   a {
-    color: $n-text-color;
+    //color: $n-text-color;
     text-decoration: none;
   }
 }
@@ -38,12 +38,12 @@
       text-transform: uppercase;
       font-weight: 900;
       font-size: 1rem;
-      color: $n-text-color;
+      //color: $n-text-color;
       display: flex;
       flex-direction: row;
       align-items: center;
       a {
-        color: $n-text-color;
+        //color: $n-text-color;
         text-decoration: none;
         margin-right: 0.5rem;
       }
@@ -58,7 +58,7 @@
       .section_sort_title {
         font-size: 1rem;
         font-weight: 700;
-        color: $n-text-color;
+        //color: $n-text-color;
       }
       .section_sort_form {
         margin: auto 5px;
@@ -109,21 +109,21 @@
     .ep {
       top: 10px;
       left: 10px;
-      background-color: $n-ep-background;
-      color: $n-text-white-color;
+      //background-color: $n-ep-background;
+      //color: $n-text-white-color;
     }
 
     .view {
       bottom: 10px;
       right: 10px;
-      background-color: $bg-text-cover-2;
+      //background-color: $bg-text-cover-2;
       color: $white-color;
     }
 
     .comment {
       bottom: 10px;
       left: 10px;
-      background-color: $bg-text-cover-2;
+      //background-color: $bg-text-cover-2;
       color: $white-color;
     }
   }
@@ -131,7 +131,7 @@
   .manga_item_text {
     .name {
       a {
-        color: $n-text-color;
+        //color: $n-text-color;
         font-weight: 700;
         line-height: 1.5rem;
         text-decoration: none;

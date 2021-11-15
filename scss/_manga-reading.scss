@@ -1,11 +1,11 @@
 .manga_reading {
-	background: $k-background;
+	background: $background;
 
     .manga_chapter {
         background: #fff;
         .chapter_control {
             .dropdown-item.active {
-                background-color: $k-primary-color;
+                background-color: $primary-color;
             }
         }
     }

@@ -1,15 +1,9 @@
 /*---------------------
   Manga Details
 -----------------------*/
-$background-shadow: $k-background;
-/*.anime_details_pic {
-	img {
-		position: relative;
-		overflow: hidden;
-	}
-}*/
+
 .manga_details {
-	background: $k-background;
+	background: $background;
 
 	.manga_sidebar {
 		.manga_sidebar_topviews {
@@ -68,9 +62,9 @@ $background-shadow: $k-background;
 
 				&.active {
 					.page-link {
-						background-color: $k-primary-color;
+						background-color: $primary-color;
 						&:hover {
-							background-color: $k-primary-color-hover;
+							background-color: $primary-color-hover;
 						}
 					}
 				}
@@ -110,7 +104,7 @@ $background-shadow: $k-background;
 				right: -32px;
 				top: 15px;
 				border-top: 15px solid transparent;
-				border-left: 15px solid $background-shadow;
+				border-left: 15px solid $background;
 				content: "";
 				transform: rotate(45deg);
 			}
@@ -124,7 +118,7 @@ $background-shadow: $k-background;
 
 		.comment {
 			overflow: hidden;
-			background: $background-shadow;
+			background: $background;
 			border-radius: 10px;
 
 			h6 {
@@ -147,7 +141,7 @@ $background-shadow: $k-background;
 	background: #fff;
 	form {
 		textarea {
-			background-color: $background-shadow;
+			background-color: $background;
 			height: 100px;
 			border: none;
 			border-radius: 5px;
