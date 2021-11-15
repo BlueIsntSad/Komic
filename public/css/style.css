@@ -547,6 +547,23 @@ a:focus {
 .manga_details .manga_chapter_table .date, .manga_details .manga_chapter_table .bookmark {
   color: lightgray;
 }
+.manga_details .manga_chapter_table .paginate .pagination .page-item .page-link {
+  color: black;
+  border-style: none;
+  border-radius: 5px;
+}
+.manga_details .manga_chapter_table .paginate .pagination .page-item.active .page-link {
+  background-color: #ffc403;
+}
+.manga_details .manga_chapter_table .paginate .pagination .page-item.active .page-link:hover {
+  background-color: #ffd420;
+}
+.manga_details .manga_chapter_table .paginate .pagination .page-item.disabled .page-link {
+  color: lightgray;
+}
+.manga_details .manga_chapter_table .paginate .pagination .page-item:not(:first-child) .page-link {
+  margin-left: 5px;
+}
 .manga_details .manga_details_other {
   background: #fff;
 }

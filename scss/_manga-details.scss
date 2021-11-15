@@ -58,6 +58,36 @@ $background-shadow: $k-background;
 		.date, .bookmark {
             color: lightgray
         }
+		.paginate .pagination {
+			.page-item {
+				.page-link {
+					color: black;
+					border-style: none;
+					border-radius: 5px;			
+				}
+
+				&.active {
+					.page-link {
+						background-color: $k-primary-color;
+						&:hover {
+							background-color: $k-primary-color-hover;
+						}
+					}
+				}
+
+				&.disabled {
+					.page-link {
+						color: lightgray;
+					}
+				}
+
+				&:not(:first-child) {
+					.page-link {
+						margin-left: 5px;
+					}
+				}
+			}
+		}
 	}
 		
 	.manga_details_other {
