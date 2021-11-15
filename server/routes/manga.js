@@ -12,4 +12,10 @@ router.get('/ep', controller.read)
 
 router.get('/add', controller.add)
 
+//GET top view 
+router.get("/top/:id", controller.getTopView)
+
+//GET category
+router.get("/categories/:id", controller.getCategory)
+
 module.exports = router;
