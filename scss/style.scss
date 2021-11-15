@@ -8,11 +8,12 @@
 @import "manga-details";
 @import "manga-reading";
 @import "navbar";
+@import "breadcrumb";
 
 html,
 body {
   height: 100%;
   font-family: "Mulish", sans-serif;
   -webkit-font-smoothing: antialiased;
-  //background: $bg-page;
+  background: $background;
 }
