@@ -1,0 +1,59 @@
+@import "variables";
+
+.nav_breadcrumb {
+  --bs-breadcrumb-divider: "\e5e1";
+  font-family: "Material Icons";
+  background-color: "transparent";
+  font-size: 13px;
+  .breadcrumb {
+    background-color: transparent;
+    .breadcrumb-item {
+      position: relative;
+      &::before {
+        color: $white-color !important;
+        transform: translateY(15%);
+      }
+      a {
+        text-decoration: none;
+        color: $white-color;
+        font-size: 17px;
+        font-family: $fm-nunito;
+        text-transform: lowercase;
+      }
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.manga_pannel {
+  .section_link {
+    display: none !important;
+  }
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+
+    .pagination_item {
+      border: 0px;
+      color: $white-color;
+      font-weight: 600;
+      border-radius: 50%;
+      margin: 0 3px;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .active {
+      border: 1px solid $white-color;
+    }
+  }
+}
