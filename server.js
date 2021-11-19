@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
+const userRoute = require('./server/routes/user')
 
 const app = express();
 const port = 3000;
@@ -35,6 +36,9 @@ app.use('/', route)
 
 // Manga branch page (manga-detail, manga-reading)
 app.use('/manga', mangaRoute)
+
+// Manga branch page (manga-detail, manga-reading)
+app.use('/user', userRoute)
 
 // Connect the database
 database = process.env.db_URI
