@@ -7,4 +7,6 @@ const controller = require('../controllers/user');
 // GET user profile page
 router.get('/', controller.index)
 
+router.get('/add', controller.add)
+
 module.exports = router;
