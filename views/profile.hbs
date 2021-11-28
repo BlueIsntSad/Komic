@@ -3,30 +3,32 @@
         <div class="profile-header shadow rounded-3 p-3 mb-4" style="background-color:#fff;">
             <div class="col">
                 <div class="background-profile rounded-3" style="overflow: hidden;">
-                    <img class="img-fluid w-100" style="object-fit: cover; object-position: center; height: 400px;" src="https://picsum.photos/id/1008/1000/400"
-                        alt="cover img">
+                    <img class="img-fluid w-100" style="object-fit: cover; object-position: center; height: 400px;"
+                        src="https://picsum.photos/id/1008/1000/400" alt="cover img">
                 </div>
-                <div class="avatar-profile d-flex justify-content-center" style="overflow: hidden; margin-bottom:120px;">
-                    <div class="wrap" style="border: 5px solid white; width: 200px; height: 200px; margin-top:-100px; overflow: hidden; border-radius:50%; position: absolute;">
+                <div class="avatar-profile d-flex justify-content-center"
+                    style="overflow: hidden; margin-bottom:120px;">
+                    <div class="wrap"
+                        style="border: 5px solid white; width: 200px; height: 200px; margin-top:-100px; overflow: hidden; border-radius:50%; position: absolute;">
                         <img class="position-absolute" style="top:50%; left:50%; transform: translate(-50%,-50%)"
-                        src="img/avatar_default.png" alt="avatar">
+                            src={{user.avatar}} alt="avatar">
                     </div>
                 </div>
                 <div class="overview-profile d-flex flex-column text-center" style="max-width: 400px; margin:auto;">
-                    <h2><b>Some random guy</b></h2>
-                    <p>@randomguy123</p>
+                    <h2><b>{{user.name}}</b></h2>
+                    <p>{{user.account}}</p>
                     <div class="row">
                         <div class="col">
-                            <p>918K</p>
-                            <p>Reading List</p>
+                            <p>{{user.library.history.total}}</p>
+                            <p>Truyện đã đọc</p>
                         </div>
                         <div class="col">
-                            <p>918K</p>
-                            <p>Collections</p>
+                            <p>{{user.library.collections.total_collect}}</p>
+                            <p>Bộ sưu tập</p>
                         </div>
                         <div class="col">
-                            <p>918K</p>
-                            <p>Followers</p>
+                            <p>{{user.follower}}</p>
+                            <p>Đang theo dõi</p>
                         </div>
                     </div>
                 </div>
@@ -37,11 +39,9 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="info shadow rounded-3 p-4 mb-4 d-flex flex-column gap-1" style="background-color:#fff;">
                         <h4><b>About</b></h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aperiam vitae ipsum reiciendis
-                            fuga sunt natus nihil optio quam a facilis illum quasi provident, veniam excepturi, error
-                            ipsam asperiores.</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh, Viet Nam</p>
-                        <p><i class="fas fa-clock"></i> Đã tham gia 2 năm trước</p>
+                        <p>{{user.about}}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> {{user.adress}}</p>
+                        <p><i class="fas fa-clock"></i> {{user.createdAt}}</p>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
@@ -51,37 +51,21 @@
                         <div class="reading-list">
                             <header class="list-heading">
                                 <h5><b>Chi tiết</b><span><i class="fas fa-angle-right"></i></span></h5>
-                                <p>Danh sách đọc - 4 bộ</p>
+                                <p>Danh sách đọc - {{user.library.history.total}} bộ</p>
                             </header>
                             <div class="list-body">
                                 <div class="row">
+                                    {{#each history}}
                                     <div class="col-4 manga-item">
                                         <a href="#">
                                             <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
                                         </a>
                                         <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
+                                            <a href="#"><b>{{manga.title}}</b></a>
+                                            <p>{{manga.views}} views {{manga.follower}} followers</p>
                                         </div>
                                     </div>
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
+                                    {{/each}}
                                 </div>
                             </div>
                         </div>
@@ -89,13 +73,16 @@
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2"
                         style="background-color:#fff;">
                         <h4 class="mb-2"><b>Kho lưu trữ</b></h4>
+                        {{#each collections}}
                         <div class="reading-list">
                             <header class="list-heading">
-                                <h5><b>Lorem ipsum dolor</b><span><i class="fas fa-angle-right"></i></span></h5>
-                                <p>Reading list - 4 manga</p>
+                                <h5><b>{{title}}</b><span><i class="fas fa-angle-right"></i></span></h5>
+                                <p>Reading list - {{total}} manga</p>
                             </header>
                             <div class="list-body">
                                 <div class="row">
+                                    {{#mangaCollect}}
+                                    {{#ifLt @index 3}}
                                     <div class="col-4 manga-item">
                                         <a href="#">
                                             <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
@@ -105,55 +92,12 @@
                                             <p>15M views 200 like</p>
                                         </div>
                                     </div>
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
+                                    {{/ifLt}}
+                                    {{/mangaCollect}}
                                 </div>
                             </div>
                         </div>
-                        <div class="reading-list">
-                            <header class="list-heading">
-                                <h5><b>Amet consectetur</b><span><i class="fas fa-angle-right"></i></span></h5>
-                                <p>Reading list - 4 manga</p>
-                            </header>
-                            <div class="list-body">
-                                <div class="row">
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 manga-item">
-                                        <a href="#">
-                                            <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
-                                        </a>
-                                        <div class="content">
-                                            <a href="#"><b>Lorem ipsum</b></a>
-                                            <p>15M views 200 like</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>

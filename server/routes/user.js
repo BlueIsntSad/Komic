@@ -9,4 +9,6 @@ router.get('/', controller.index)
 
 router.get('/add', controller.add)
 
+router.get('/:uid', controller.getUserProfile)
+
 module.exports = router;

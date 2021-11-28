@@ -22,14 +22,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', expressHandlebars({
     extname:'hbs',
     defaultLayout: 'default',
-    layoutsDir: __dirname + '/views/layouts/'
+    layoutsDir: __dirname + '/views/layouts/',
+    helpers: {
+        ifLt: function(a, b) {
+            var next =  arguments[arguments.length-1];
+            return (a < b) ? next.fn(this) : next.inverse(this);
+        }
+    }
 }));
 app.set('view engine', 'hbs');
 
 // Static file
-app.use(express.static(path.join(__dirname, './public')));
-app.use('/manga', express.static(path.join(__dirname, './public')));
-app.use('/manga/ep', express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Home page
 app.use('/', route)
