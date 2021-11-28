@@ -1,20 +1,6 @@
 const { User, Admin } = require('../models/user');
 const Manga = require('../models/manga');
 
-/* async function getMangaList(mangaList) {
-    let block = [];
-    for (var i = 0; i < 3; i++) {
-        await Manga.findById(mangaList[i].manga_id)
-            .then(mangaDoc => { block.push(mangaDoc) })
-            .catch(function (err) { console.log(err) });
-    }
-    return block;
-}; */
-/* function getCollection() {
-    var manga = this.library.history.mangaCollect.populate('manga');
-    console.log(manga);
-} */
-
 function index(req, res) {
     res.render('profile', {
         title: 'User guy | Komic',
@@ -28,15 +14,11 @@ async function getUserProfile(req, res) {
         .lean()
         .populate('library.history.mangaCollect.manga')
         .populate('library.collections.collect.mangaCollect.manga')
-        /* .getCollection().exec(function (err, user) {
-            var manga = user.library.history.mangaCollect.populate('manga');
-            console.log(manga);
-        }) */
         .then(userDoc => {
-            console.log(userDoc.library.collections.collect)
             res.render('profile', {
                 user: userDoc,
                 title: `${userDoc.name} | Komic`,
+                script: 'profile',
                 history: userDoc.library.history.mangaCollect.slice(0, 3),
                 collections: userDoc.library.collections.collect
             });

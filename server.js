@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express')
 const path = require('path')
 const expressHandlebars = require('express-handlebars')
+const helpers = require('handlebars-helpers')()
 const mongoose = require('mongoose')
 
 // Router
@@ -23,12 +24,7 @@ app.engine('hbs', expressHandlebars({
     extname:'hbs',
     defaultLayout: 'default',
     layoutsDir: __dirname + '/views/layouts/',
-    helpers: {
-        ifLt: function(a, b) {
-            var next =  arguments[arguments.length-1];
-            return (a < b) ? next.fn(this) : next.inverse(this);
-        }
-    }
+    helpers: helpers
 }));
 app.set('view engine', 'hbs');
 

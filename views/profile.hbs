@@ -40,8 +40,8 @@
                     <div class="info shadow rounded-3 p-4 mb-4 d-flex flex-column gap-1" style="background-color:#fff;">
                         <h4><b>About</b></h4>
                         <p>{{user.about}}</p>
-                        <p><i class="fas fa-map-marker-alt"></i> {{user.adress}}</p>
-                        <p><i class="fas fa-clock"></i> {{user.createdAt}}</p>
+                        <p><i class="fas fa-map-marker-alt"></i>{{user.adress}}</p>
+                        <p><i class="fas fa-clock"></i>{{moment user.createdAt format="DD [tháng] MM [năm] YYYY"}}</p>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
@@ -82,7 +82,7 @@
                             <div class="list-body">
                                 <div class="row">
                                     {{#mangaCollect}}
-                                    {{#ifLt @index 3}}
+                                    {{#lt @index 3}}
                                     <div class="col-4 manga-item">
                                         <a href="#">
                                             <img src="https://picsum.photos/200/300" class="img-fluid w-100 rounded-3">
@@ -92,7 +92,7 @@
                                             <p>15M views 200 like</p>
                                         </div>
                                     </div>
-                                    {{/ifLt}}
+                                    {{/lt}}
                                     {{/mangaCollect}}
                                 </div>
                             </div>
