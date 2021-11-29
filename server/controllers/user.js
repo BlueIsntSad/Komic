@@ -35,7 +35,7 @@ async function addExUser() {
         await User.findOne({ name: 'My name Bob' }).deleteOne();
         const user = await User.create({
             name: 'My name Bob',
-            email: '@Bobbypr0Vjp',
+            email: 'Bobbypr0Vjp@somthing.com',
             password: '123456',
             avatar: '/img/avatar_1.png',
             about: 'Fusce sit amet ex in mi volutpat blandit. Sed imperdiet nulla et efficitur ultrices. Sed euismod lacus quis felis venenatis fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc congue massa id condimentum mollis. Nulla a elementum nunc.',
