@@ -58,7 +58,7 @@ async function addExUser() {
                             total: 2,
                             mangaCollect: [
                                 { manga: '61a121dc891108d0c5ce0fcc' },
-                                { manga: '61a1232559d939f20bfa0886' }
+                                { manga: '6198c572b8cf37785e4ffcb0' }
                             ]
                         },
                         {
