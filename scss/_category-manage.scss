@@ -1,0 +1,13 @@
+.categories_table {
+  .categories_table_body {
+    .category_input_field {
+      text-align: center;
+      color: $black-color;
+
+      &:disabled {
+        border: 0;
+        background-color: transparent;
+      }
+    }
+  }
+}

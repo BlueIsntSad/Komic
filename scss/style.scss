@@ -8,11 +8,15 @@
 @import "manga-details";
 @import "manga-reading";
 @import "navbar";
+@import "admin";
+@import "insert_manga";
+@import "admin-sidebar";
+@import "category-manage";
 
 html,
 body {
   height: 100%;
   font-family: "Mulish", sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: $bg-page;
+  background: $background;
 }

@@ -8,6 +8,10 @@ const mongoose = require('mongoose')
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
+const adminRouter = require('./server/routes/admin')
+
+//Helper
+const hbsHelper = require('./server/helpers/helpers')
 
 const app = express();
 const port = 3000;
@@ -21,7 +25,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', expressHandlebars({
     extname:'hbs',
     defaultLayout: 'default',
-    layoutsDir: __dirname + '/views/layouts/'
+    layoutsDir: __dirname + '/views/layouts/',
+    helpers: {
+        convertDateString: hbsHelper.convertDateString,
+        itemChecked: hbsHelper.itemChecked,
+        activeItem: hbsHelper.activeItem,
+        disablePage: hbsHelper.disablePage
+    }
 }));
 app.set('view engine', 'hbs');
 
@@ -35,6 +45,9 @@ app.use('/', route)
 
 // Manga branch page (manga-detail, manga-reading)
 app.use('/manga', mangaRoute)
+
+//admin branch page
+app.use('/admin', adminRouter)
 
 // Connect the database
 database = process.env.db_URI

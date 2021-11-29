@@ -10,12 +10,15 @@
   "author": "team19",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.27.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.5",
+    "formidable": "^2.0.1",
     "mongodb": "^4.1.4",
     "mongoose": "^6.0.12",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "slugify": "^1.6.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.14",

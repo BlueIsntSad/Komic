@@ -1,112 +1,79 @@
 const Manga = require('../models/manga');
+const Category = require('../models/category');
 
 async function getTopView(req, res){
     const param = req.params['id'];
-    var trending = [];
-    for(let i = 0; i < 5; i++)
-    {
-        var product1 = {
-            id: i*2,
-            name: "The Seven Deadly Sins: Wrath of the Gods",
-            cover: "https://i.pinimg.com/originals/c3/0f/a5/c30fa5ae9fafad065fcb5834430fede7.png", 
-            views: 9192,
-            comments: 11,
-            categories: [
-                "fantasy, horor"
-            ],
-            totalEp: 10,
-            finishedEp: 9,
-            views: 10000,
-            comments: 100
-        }
-       
-            
-        var product2 = {
-            id: i*2 + 1,
-            name: "Gintama Movie 2: Kanketsu-hen - Yorozuya yo Eien",
-            cover: "https://i.pinimg.com/564x/6c/35/f7/6c35f7525ef0457c906748f856289189.jpg", 
-            views: 9192,
-            comments: 11,
-            categories: [
-                "fantasy, horor"
-            ],
-            totalEp: 10,
-            finishedEp: 9,
-            views: 25000,
-            comments: 300
-        }
-        trending.push(product1)
-    }
+    const topViews = await Manga.find()
+        .sort({'views' : -1})
+        .limit(6)
+        .populate({
+            path: 'categories'
+        })
+        .lean()
     console.log(param)
-    res.json(trending)
+    res.json(topViews)
 }
 
 async function getCategory(req, res){
-    const id = req.params['id'];
-    query = req.query;
-    var data = [];
-    var trending = [];
-    var newComment = [];
-    var news = []
-    var cartegory = {
-        _id: "asdfasdf",
-        name: 'Manga category item 1 2 3 4',
-        description: ''
-    }
+    let id = req.params.id;
+    let perPage = 6; 
+    let page = req.query.page || 1; 
+    let sort = req.query.sort || 'must_views'
+    let sortQuery = initSortQuery(sort);
 
-    for(let i = 0; i < 5; i++)
-    {
-        var product1 = {
-            id: i*2,
-            name: "The Seven Deadly Sins: Wrath of the Gods",
-            cover: "https://i.pinimg.com/originals/c3/0f/a5/c30fa5ae9fafad065fcb5834430fede7.png", 
-            views: 9192,
-            comments: 11,
-            categories: [
-                "fantasy, horor"
-            ],
-            totalEp: 10,
-            finishedEp: 9,
-            views: 10000,
-            comments: 100
+    const newManga = await Manga.find()
+        .sort({'createdAt' : -1})
+        .limit(5)
+        .populate({
+            path: 'categories'
+        })
+        .lean()
+
+    const category = await Category.findById(id).lean();
+
+    let maxPage = await  Manga.countDocuments({"categories": category._id})
+    maxPage = Math.ceil(maxPage / perPage);
+
+    const topViews = await Manga.find()
+        .sort({'views' : -1})
+        .limit(6)
+        .populate({
+            path: 'categories'
+        })
+        .lean()
+    
+    const products = await Manga.find({"categories": category._id})
+        .sort(sortQuery)
+        .skip((perPage * page)- perPage)
+        .limit(perPage)
+        .populate({
+            path: 'categories'
+        })
+        .lean();
+
+    category.products = products;
+
+    res.render('categories', {categories: [category], topViews: topViews, newComment: topViews, news: newManga, pages: maxPage, currentPage: page})
+}
+
+function initSortQuery(sortOption){
+    switch(sortOption){
+        case "must_views":{
+            return {"views": -1}
         }
-       
-            
-        var product2 = {
-            id: i*2 + 1,
-            name: "Gintama Movie 2: Kanketsu-hen - Yorozuya yo Eien",
-            cover: "https://i.pinimg.com/564x/6c/35/f7/6c35f7525ef0457c906748f856289189.jpg", 
-            views: 9192,
-            comments: 11,
-            categories: [
-                "fantasy, horor"
-            ],
-            totalEp: 10,
-            finishedEp: 9,
-            views: 25000,
-            comments: 300
+        case "least_views":{
+            return {"views": 1}
         }
-
-        data.push(product2)
-       
-        data.push(product1)
-        newComment.push(product1)
-        trending.push(product2)
-        if(i%2)
-            news.push(product2)
-        else
-            news.push(product1)
+        case "namea_z":{
+            return {"title": 1}
+        }
+        case "namez_a":{
+            return {"title": -1}
+        }
+        default: {
+            return {"views": -1}
+        }      
     }
-
-    var categories = {
-        _id:1,
-        name: `ANIME`,
-        description: 'no description',
-        products: data, 
-        
-    }
-    var pages = 8
-    res.render('categories', {categories: [categories], topViews: trending, newComment: newComment, news: news, pages: 10, currentPage: query.page})
 }
 
 module.exports = {

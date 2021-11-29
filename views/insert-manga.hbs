@@ -1,0 +1,255 @@
+<div class="wrap_conainer container-fluid" >
+    {{> admin-sidebar curentPage }}
+    <div class="main_content insert_main_container container-fluid ">
+        <div class="header_content row">
+            <div class="col-6 breadcrumb">
+                    <div class="breadcrumb_icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="breadcrumb_title">
+                        <div class="big_title">
+                            Thêm truyện
+                        </div>
+                        <div class="small_title">
+                            Thêm thông tin truyện mới
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 export">
+                    {{!-- <button class="export_button">
+                        <i class="fas fa-download"></i>
+                    </button> --}}
+                   
+                </div>
+        </div>
+        <div class="body_content row conainer-fuild ">
+            <div class="row">
+                <div class="col-12">
+                    <form 
+                        class="insert-tabs custom_tab conainer-fuild"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        action="/admin/manga/insert"    
+                    >
+                        <div class="tab-header d-flex justify-content-between mb-1">
+                            <h4><strong>Thông tin truyện mới</strong></h4>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                        <nav>
+                            <div class="nav nav-tabs custom_nav_tab" id="nav-tab" role="tablist">
+                                <button 
+                                    class="nav-link custom_nav_link active" 
+                                    id="nav-info-tab" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#nav-info" 
+                                    type="button" role="tab" 
+                                    aria-controls="nav-info" 
+                                    aria-selected="true"
+                                >
+                                    Thông tin cơ bản
+                                </button>
+                                <button 
+                                    class="nav-link custom_nav_link" 
+                                    id="nav-chapters-tab" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#nav-chapters" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="nav-chapters" 
+                                    aria-selected="false"
+                                >
+                                    Nội dung
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="tab-content mt-4" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 position-relative px-3">
+                                        <div class="preview_container">
+                                            <img src="" alt="preview image" id="preview_image" class="preview_image">
+                                            <input id="cover_image" type="file" multiple="false" name="coverImage" accept="image/*" onchange="show_preview_image(event)" class="d-none">
+                                            <label for="cover_image" class="cover_image_label"> <i class="fas fa-upload"></i>Tải ảnh lên</label> 
+                                        </div>      
+                                    </div>
+                                        
+                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="text" class="form-control info_input" placeholder="Tên truyện" name="title" required> 
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="text" class="form-control info_input" placeholder="Tác giả" name="author" required>    
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="text" class="form-control info_input" placeholder="Dịch giả" name="translator" required>   
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <select class="form-select info_input" placeholder="Trạng thái" name="status" required>
+                                                <option value="finished">Hoàn thành</option>
+                                                <option value="notFinished">Chưa hoàn thành</option>
+                                                <option value="drop">Drop</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="date" class="form-control info_input" placeholder="Ngày xuất bản" name="releaseDay" required> 
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="date" class="form-control info_input" placeholder="Ngày tạo" name="createdAt" required>  
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <input type="number" class="form-control info_input" placeholder="Tổng số chương" name="total" required>    
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
+                                            <div class="dropdown form-control custom_dropdown">
+                                                <button 
+                                                    class="" 
+                                                    type="button" 
+                                                    id="category_dropdown" 
+                                                    data-bs-toggle="dropdown" 
+                                                    aria-expanded="true"
+                                                >
+                                                Thể thoại:
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="category_dropdown">
+                                                    {{#each this.categories}}
+                                                        <li class="category-item">
+                                                            <input 
+                                                                type="checkbox" 
+                                                                class="input_category" 
+                                                                id="category_{{this._id}}" 
+                                                                name="category" 
+                                                                value="{{this._id}}"
+                                                                title="{{this.name}}"                                                                
+                                                            >
+                                                            <label class="form-check-label" for="category_{{this._id}}">{{this.name}}</label>
+                                                            
+                                                        </li>
+                                                    {{/each}}
+                                                </ul>
+                                            </div> 
+                                        </div>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Tóm tắt" id="description" name="description" required></textarea>
+                                            <label for="description">Tóm tắt</label>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade chapters_panel" id="nav-chapters" role="tabpanel" aria-labelledby="nav-chapters-tab">
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-6 col-lg-6">
+                                        <div class="manga_title">
+                                            <h4>
+                                                <strong>
+                                                    Truyện mới
+                                                </strong>                                       
+                                            </h4>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert_chapter_modal">
+                                                <i class="fas fa-plus"></i>
+                                                Thêm chương mới    
+                                            </button>
+                                        </div>
+                                        <div class="chapter_tree">          
+                                            <ul class="chapters" id="chapter_list">                                        
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8 col-md-6 col-lg-6">
+                                        <div class="preview_section_image">
+                                            <img src="" alt="" id="preview_section_image" class="preview_section_image">
+                                        </div>     
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="insert_chapter_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm chương mới</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body insert_chapter_form">  
+        <input type="text" class="input_chapter_name" name="chapter_name" id="input_chapter_name" placeholder="Tên chương">
+        <input type="file" multiple class="input_section_files" name="section_list" id="input_section_files">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+        <button type="button" class="btn btn-primary" onclick="insertNewChap()">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/insert-manga.js"></script>
+
+<!--Template section-->
+<li id="template_section" class="caret d-none" onclick="showImage('{{_id}}', '{{url}}')">
+    <div class="caret_title">
+        <div class="section_care_title" onclick="showPreviewImage(event)"> Section ${i+1}</div>   
+        <button 
+            type="button"
+            onclick="deleteInsertSection(event)" 
+            class="icon_button mx-1 delete_button"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Xoá đoạn"
+        >
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <label
+            for="chapter_section"           
+            class="icon_button mx-1 edit_button"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Chỉnh sửa đoạn đoạn"
+        >
+            <i class="fas fa-pencil-alt"></i>
+        </button>
+    </div>
+    <input type="file" name="chapter" id="chapter_section" class="d-none">
+</li>
+
+<!--Template chapter-->
+<li class="caret d-none" id="template_chapter">
+    <div class="caret_title">
+        <div class="chapter_title">Chap </div>
+        <input class="i_chapter_title d-none" type="text" name="" value="" />
+        <input class="i_chapter d-none" type="text" name="chapter" value="">
+        <button 
+            type="button"
+            class="icon_button mx-1 delete_button" 
+            onclick="deleteChap(event)"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Xoá chương"
+        >
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <button 
+            type="button"
+            class="icon_button mx-1" 
+            onclick="addInsertSection(event)"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm đoạn"
+        >
+            <i class="fas fa-plus"></i>
+        </button>
+    </div> 
+    <ul class="nested section_list">
+        
+                                                    
+    </ul>
+</li>
