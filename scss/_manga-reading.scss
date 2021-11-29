@@ -1,14 +1,18 @@
-// .manga_reading {
-// 	background: $k-background;
+.manga_reading {
+	background: $background;
 
-//     .manga_chapter {
-//         background: #fff;
-//         .chapter_control {
-//             .dropdown-item.active {
-//                 background-color: $k-primary-color;
-//             }
-//         }
-//     }
+    .manga_chapter {
+        background: #fff;
+        .chapter_control {
+            .dropdown-item.active {
+                background-color: $primary-color;
+            }
+        }
+    }
+    
+    .height-fix li a {
+        height: 30px;
+    }
 
 //     .height-fix li a {
 //         height: 30px;

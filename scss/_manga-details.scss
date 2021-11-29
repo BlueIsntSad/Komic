@@ -1,162 +1,156 @@
-// /*---------------------
-//   Manga Details
-// -----------------------*/
-// $background-shadow: $k-background;
-// /*.anime_details_pic {
-// 	img {
-// 		position: relative;
-// 		overflow: hidden;
-// 	}
-// }*/
-// .manga_details {
-// 	background: $k-background;
+/*---------------------
+  Manga Details
+-----------------------*/
 
-// 	.manga_sidebar {
-// 		.manga_sidebar_topviews {
-// 			background: #fff;
-// 			.section_title {
-// 				color: black;
-// 			}
-// 			.manga_sidebar_option {
-// 				display: none;
-// 			}
-// 		}
+.manga_details {
+	background: $background;
 
-// 		.manga_sidebar_newcomment {
-// 			display: none;
-// 		}
+	.manga_sidebar {
+		.manga_sidebar_topviews {
+			background: #fff;
+			.section_title {
+				color: black;
+			}
+			.manga_sidebar_option {
+				display: none;
+			}
+		}
 
-// 	}
+		.manga_sidebar_newcomment {
+			display: none;
+		}
 
-// 	.manga_details_content {
-// 		background: #fff;
-// 	}
+	}
 
-// 	.manga_details_rating {
-// 		.rating {
-// 			i {
-// 				font-size: 21px;
-// 				color: #e89f12;
-// 				display: inline-block;
-// 			}
-// 		}
+	.manga_details_content {
+		background: #fff;
+	}
+	
+	.manga_details_rating {
+		.rating {
+			i {
+				font-size: 21px;
+				color: #e89f12;
+				display: inline-block;
+			}
+		}
+	
+		span {
+			display: block;
+			font-size: 18px;
+		}
+	}
+	
+	.manga_details_btn a {
+		font-weight: 700;
+		letter-spacing: 2px;
+		border-radius: 4px;
+	}
+	
+	.manga_chapter_table {
+		background: #fff;
+		.date, .bookmark {
+            color: lightgray
+        }
+		.paginate .pagination {
+			.page-item {
+				.page-link {
+					color: black;
+					border-style: none;
+					border-radius: 5px;			
+				}
 
-// 		span {
-// 			display: block;
-// 			font-size: 18px;
-// 		}
-// 	}
+				&.active {
+					.page-link {
+						background-color: $primary-color;
+						&:hover {
+							background-color: $primary-color-hover;
+						}
+					}
+				}
 
-// 	.manga_details_btn a {
-// 		font-weight: 700;
-// 		letter-spacing: 2px;
-// 		border-radius: 4px;
-// 	}
+				&.disabled {
+					.page-link {
+						color: lightgray;
+					}
+				}
 
-// 	.manga_chapter_table {
-// 		background: #fff;
-// 		.date, .bookmark {
-//             color: lightgray
-//         }
-// 		.paginate .pagination {
-// 			.page-item {
-// 				.page-link {
-// 					color: black;
-// 					border-style: none;
-// 					border-radius: 5px;
-// 				}
+				&:not(:first-child) {
+					.page-link {
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}
+		
+	.manga_details_other {
+		background: #fff;
+	}
+}
 
-// 				&.active {
-// 					.page-link {
-// 						background-color: $k-primary-color;
-// 						&:hover {
-// 							background-color: $k-primary-color-hover;
-// 						}
-// 					}
-// 				}
+.manga_review {
+	background: #fff;
+	
+	.review-item {
+		overflow: hidden;
+		
+		.avatar {
+			float: left;
+			position: relative;
 
-// 				&.disabled {
-// 					.page-link {
-// 						color: lightgray;
-// 					}
-// 				}
+			&:before {
+				position: absolute;
+				right: -32px;
+				top: 15px;
+				border-top: 15px solid transparent;
+				border-left: 15px solid $background;
+				content: "";
+				transform: rotate(45deg);
+			}
+			
+			img {
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+			}
+		}
 
-// 				&:not(:first-child) {
-// 					.page-link {
-// 						margin-left: 5px;
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
+		.comment {
+			overflow: hidden;
+			background: $background;
+			border-radius: 10px;
 
-// 	.manga_details_other {
-// 		background: #fff;
-// 	}
-// }
+			h6 {
+				color: black;
+				margin-bottom: 10px;
+		
+				span {
+					color: gray;
+				}
+			}
 
-// .manga_review {
-// 	background: #fff;
+			p {
+				color: gray;
+			}
+		}
+	}
+}
 
-// 	.review-item {
-// 		overflow: hidden;
+.manga_comment {
+	background: #fff;
+	form {
+		textarea {
+			background-color: $background;
+			height: 100px;
+			border: none;
+			border-radius: 5px;
+			resize: none;
+		}
 
-// 		.avatar {
-// 			float: left;
-// 			position: relative;
-
-// 			&:before {
-// 				position: absolute;
-// 				right: -32px;
-// 				top: 15px;
-// 				border-top: 15px solid transparent;
-// 				border-left: 15px solid $background-shadow;
-// 				content: "";
-// 				transform: rotate(45deg);
-// 			}
-
-// 			img {
-// 				height: 50px;
-// 				width: 50px;
-// 				border-radius: 50%;
-// 			}
-// 		}
-
-// 		.comment {
-// 			overflow: hidden;
-// 			background: $background-shadow;
-// 			border-radius: 10px;
-
-// 			h6 {
-// 				color: black;
-// 				margin-bottom: 10px;
-
-// 				span {
-// 					color: gray;
-// 				}
-// 			}
-
-// 			p {
-// 				color: gray;
-// 			}
-// 		}
-// 	}
-// }
-
-// .manga_comment {
-// 	background: #fff;
-// 	form {
-// 		textarea {
-// 			background-color: $background-shadow;
-// 			height: 100px;
-// 			border: none;
-// 			border-radius: 5px;
-// 			resize: none;
-// 		}
-
-// 		button {
-// 			color:white;
-// 			letter-spacing: 2px;
-// 		}
-// 	}
-// }
+		button {
+			color:white;
+			letter-spacing: 2px;
+		}
+	}
+}
