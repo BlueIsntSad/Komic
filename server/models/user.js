@@ -11,7 +11,7 @@ const adminSchema = new Schema({
 
 const userSchema = new Schema({
     name: { type: String, required: true },
-    account: { type: String, required: true },
+    email: { type: String, required: true },
     password: { type: String, required: true },
     avatar: { type: String, default: '/img/avatar_default.png' },
     cover: { type: String, default: '/img/avatar_default.png' },
