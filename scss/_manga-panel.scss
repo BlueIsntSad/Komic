@@ -10,7 +10,7 @@
   position: relative;
   text-transform: uppercase;
   font-weight: 900;
-  //color: $n-text-color;
+  color: $black-color;
   padding-left: 10px;
   &:after {
     content: "";
@@ -19,17 +19,18 @@
     bottom: 0;
     height: 110%;
     width: 4px;
-    //color: $bg-text-cover-1;
-    //background-color: $bg-text-cover-1;
+    color: $black-color;
+    background-color: $primary-color;
   }
 
   a {
-    //color: $n-text-color;
+    color: $black-color;
     text-decoration: none;
   }
 }
 
 .manga_catetegory {
+  background-color: $white-color;
   .category_item {
     padding: 0 12px;
     justify-content: space-between;
@@ -38,12 +39,12 @@
       text-transform: uppercase;
       font-weight: 900;
       font-size: 1rem;
-      //color: $n-text-color;
+      color: $black-color;
       display: flex;
       flex-direction: row;
       align-items: center;
       a {
-        //color: $n-text-color;
+        color: $black-color;
         text-decoration: none;
         margin-right: 0.5rem;
       }
@@ -53,12 +54,13 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
-      align-items: flex-end;
+      align-items: center;
+      align-content: center;
 
       .section_sort_title {
         font-size: 1rem;
         font-weight: 700;
-        //color: $n-text-color;
+        color: $black-color;
       }
       .section_sort_form {
         margin: auto 5px;
@@ -66,9 +68,14 @@
           width: auto;
           margin: auto 5px;
           padding: 0 0px;
-          font-family: "FontAwesome";
 
           option {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-style: normal;
+            font-size: 15px;
+            font-size: 13px;
+            margin: 5px 0px;
             a {
               background-color: blue;
               font-size: 5px;
@@ -98,7 +105,6 @@
   .manga_item_cover {
     // height: 325px;
     position: relative;
-    border-radius: 5px;
 
     &::after {
       content: "";
@@ -109,34 +115,99 @@
     .ep {
       top: 10px;
       left: 10px;
-      //background-color: $n-ep-background;
-      //color: $n-text-white-color;
+      background-color: $primary-color;
+      color: $white-color;
     }
 
     .view {
       bottom: 10px;
       right: 10px;
-      //background-color: $bg-text-cover-2;
+      background-color: $black-gray;
       color: $white-color;
     }
 
     .comment {
       bottom: 10px;
       left: 10px;
-      //background-color: $bg-text-cover-2;
+      background-color: $black-gray;
       color: $white-color;
+    }
+
+    &:hover {
+      .manga_item_info {
+        opacity: 1;
+        height: 100%;
+      }
+    }
+
+    .manga_item_info {
+      position: absolute;
+      top: 0;
+      left: 0%;
+      width: 100%;
+      height: 50%;
+      transform-origin: bottom;
+      opacity: 0;
+      background-color: $white-color;
+      overflow: hidden;
+      padding: 10px;
+      transition: all ease-out 0.2s;
+
+      .manga_title {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        font-size: 1.2rem;
+        line-height: 1.3rem;
+        color: $black-color;
+        margin: 0px 0px 5px;
+        text-decoration: none;
+      }
+      .manga_categories {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 3px;
+        margin: 10px 0px 15px;
+        .manga_category_item {
+          background-color: $red-color;
+          border-radius: 5px;
+          padding: 3px 5px 2px;
+          font-size: 12px;
+          font-weight: 600;
+          text-align: center;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          text-decoration: none;
+          color: $white-color;
+          max-width: 100%;
+        }
+      }
+
+      .manga_description {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+
+        font-size: 14px;
+      }
     }
   }
 
   .manga_item_text {
     .name {
       a {
-        //color: $n-text-color;
-        font-weight: 700;
-        line-height: 1.5rem;
+        display: inline-block;
         text-decoration: none;
+        color: $black-color;
+        font-size: 1.1rem;
+        line-height: 1.2rem;
+        font-weight: 700;
         text-align: start;
-        font-size: 18px;
       }
     }
   }

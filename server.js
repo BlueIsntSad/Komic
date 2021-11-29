@@ -9,7 +9,12 @@ const mongoose = require('mongoose')
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
+const adminRouter = require('./server/routes/admin')
 const userRoute = require('./server/routes/user')
+
+//Helper
+const hbsHelper = require('./server/helpers/helpers')
+
 
 const app = express();
 const port = 3000;
@@ -24,7 +29,14 @@ app.engine('hbs', expressHandlebars({
     extname:'hbs',
     defaultLayout: 'default',
     layoutsDir: __dirname + '/views/layouts/',
-    helpers: helpers
+    helpers: {
+        ...helpers,
+        convertDateString: hbsHelper.convertDateString,
+        itemChecked: hbsHelper.itemChecked,
+        activeItem: hbsHelper.activeItem,
+        disablePage: hbsHelper.disablePage
+    }
+    helpers:
 }));
 app.set('view engine', 'hbs');
 
@@ -37,6 +49,8 @@ app.use('/', route)
 // Manga branch page (manga-detail, manga-reading)
 app.use('/manga', mangaRoute)
 
+//admin branch page
+app.use('/admin', adminRouter)
 // Manga branch page (manga-detail, manga-reading)
 app.use('/user', userRoute)
 

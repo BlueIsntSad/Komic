@@ -1,23 +1,25 @@
 @import "variables";
 
 .nav_breadcrumb {
-  --bs-breadcrumb-divider: "\e5e1";
-  font-family: "Material Icons";
+  --bs-breadcrumb-divider: "\f054";
+  font-weight: 900;
+  font-style: normal;
   background-color: "transparent";
   font-size: 13px;
   .breadcrumb {
     background-color: transparent;
     .breadcrumb-item {
       position: relative;
+      text-transform: uppercase;
       &::before {
-        color: $white-color !important;
-        transform: translateY(15%);
+        color: $black-color !important;
+        font-family: "Font Awesome 6 Free";
       }
       a {
         text-decoration: none;
-        color: $white-color;
-        font-size: 17px;
-        //font-family: $fm-nunito;
+        color: $black-color;
+        font-size: 13px;
+        // font-family: $fm-nunito;
         text-transform: lowercase;
       }
       &::first-letter {
@@ -27,9 +29,24 @@
   }
 }
 
-.manga_pannel {
+.category_page {
+  .manga_catetegory {
+    margin-top: 0px !important;
+  }
+
+  .manga_sidebar {
+    margin-top: 0px !important;
+    .manga_sidebar_topviews {
+      margin-top: 0px !important;
+    }
+  }
+
   .section_link {
     display: none !important;
+  }
+
+  .section_sort {
+    display: flex !important;
   }
 
   .pagination {

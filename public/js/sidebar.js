@@ -23,22 +23,24 @@ function getTopView(num){
 
 function addTopItem(manga){
     var content = ` 
-    <div class="manga_topviews_item">
-        <a href="manga/${manga.id}">
-        <div class="manga_topviews_item_cover bg-cover"  style="background-image: url(${manga.cover});" >
-            
-        </div>
-        </a>
-        <div class="text ep">${manga.finishedEp} / ${manga.totalEp}</div>
+    <div class="manga_topviews_item shadow my-4" style="position: relative;" >
+        <div class="manga_topviews_item_cover bg-cover rounded shadow "  style="background-image: url(${manga.cover});" ></div>    
+        <div class="manga_topviews_item_text">
+            <div class="text ep">${manga.finishedEp} / ${manga.totalEp}</div>
             <div class="text view">
                 <i class="fa fa-eye" aria-hidden="true"></i>
                 ${manga.views}
             </div>
             <h5 class="name">
-                <a href="manga/${manga.id}">
-                    ${manga.name}
-                </a>
+                ${manga.title}
             </h5>
+            <div class="description_container"> 
+                <p class="description">
+                    ${manga.description}
+                </p>
+            </div>
+            <a href="/manga/${manga.id}" class="link"></a>
+        </div>       
     </div>`
     $("#manga_sidebar_topviews").append(content);
 }

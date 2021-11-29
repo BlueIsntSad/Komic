@@ -1,0 +1,106 @@
+.wrap_conainer {
+  height: 100%;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  .main_content {
+    background-color: $background;
+    .header_content {
+      background-color: $white-color;
+      padding: 1rem 0px;
+      margin-bottom: 1rem;
+      .breadcrumb {
+        padding-left: 1rem;
+        margin: auto;
+        .breadcrumb_icon {
+          font-size: 2rem;
+          padding: 5px 10px;
+          border-top: 2px solid $black-gray;
+          border-left: 2px solid $black-gray;
+          border-bottom: 2px solid $black-gray;
+          border-radius: 5px;
+          margin-right: 1rem;
+        }
+        .breadcrumb_title {
+          .big_title {
+            font-size: 1.5rem;
+            font-weight: 600;
+          }
+
+          .small_title {
+            font-weight: 600;
+          }
+        }
+      }
+
+      .export {
+        text-align: right;
+        padding-right: 1rem;
+        margin: auto;
+        .export_button {
+          font-size: 1.5rem;
+          padding: 0px 10px;
+          border-radius: 3px;
+          border: 2px solid $black-gray;
+          background-color: $black-gray;
+          i {
+            color: $white-color;
+          }
+        }
+      }
+    }
+  }
+
+  .body_content {
+    background-color: $white-color;
+    padding: 0rem 1rem;
+    .content_header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0px;
+      border-bottom: 1px solid $black-gray;
+      .content_header_title {
+        font-weight: 600;
+      }
+      .add_button {
+        a {
+          background-color: $black-gray;
+          text-decoration: none;
+          color: $white-color;
+          font-weight: 500;
+          padding: 7px 15px;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+  .manga_table {
+    .manga_table_head {
+      border-bottom: 2px solid $black-gray;
+      tr {
+        padding: 10px 0px;
+      }
+    }
+    .manga_table_body {
+      .cover {
+        width: 70px;
+        height: 70px;
+        object-fit: scale-down;
+      }
+      .title {
+        font-weight: 500;
+      }
+      .edit {
+        .icon_button {
+          width: 40px;
+          height: 40px;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

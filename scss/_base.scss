@@ -63,3 +63,22 @@ a:focus {
     }
   }
 }
+
+//Css for icon button
+.icon_button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.delete_button {
+  color: $red-color;
+}
+
+.edit_button {
+  color: $yelow-color;
+}
+
+.save_button {
+  color: $green-color;
+}

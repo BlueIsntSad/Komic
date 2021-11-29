@@ -1,0 +1,97 @@
+<div class="wrap_conainer container-fluid" >
+    {{> admin-sidebar curentPage}}       
+    <div class="main_content container-fluid">
+        <div class="header_content row">
+            <div class="col-6 breadcrumb">
+                    <div class="breadcrumb_icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="breadcrumb_title">
+                        <div class="big_title">
+                            Truyện
+                        </div>
+                        <div class="small_title">
+                            Quản lý thông tin truyện
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 export">
+                    <button class="export_button">
+                        <i class="fas fa-download"></i>
+                    </button>
+                   
+                </div>
+        </div>
+        <div class="body_content row table-responsive">
+            <div class="content_header">
+                <h4 class="content_header_title">Danh sách truyện</h4>
+                <div class="add_button">
+                    <a href="/admin/manga/insert">Thêm truyện</a>
+                </div>
+            </div>
+            <table class="manga_table table">
+                <thead class="manga_table_head ">
+                    <tr >
+                        <th class="text-center w-20">Ảnh bìa</th>
+                        <th class="text-center w-20">Tên</th>
+                        <th class="text-center w-20">Thể loại</th>
+                        <th class="text-center w-10">Trạng thái</th>
+                        <th class="text-center w-10">Tổng số tập</th>
+                        <th class="text-center w-10">Số tập hoàn thành</th>
+                        <th class="text-center w-10">Số lượt xem</th>
+                        <th class="text-center w-10">Chỉnh sửa</th>
+                    </tr>
+                </thead>
+                <tbody class="manga_table_body">
+                    {{#each this.mangas}}
+                        <tr>
+                            <td class="text-center align-middle">
+                                <img class="cover" src="{{this.cover}}" alt="">
+                            </td>
+                            <td class="text-center align-middle title">{{this.title}}</td>
+                            <td class="text-center align-middle">
+                                {{#each this.categories}}
+                                    {{this.name}} <br>
+                                {{/each}}
+                            </td>
+                            <td  class="text-center align-middle status">
+                                <div class="status">
+                                    {{this.status}}
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">{{this.total}}</td>
+                            <td class="text-center align-middle">{{this.finished}}</td>
+                            <td class="text-center align-middle">{{this.views}}</td>
+                            <th class="text-center align-middle edit">
+                                <a class="icon_button edit_button" data-bs-toggle="tooltip" data-bs-placement="top" title="Chỉnh sửa" href="/admin/manga/{{this._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button  class="icon_button delete_button" data-bs-toggle="tooltip" data-bs-placement="top" title="Xoá" onclick="deleteManga('{{this._id}}')">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </th>
+
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {{disablePage page maxPage false}}">
+                        <a class="page-link" href="/admin/{{pre}}">Previous</a>
+                    </li>
+                    {{#each pages}}
+                        <li class="page-item {{activeItem this ../page}}" aria-current="page">
+                            <a class="page-link" href="/admin/{{this}}">{{this}}</a>
+                        </li>                
+                    {{/each}}
+                    <li class="page-item {{disablePage page maxPage true}}">
+                        <a class="page-link" href="/admin/{{next}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script src="/js/admin.js"></script>
+
