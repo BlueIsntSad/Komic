@@ -61,12 +61,14 @@ userSchema.pre('save', function(next) {
     next()
 })
 
+
 const commentSchema = new Schema({
     body: { type: String, required: true },
     byUser: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'User' },
     onManga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' },
     commentAt: { type: Date, default: Date.now }
 }, { timestamps: true })
+
 
 const userS = mongoose.model('User', userSchema);
 const adminS = mongoose.model('Admin', adminSchema);
