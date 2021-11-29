@@ -36,7 +36,6 @@ app.engine('hbs', expressHandlebars({
         activeItem: hbsHelper.activeItem,
         disablePage: hbsHelper.disablePage
     }
-    helpers:
 }));
 app.set('view engine', 'hbs');
 
