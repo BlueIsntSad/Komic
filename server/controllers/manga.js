@@ -107,35 +107,5 @@ function read(req, res) {
     })
 }
 
-async function seedManga(){
-    try {
-        const manga = new Manga({
-            cover:"https://res.cloudinary.com/hehohe/image/upload/v1638207497/manga/cover/cover_ua1xge.png",
-            title:"Lorem ipsum dolor: Lorem ipsum adipisic",
-            title_org:"リベンジャーズ, Feito sutei naito",
-            description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio labore soluta ducimus praesentium, enim necessitatibus quas nihil unde obcaecati dolor totam molestias possimus voluptatem delectus aperiam ea optio, cupiditate sapiente. Ab hic est magnam praesentium fugiat nihil eaque commodi rem tempore illum ut, sequi repellendus quae. Dolores eligendi eos nostrum impedit nobis voluptatum asperiores totam. A iusto numquam laboriosam!",
-            author:"Lorem ipsum",
-            status:"Đang tiến hành",
-            translator:"Dolor sit amet",
-            status:"Đang tiến hành",
-            follower:4242,
-            views:1234567,
-            releaseDay:"2021-11-06",
-            total:20,
-            finished:25,
-            rate:3.5,
-            totalRate:156
-        });
-        const chap = await Chapter.find({}).limit(5);
-        const genre = await Category.find({}).skip(1).limit(3);
-        manga.chapters = chap;
-        manga.categories = genre;
-        console.log(manga)
-        await manga.save()
-    } catch (err) {
-        console.log(err.message)
-    }
-}
-
-module.exports = { index, getMangaDetails, read, seedManga, getTopView, getCategory };
+module.exports = { index, getMangaDetails, read, getTopView, getCategory };
 

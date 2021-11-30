@@ -13,8 +13,6 @@ router.get('/', controller.index)
 // GET manga reading page
 router.get('/ep', controller.read)
 
-router.get('/seedManga', controller.seedManga)
-
 router.get('/:id', controller.getMangaDetails)
 
 //GET top view 
