@@ -58,7 +58,7 @@ new Promise((resolve) => {
         for (i = 0; i < 10; i++) {
             // categories
             let categories = [];
-            for (j = 0; j < faker.datatype.number(5); j++) {
+            for (j = 0; j < faker.datatype.number({ 'min': 2, 'max': 5 }); j++) {
                 categories.push(faker.random.arrayElement(results[0])._id)
             }
             // chapters
