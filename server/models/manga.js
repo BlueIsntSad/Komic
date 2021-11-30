@@ -11,6 +11,10 @@ const mangaSchema = new Schema({
         required: true, 
         default: 'No Name'
     },
+    title_org: {
+        type: String,  
+        default: ''
+    },
     description: {
         type: String, 
         required: true, 
@@ -32,14 +36,6 @@ const mangaSchema = new Schema({
     releaseDay: {
         type: Date, 
         default: Date.now,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
     },
     follower: {
         type: Number,

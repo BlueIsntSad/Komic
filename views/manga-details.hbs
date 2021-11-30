@@ -8,14 +8,14 @@
       <div class="row p-4 g-3">
         <div class="col-lg-4 col-xl-3">
           <div class="anime_details_pic">
-            <img src="/img/cover.png" class="img-fluid rounded" />
+            <img src={{manga.cover}} class="img-fluid rounded-3" />
           </div>
         </div>
         <div class="col-lg-8 col-xl-9">
           <div class="row mb-3">
             <div class="col-lg-12 col-xl-9 manga_details_title text-wrap">
-              <h3 class="mb-2"><b>Lorem ipsum dolor: Lorem ipsum adipisic</b></h3>
-              <span>リベンジャーズ, Feito／sutei naito</span>
+              <h3 class="mb-2"><b>{{manga.title}}</b></h3>
+              <span>{{manga.title_org}}</span>
             </div>
             <div class="col-lg-12 col-xl-3 manga_details_rating">
               <div class="rating list-inline my-2">
@@ -25,7 +25,7 @@
                 <a href="#"><i class="fas fa-star-half-alt"></i></a>
                 <a href="#"><i class="far fa-star"></i></a>
               </div>
-              <span>6.969 Bình chọn</span>
+              <span>{{manga.totalRate}} lượt đánh giá</span>
             </div>
           </div>
           <div class="categories mb-3">
@@ -41,42 +41,38 @@
             </ul>
           </div>
           <div class="manga_details_description mb-2">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio labore soluta ducimus praesentium,
-              enim necessitatibus quas nihil unde obcaecati dolor totam molestias possimus voluptatem delectus aperiam
-              ea optio, cupiditate sapiente. Ab hic est magnam praesentium fugiat nihil eaque commodi rem tempore illum
-              ut, sequi repellendus quae. Dolores eligendi eos nostrum impedit nobis voluptatum asperiores totam. A
-              iusto numquam laboriosam culpa!</p>
+            <p>{{manga.description}}</p>
           </div>
           <div class="manga_details_widget">
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <dl class="row">
                   <dt class="col-sm-5">Tác giả:</dt>
-                  <dd class="col-sm-7">Lorem ipsum</dd>
+                  <dd class="col-sm-7">{{manga.author}}</dd>
 
                   <dt class="col-sm-5">Ngày phát hành:</dt>
-                  <dd class="col-sm-7">30-2-2077</dd>
+                  <dd class="col-sm-7">{{moment manga.releaseDay format="DD-MM-YYYY"}}</dd>
 
                   <dt class="col-sm-5">Tình trạng:</dt>
-                  <dd class="col-sm-7">Đang tiến hành</dd>
+                  <dd class="col-sm-7">{{manga.status}}</dd>
 
                   <dt class="col-sm-5">Dịch giả:</dt>
-                  <dd class="col-sm-7">Dolor sit amet</dd>
+                  <dd class="col-sm-7">{{manga.translator}}</dd>
                 </dl>
               </div>
               <div class="col-lg-6 col-md-6">
                 <dl class="row">
                   <dt class="col-sm-5">Số chương:</dt>
-                  <dd class="col-sm-7">20/25</dd>
+                  <dd class="col-sm-7">{{manga.total}}/{{manga.finished}}</dd>
 
                   <dt class="col-sm-5">Cập nhật:</dt>
-                  <dd class="col-sm-7">2 ngày trước</dd>
+                  <dd class="col-sm-7">{{moment manga.updatedAt lang="vi" fromNow=null}}</dd>
 
                   <dt class="col-sm-5">Đang theo dõi:</dt>
-                  <dd class="col-sm-7">4,242</dd>
+                  <dd class="col-sm-7">{{manga.follower}}</dd>
 
                   <dt class="col-sm-5">Lượt xem:</dt>
-                  <dd class="col-sm-7">1,234,567</dd>
+                  <dd class="col-sm-7">{{manga.views}}</dd>
                 </dl>
               </div>
             </div>

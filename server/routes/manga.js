@@ -15,6 +15,8 @@ router.get('/ep', controller.read)
 
 router.get('/add', controller.add)
 
+router.get('/:id', controller.getMangaDetails)
+
 //GET top view 
 router.get("/top/:id", controller.getTopView)
 
