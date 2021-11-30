@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 let database = process.env.db_URI
 new Promise((resolve) => {
+    console.log('Seeding user .....');
     mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true });
     async.parallel([
         (callback) => {
