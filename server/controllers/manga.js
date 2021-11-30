@@ -88,11 +88,13 @@ async function getMangaDetails(req, res) {
     var mangaId = req.params.id;
     await Manga.findById(mangaId)
         .lean()
+        .populate('categories')
+        .populate('chapters')
         .then(mangaDoc => {
             res.render('manga-details', {
                 manga: mangaDoc,
                 title: `${mangaDoc.title} | Komic`,
-                script: 'manga-details'
+                script: 'manga-details',
             });
         })
         .catch(function (err) { console.log(err) });
@@ -105,7 +107,7 @@ function read(req, res) {
     })
 }
 
-async function add(){
+async function seedManga(){
     try {
         const manga = new Manga({
             cover:"https://res.cloudinary.com/hehohe/image/upload/v1638207497/manga/cover/cover_ua1xge.png",
@@ -125,7 +127,7 @@ async function add(){
             totalRate:156
         });
         const chap = await Chapter.find({}).limit(5);
-        const genre = await Category.find({}).limit(3);
+        const genre = await Category.find({}).skip(1).limit(3);
         manga.chapters = chap;
         manga.categories = genre;
         console.log(manga)
@@ -135,5 +137,5 @@ async function add(){
     }
 }
 
-module.exports = { index, getMangaDetails, read, add, getTopView, getCategory };
+module.exports = { index, getMangaDetails, read, seedManga, getTopView, getCategory };
 

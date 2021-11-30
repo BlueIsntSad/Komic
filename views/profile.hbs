@@ -1,4 +1,4 @@
-<section class="user_profile my-5">
+<section class="user_profile my-4">
     <div class="container">
         <div class="profile-header shadow rounded-3 p-3 mb-4">
             <div class="col">
@@ -23,7 +23,7 @@
                             <p>Bộ sưu tập</p>
                         </div>
                         <div class="col">
-                            <p><b>{{user.follower}}</b></p>
+                            <p><b>{{user.following}}</b></p>
                             <p>Đang theo dõi</p>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                                     <div class="col-4 manga-item">
                                         <a href="#">
                                             <div class="pic ratio">
-                                                <img src="https://picsum.photos/200/320"
+                                                <img src={{manga.cover}}
                                                     class="img-fluid w-100 rounded-3 mb-2">
                                             </div>
                                         </a>
@@ -93,7 +93,7 @@
                                     <div class="col-4 manga-item">
                                         <a href="#">
                                             <div class="pic ratio">
-                                                <img src="https://picsum.photos/200/320"
+                                                <img src={{manga.cover}}
                                                     class="img-fluid w-100 rounded-3 mb-2">
                                             </div>
                                         </a>

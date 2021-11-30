@@ -24,6 +24,14 @@
 
 	.manga_details_content {
 		background: #fff;
+		.categories {
+			a {
+				&:hover, &:focus {
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+					color:#fff;
+				}
+			}
+		}
 	}
 	
 	.manga_details_rating {
@@ -42,8 +50,9 @@
 	}
 	
 	.manga_details_btn a {
+		font-family: $title-font;
 		font-weight: 700;
-		letter-spacing: 2px;
+		letter-spacing: 3px;
 		border-radius: 4px;
 	}
 	
