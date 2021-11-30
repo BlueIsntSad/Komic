@@ -5,7 +5,7 @@
         <nav class="nav_breadcrumb"  aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" ><a href="/categories">categories</a></li>
+                <li class="breadcrumb-item" ><a href="/manga/categories">categories</a></li>
                 <li class="breadcrumb-item active" >
                     <a href="/">
                         {{categories.[0].[name]}}
@@ -16,10 +16,10 @@
     </div>
 </section>
 
-<section class="manga_pannel">
+<section class="category_page manga_pannel">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12 mt-4">
+            <div class="col-lg-8 col-md-8 col-sm-12">
                 {{> manga-panel categories=categories}}
                 <ol class="pagination">
                 </ol>
@@ -31,7 +31,6 @@
     </div>   
     
 </section>
-<link rel="stylesheet" href="/css/categories.css">
 <script src="/js/pagination.js"></script>
 {{#if currentPage }}
     <script>

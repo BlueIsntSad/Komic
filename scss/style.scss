@@ -1,17 +1,25 @@
-@import "vaviables";
+@import "variables";
 @import "base";
 
-@import "home";
+//@import "home";
 @import "manga-panel";
 @import "sidebar";
 @import "categories";
 @import "manga-details";
 @import "manga-reading";
+@import "profile";
+@import "navbar";
+@import "admin";
+@import "insert_manga";
+@import "admin-sidebar";
+@import "category-manage";
+@import "breadcrumb";
+
 
 html,
 body {
   height: 100%;
-  font-family: "Mulish", sans-serif;
+  font-family: $regular-font;
   -webkit-font-smoothing: antialiased;
-  background: $bg-page;
+  background: $background;
 }

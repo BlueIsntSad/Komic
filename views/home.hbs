@@ -2,20 +2,30 @@
 
 <section class="slider">
     <div class="container">
-        <div class="manga_slider">
+        <div class="manga_slider shadow-lg">
             {{#each news}}
                 <div class="manga_slider_item bg-cover"  style="background-image: url({{this.cover}});">
-                    <div class="manga_slider_item_text">
-                        <h3 class="name">{{this.name}}</h3>
-                        <span class="description">{{this.description}}</span>
-                        <a href="/anime/{{this.id}}" class="link">
-                            <span>
-                                watch now
-                            </span>
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
+                    <div class="manga_slider_item_content">
+                        <div class="manga_slider_item_text">
+                            <h2 class="name mb-2" >
+                                <b>
+                                    {{this.title}}
+                                </b>
+                            </h2>
+                            <p class="description my-2">
+                                <b>
+                                    {{this.description}}
+                                </b>
+                                </p>
+                            <a href="/anime/{{this.id}}" class="link mt-2">
+                                <b>
+                                    watch now
+                                </b>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
                         
-                    </div>
+                        </div>
+                    </div>     
                 </div>
             {{/each}}
         </div>
@@ -25,7 +35,7 @@
 <section class="manga">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12 mt-4">
+            <div class="col-lg-8 col-md-8 col-sm-12">
                 {{> manga-panel categories=categories }}       
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -34,4 +44,4 @@
         </div>
     </div>
 </section>
-<script type="text/javascript" src="/js/home.js"></script>
+<script type="text/javascript" src="js/home.js"></script>

@@ -1,0 +1,298 @@
+<section class="user_profile my-5">
+    <div class="container">
+        <div class="profile-header shadow rounded-3 p-3 mb-4">
+            <div class="col">
+                <div class="background-profile rounded-3">
+                    <img class="img-fluid w-100" src="https://picsum.photos/id/1008/1000/400" alt="cover img">
+                </div>
+                <div class="avatar-profile d-flex justify-content-center">
+                    <div class="wrap ratio ratio-1x1">
+                        <img class="position-absolute" src={{user.avatar}} alt="avatar">
+                    </div>
+                </div>
+                <div class="overview-profile d-flex flex-column text-center">
+                    <h2><b>{{user.name}}</b></h2>
+                    <p>{{user.email}}</p>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>{{user.library.history.total}}</b></p>
+                            <p>Truyện đã đọc</p>
+                        </div>
+                        <div class="col">
+                            <p><b>{{user.library.collections.total_collect}}</b></p>
+                            <p>Bộ sưu tập</p>
+                        </div>
+                        <div class="col">
+                            <p><b>{{user.follower}}</b></p>
+                            <p>Đang theo dõi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile-body mb-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <div class="info shadow rounded-3 p-4 mb-4 d-flex flex-column gap-1">
+                        <h4><b>About</b></h4>
+                        <p>{{user.about}}</p>
+                        <p><i class="fas fa-map-marker-alt"></i>{{user.adress}}</p>
+                        <p><i class="fas fa-clock"></i>{{moment user.createdAt format="DD [tháng] MM [năm] YYYY"}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2 mb-4">
+                        <h4 class="mb-2"><b>Danh sách đọc</b></h4>
+                        <div class="reading-list">
+                            <header class="list-heading">
+                                <a href="#">
+                                    <h5><b>Chi tiết</b><span><i class="fas fa-angle-right"></i></span></h5>
+                                </a>
+                                <p>Danh sách đọc - {{user.library.history.total}} bộ</p>
+                            </header>
+                            <div class="list-body">
+                                <div class="row">
+                                    {{#each history}}
+                                    <div class="col-4 manga-item">
+                                        <a href="#">
+                                            <div class="pic ratio">
+                                                <img src="https://picsum.photos/200/320"
+                                                    class="img-fluid w-100 rounded-3 mb-2">
+                                            </div>
+                                        </a>
+                                        <div class="content">
+                                            <a href="#"><b>{{manga.title}}</b></a>
+                                            <div class="d-flex mt-2">
+                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{manga.views}}</div>
+                                                <div class="flex-fill"><i class="fas fa-bookmark"></i>
+                                                    {{manga.follower}}</div>
+                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.total}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2">
+                        <h4 class="mb-2"><b>Kho lưu trữ</b></h4>
+                        {{#each collections}}
+                        <div class="reading-list mb-3">
+                            <header class="list-heading">
+                                <a href="#">
+                                    <h5><b>{{title}}</b><span><i class="fas fa-angle-right"></i></span></h5>
+                                </a>
+                                <p>Reading list - {{total}} manga</p>
+                            </header>
+                            <div class="list-body">
+                                <div class="row">
+                                    {{#mangaCollect}}
+                                    {{#lt @index 3}}
+                                    <div class="col-4 manga-item">
+                                        <a href="#">
+                                            <div class="pic ratio">
+                                                <img src="https://picsum.photos/200/320"
+                                                    class="img-fluid w-100 rounded-3 mb-2">
+                                            </div>
+                                        </a>
+                                        <div class="content">
+                                            <a href="#"><b>{{manga.title}}</b></a>
+                                            <div class="d-flex mt-2">
+                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{manga.views}}</div>
+                                                <div class="flex-fill"><i class="fas fa-bookmark"></i>
+                                                    {{manga.follower}}</div>
+                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.total}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/lt}}
+                                    {{/mangaCollect}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile-library shadow rounded-3 p-3 d-none">
+            <div class="row gap-3">
+                <div class="library-heading p-4">
+                    <h3><b>Library</b></h3>
+                </div>
+                <div class="library-body px-4">
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile-library shadow rounded-3 p-3 d-none">
+            <div class="row gap-3">
+                <div class="library-heading p-4">
+                    <h3><b>Library > Lorem ipsum dolor</b></h3>
+                </div>
+                <div class="library-body px-4">
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="reading-list">
+                        <div class="row">
+                            <div class="col-1 cover d-inline">
+                                <img src="https://picsum.photos/100/160" class="img-fluid">
+                            </div>
+                            <div class="col info d-inline">
+                                <h5><b>Lorem ipsum dolor</b></h5>
+                                <p>25 truyện</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum distinctio
+                                    officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur quas ea
+                                    ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                </p>
+                            </div>
+                            <div class="col-1 fuction d-inline">
+                                <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

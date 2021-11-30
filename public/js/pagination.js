@@ -12,7 +12,7 @@ function pagination(c , l){
    {
         for(let i=1; i<= last; i++)
             range.push(`
-                <li class="pagination_item " onclick="addParam('page', ${i})" > ${i}</li>`
+                <li class="pagination_item ${i==currentPage?"active":''}" onclick="addParam('page', ${i})" > ${i}</li>`
             );
    }
    else if(currentPage < 3){

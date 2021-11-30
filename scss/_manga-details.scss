@@ -1,50 +1,110 @@
 /*---------------------
-  Anime Details
+  Manga Details
 -----------------------*/
-$background-shadow: #f4f4f4;
-//$background-shadow: #f8f9fa;
-$primary-color: #fb770d;
 
-img {
-	height: 100%;
-    overflow: hidden;
-}
+.manga_details {
+	background: $background;
 
-.manga_details_rating {
-	.rating {
-		i {
-			font-size: 21px;
-			color: #e89f12;
-			display: inline-block;
+	.manga_sidebar {
+		.manga_sidebar_topviews {
+			background: #fff;
+			.section_title {
+				color: black;
+			}
+			.manga_sidebar_option {
+				display: none;
+			}
+		}
+
+		.manga_sidebar_newcomment {
+			display: none;
+		}
+
+	}
+
+	.manga_details_content {
+		background: #fff;
+	}
+	
+	.manga_details_rating {
+		.rating {
+			i {
+				font-size: 21px;
+				color: #e89f12;
+				display: inline-block;
+			}
+		}
+	
+		span {
+			display: block;
+			font-size: 18px;
 		}
 	}
-
-	span {
-		display: block;
-		font-size: 18px;
+	
+	.manga_details_btn a {
+		font-weight: 700;
+		letter-spacing: 2px;
+		border-radius: 4px;
 	}
-}
+	
+	.manga_chapter_table {
+		background: #fff;
+		.date, .bookmark {
+            color: lightgray
+        }
+		.paginate .pagination {
+			.page-item {
+				.page-link {
+					color: black;
+					border-style: none;
+					border-radius: 5px;			
+				}
 
-.manga_details_btn a {
-	font-weight: 700;
-	letter-spacing: 2px;
-	border-radius: 4px;
+				&.active {
+					.page-link {
+						background-color: $primary-color;
+						&:hover {
+							background-color: $primary-color-hover;
+						}
+					}
+				}
+
+				&.disabled {
+					.page-link {
+						color: lightgray;
+					}
+				}
+
+				&:not(:first-child) {
+					.page-link {
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}
+		
+	.manga_details_other {
+		background: #fff;
+	}
 }
 
 .manga_review {
+	background: #fff;
+	
 	.review-item {
 		overflow: hidden;
-
+		
 		.avatar {
 			float: left;
 			position: relative;
 
 			&:before {
 				position: absolute;
-				right: -30px;
+				right: -32px;
 				top: 15px;
 				border-top: 15px solid transparent;
-				border-left: 14px solid $background-shadow;
+				border-left: 15px solid $background;
 				content: "";
 				transform: rotate(45deg);
 			}
@@ -56,33 +116,33 @@ img {
 			}
 		}
 
-		.text {
+		.comment {
 			overflow: hidden;
-			background: $background-shadow;
+			background: $background;
 			border-radius: 10px;
 
 			h6 {
 				color: black;
-				font-weight: 700;
+				margin-bottom: 10px;
 		
 				span {
 					color: gray;
-					font-weight: 400;
 				}
 			}
-		
+
 			p {
 				color: gray;
-				line-height: 23px;
 			}
 		}
 	}
 }
 
 .manga_comment {
+	background: #fff;
 	form {
 		textarea {
-			background-color: $background-shadow;
+			background-color: $background;
+			height: 100px;
 			border: none;
 			border-radius: 5px;
 			resize: none;

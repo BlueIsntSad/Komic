@@ -1,43 +1,104 @@
-@import "vaviables";
-
-.manga_slider {
-  height: 550px;
-  display: grid;
-  margin-top: 2rem;
-  position: relative;
-  .manga_slider_item {
+@import "variables";
+.slider {
+  margin-bottom: 0rem;
+  .manga_slider {
     height: 550px;
+    display: grid;
+    margin-top: 2rem;
     position: relative;
 
-    .manga_slider_item_cover {
-      width: 100%;
-      height: 100%;
-    }
-    .manga_slider_item_text {
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      z-index: 1000;
-      width: 50%;
-      padding-left: 4%;
-      padding-bottom: 5%;
-
-      @media only screen and (max-device-width: 720px) {
-        width: 100%;
-        padding-left: 4%;
-        padding-bottom: 7%;
+    .manga_slider_item {
+      height: 550px;
+      position: relative;
+      border-radius: 0.2rem;
+      overflow: hidden;
+      &:hover {
+        .manga_slider_item_content {
+          background-color: rgba($color: $black-color, $alpha: 0.5);
+          .manga_slider_item_text {
+            .description {
+              height: auto;
+              max-height: 40%;
+            }
+          }
+        }
       }
-
+      .manga_slider_item_cover {
+        width: 100%;
+        height: 100%;
       .name {
         font-size: 2.5rem;
         font-weight: 700;
-        color: $white-color;
+        color: $black-color;
         border-radius: 4px;
         transition: all 0.4s;
+        text-shadow: 1 -1 3px $black-color;
       }
-
-      .link {
+      .manga_slider_item_content {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        background-color: rgba($color: $black-color, $alpha: 0.2);
         position: relative;
+        .manga_slider_item_text {
+          position: absolute;
+          bottom: 0px;
+          left: 4%;
+          z-index: 1000;
+          width: 50%;
+          padding-left: 4%;
+          padding-bottom: 5%;
+
+          @media only screen and (max-device-width: 720px) {
+            width: 100%;
+            padding-left: 4%;
+            padding-bottom: 7%;
+          }
+
+          .name {
+            font-size: 2.5rem;
+            line-height: 2.2rem;
+            font-weight: 700;
+            color: $white-color;
+            border-radius: 4px;
+            transition: all 0.4s;
+            margin-bottom: 1rem;
+          }
+
+          .description {
+            height: 0;
+            overflow: hidden;
+            color: $white-color;
+          }
+
+          .link {
+            position: relative;
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            color: $black-gray;
+
+            b {
+              padding: 8px 13px;
+              background-color: $primary-color;
+              border-radius: 5px 0 0 5px;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              text-align: center;
+              white-space: nowrap;
+            }
+
+            i {
+              background-color: $primary-color;
+              border-radius: 0 5px 5px 0;
+              margin-left: 5px;
+              height: 100%;
+              padding: 11.5px 4px;
+            }
+          }
         text-decoration: none;
         font-size: 1rem;
         display: flex;
@@ -48,7 +109,7 @@
 
         span {
           padding: 8px 13px;
-          background-color: $bg-text-cover-1;
+          //background-color: $bg-text-cover-1;
           border-radius: 5px 0 0 5px;
           font-weight: 600;
           letter-spacing: 2px;
@@ -59,7 +120,7 @@
         }
 
         i {
-          background-color: $bg-text-cover-1;
+          //background-color: $bg-text-cover-1;
           border-radius: 0 5px 5px 0;
           margin-left: 5px;
           height: 100%;
@@ -67,8 +128,36 @@
         }
       }
     }
-  }
 
+    .slick-dots {
+      position: absolute;
+      bottom: 0px;
+      right: 50%;
+      transform: translate(50%, -20%);
+
+      list-style: none;
+      display: flex;
+      gap: 5px;
+      font-size: 0px;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+
+      button {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: $background;
+        border: 0px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .slick-active {
+        border: 2px solid $white-color;
+        border-radius: 50%;
+        color: $white-color;
+      }
   .slick-dots {
     position: absolute;
     bottom: 0px;
@@ -87,7 +176,7 @@
       border-radius: 50%;
       width: 10px;
       height: 10px;
-      background-color: $border;
+      //background-color: $border;
       border: 0px;
       outline: none;
       cursor: pointer;
@@ -105,53 +194,69 @@
     top: 50%;
     width: 65px;
     height: 65px;
-    border: 8px solid $bg-page;
-    outline: none;
-    z-index: 5;
+    //border: 8px solid $n-background;
+    outline: hidden;
+    z-index: 1;
     font-size: 0;
-    background-color: $secondary-color;
+    //background-color: $secondary-color;
     cursor: pointer;
 
     @media only screen and (max-device-width: 540px) {
       display: none;
     }
-  }
 
-  .slick-prev {
-    left: 0;
-    transform: translate(-50%, -50%) rotate(45deg);
-
-    &::after {
-      content: "\f053";
-      font-family: FontAwesome;
-      font-weight: normal;
-      font-style: normal;
-      margin: 0px 0px 0px 0px;
-      padding-right: 5px;
-      text-decoration: none;
+    .slick-arrow {
       position: absolute;
       top: 50%;
-      right: 50%;
-      transform: translate(50%, -50%) rotate(315deg);
-      font-size: 25px;
+      width: 65px;
+      height: 65px;
+      border: 8px solid $background;
+      outline: hidden;
+      z-index: 1;
+      font-size: 0;
+      background-color: $yelow-color;
+      cursor: pointer;
+
+      @media only screen and (max-device-width: 540px) {
+        display: none;
+      }
     }
-  }
-  .slick-next {
-    right: 0;
-    transform: translate(50%, -50%) rotate(45deg);
-    &::after {
-      content: "\f054";
-      font-family: FontAwesome;
-      font-weight: normal;
-      font-style: normal;
-      margin: 0px 0px 0px 0px;
-      padding-left: 5px;
-      text-decoration: none;
-      position: absolute;
-      top: 50%;
-      right: 50%;
-      transform: translate(50%, -50%) rotate(315deg);
-      font-size: 25px;
+
+    .slick-prev {
+      left: 0;
+      transform: translate(-50%, -50%) rotate(45deg);
+      &::after {
+        content: "\f053";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-style: normal;
+        margin: 0px 0px 0px 0px;
+        padding-right: 5px;
+        text-decoration: none;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%) rotate(315deg);
+        font-size: 25px;
+      }
+    }
+    .slick-next {
+      right: 0;
+      transform: translate(50%, -50%) rotate(45deg);
+      &::after {
+        content: "\f105";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-style: normal;
+        margin: 0px 0px 0px 0px;
+        padding-left: 5px;
+        text-decoration: none;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%) rotate(315deg);
+        font-size: 25px;
+      }
     }
   }
 }
