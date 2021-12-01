@@ -6,7 +6,7 @@ const faker = require('faker');
 const async = require('async');
 const mongoose = require('mongoose');
 
-let database = process.env.db_URI
+var database = process.env.db_URI
 new Promise((resolve) => {
     console.log('Seeding comment .....');
     mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -26,7 +26,7 @@ new Promise((resolve) => {
     ], (err, results) => { resolve(results) });
 }).then((results) => {
     return new Promise((resolve) => {
-        let comments = [];
+        var comments = [];
         for (i = 0; i < 100; i++) {
             comments.push(
                 {

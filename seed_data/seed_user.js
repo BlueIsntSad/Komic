@@ -5,7 +5,7 @@ const faker = require('faker');
 const async = require('async');
 const mongoose = require('mongoose');
 
-let database = process.env.db_URI
+var database = process.env.db_URI
 new Promise((resolve) => {
     console.log('Seeding user .....');
     mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,7 +17,7 @@ new Promise((resolve) => {
     ], (err, results) => { resolve(results) });
 }).then((results) => {
     return new Promise((resolve) => {
-        /* let avatars = [
+        /* var avatars = [
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_default_aj6y4x.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283168/user/avatar/avatar_1_u17axd.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283169/user/avatar/avatar_2_mxahrf.png',
@@ -25,7 +25,7 @@ new Promise((resolve) => {
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_4_shc2lg.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_5_rq2nyu.png'
         ]; */
-        let bg_covers = [
+        var bg_covers = [
             'https://res.cloudinary.com/hehohe/image/upload/v1638204582/user/background%20cover/1761712_uxppo5.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638204686/user/background%20cover/50151941487_714af20b28_b_me0nmg.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638284107/user/background%20cover/44250e8851e607a8fa7bcaf1d1906bc5_bv1kd4.jpg',
@@ -38,15 +38,15 @@ new Promise((resolve) => {
             'https://res.cloudinary.com/hehohe/image/upload/v1638284108/user/background%20cover/de17e77ee58a403ba423de7172e01121_la24vj.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638284109/user/background%20cover/sunset-pathway-anime-girl-original_nkeuev.jpg'
         ];
-        let users = [];
+        var users = [];
         for (i = 0; i < 6; i++) {
             // histories
-            let histories = [];
+            var histories = [];
             for (j = 0; j < faker.datatype.number(10); j++) {
                 histories.push({manga: faker.random.arrayElement(results[0])._id})
             }
             // collections
-            let collections = [];
+            var collections = [];
             for (j = 0; j < faker.datatype.number(5); j++) {
                 collect = [];
                 for (k = 0; k < faker.datatype.number(10); k++) {

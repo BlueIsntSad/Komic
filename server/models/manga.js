@@ -73,4 +73,9 @@ const mangaSchema = new Schema({
 
 },{ timestamps: true});
 
+mangaSchema.pre('save', function(next) {
+    this.total = this.chapters.length;
+    next(err);
+})
+
 module.exports = mongoose.model('Manga', mangaSchema, "mangas");

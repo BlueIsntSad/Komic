@@ -6,7 +6,7 @@ const faker = require('faker');
 const async = require('async');
 const mongoose = require('mongoose');
 
-let database = process.env.db_URI
+var database = process.env.db_URI
 new Promise((resolve) => {
     console.log('Seeding manga .....');
     mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true});
@@ -22,7 +22,7 @@ new Promise((resolve) => {
     ], (err, results) => { resolve(results) });
 }).then((results) => {
     return new Promise((resolve) => {
-        let covers = [
+        var covers = [
             'https://res.cloudinary.com/hehohe/image/upload/v1638279939/manga/cover/shiro_AKUTAMI-SENSEI_DAY_on_Twitter_jhw4bg.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638279938/manga/cover/KonoSuba_tem_novo_jogo_anunciado_para_final_do_ano_com_hist%C3%B3ria_maluca_e_original_oyvzwu.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638279937/manga/cover/Goku_Poster_by_Koku78_on_DeviantArt_grgt0u.jpg',
@@ -45,7 +45,7 @@ new Promise((resolve) => {
             'https://res.cloudinary.com/hehohe/image/upload/v1638279936/manga/cover/Zankyou_no_Terror_ies61l.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638207497/manga/cover/cover_ua1xge.png'
         ];
-        let japan_titles = [
+        var japan_titles = [
             'シューリンガンの',
             '処、やぶら小路の藪柑子',
             'ピーのポンポコナーの',
@@ -54,20 +54,21 @@ new Promise((resolve) => {
             '来末 風来末。長久',
             'ピーのポンポ'
         ];
-        let status = ['Đã hoàn thành','Đang tiến hành','Drop','Sắp ra mắt'];
-        let mangas = [];
+        var status = ['Đã hoàn thành','Đang tiến hành','Drop','Sắp ra mắt'];
+        var mangas = [];
         for (i = 0; i < 10; i++) {
             // categories
-            let categories = [];
+            var categories = [];
             for (j = 0; j < faker.datatype.number({ 'min': 2, 'max': 5 }); j++) {
                 categories.push(faker.random.arrayElement(results[0])._id)
             }
             // chapters
-            let chapters = [];
-            let totalChap = faker.datatype.number(40);
+            var chapters = [];
+            var totalChap = faker.datatype.number(40);
             for (j = 0; j < totalChap; j++) {
                 chapters.push(faker.random.arrayElement(results[1])._id)
             }
+            console.log('push')
             mangas.push(
                 {
                     cover: faker.random.arrayElement(covers),
@@ -87,8 +88,11 @@ new Promise((resolve) => {
                     totalRate: faker.datatype.number()
                 }
             );
+            console.log(mangas.total)
+            console.log(mangas.finished,"-------------")
         }
         resolve(mangas);
+        console('complete init')
     });
 }).then(async function (mangas) {
     for (var i = 0; i < mangas.length; i++) {
