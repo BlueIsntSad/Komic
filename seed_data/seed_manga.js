@@ -73,7 +73,7 @@ new Promise((resolve) => {
                     cover: faker.random.arrayElement(covers),
                     title: faker.name.title(),
                     title_org: faker.random.arrayElement(japan_titles),
-                    description: faker.lorem.paragraphs(faker.datatype.number({'min': 1, 'max': 3})),
+                    description: faker.lorem.paragraphs(),
                     author: faker.name.findName(),
                     translator: faker.name.findName(),
                     status: faker.random.arrayElement(status),
