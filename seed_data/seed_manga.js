@@ -64,10 +64,10 @@ new Promise((resolve) => {
             }
             // chapters
             let chapters = [];
-            for (j = 0; j < faker.datatype.number(30); j++) {
+            let totalChap = faker.datatype.number(40);
+            for (j = 0; j < totalChap; j++) {
                 chapters.push(faker.random.arrayElement(results[1])._id)
             }
-            let total = faker.datatype.number(100);
             mangas.push(
                 {
                     cover: faker.random.arrayElement(covers),
@@ -81,8 +81,8 @@ new Promise((resolve) => {
                     views: faker.datatype.number(),
                     categories: categories,
                     chapters: chapters,
-                    total: total,
-                    finished: total - faker.datatype.number(total),
+                    total: totalChap,
+                    finished: totalChap + faker.datatype.number(20),
                     rate: faker.datatype.number(5),
                     totalRate: faker.datatype.number()
                 }

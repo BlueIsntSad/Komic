@@ -17,14 +17,14 @@ new Promise((resolve) => {
     ], (err, results) => { resolve(results) });
 }).then((results) => {
     return new Promise((resolve) => {
-        let avatars = [
+        /* let avatars = [
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_default_aj6y4x.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283168/user/avatar/avatar_1_u17axd.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283169/user/avatar/avatar_2_mxahrf.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_3_bw4jt1.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_4_shc2lg.png',
             'https://res.cloudinary.com/hehohe/image/upload/v1638283170/user/avatar/avatar_5_rq2nyu.png'
-        ];
+        ]; */
         let bg_covers = [
             'https://res.cloudinary.com/hehohe/image/upload/v1638204582/user/background%20cover/1761712_uxppo5.jpg',
             'https://res.cloudinary.com/hehohe/image/upload/v1638204686/user/background%20cover/50151941487_714af20b28_b_me0nmg.jpg',
@@ -64,8 +64,8 @@ new Promise((resolve) => {
                     account: faker.internet.userName(),
                     email: faker.internet.email(),
                     password: faker.internet.password(),
-                    avatar: avatars[i],
-                    cover: faker.random.arrayElement(avatars),
+                    avatar: `https://picsum.photos/id/${faker.datatype.number(1000)}/300/300`,//avatars[i],
+                    cover: faker.random.arrayElement(bg_covers),
                     about: faker.lorem.sentences(),
                     adress: `${faker.address.cityName()}, ${faker.address.country()}`,
                     library: {
