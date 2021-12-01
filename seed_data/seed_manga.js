@@ -68,9 +68,7 @@ new Promise((resolve) => {
             for (j = 0; j < totalChap; j++) {
                 chapters.push(faker.random.arrayElement(results[1])._id)
             }
-            console.log('push')
-            mangas.push(
-                {
+            mangas.push({
                     cover: faker.random.arrayElement(covers),
                     title: faker.name.title(),
                     title_org: faker.random.arrayElement(japan_titles),
@@ -86,13 +84,9 @@ new Promise((resolve) => {
                     finished: totalChap + faker.datatype.number(20),
                     rate: faker.datatype.number(5),
                     totalRate: faker.datatype.number()
-                }
-            );
-            console.log(mangas.total)
-            console.log(mangas.finished,"-------------")
+            })
         }
         resolve(mangas);
-        console('complete init')
     });
 }).then(async function (mangas) {
     for (var i = 0; i < mangas.length; i++) {
