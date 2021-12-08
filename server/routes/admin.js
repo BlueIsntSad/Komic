@@ -24,6 +24,10 @@ router.route('/manga/:id')
     .delete(controller.deleteManga)
     .put(controller.editMangaInfo)
 
+// router.get('/:page', controller.getAdminPage)
+router.get('/manga', controller.getAdminPage)
+
+
 //Router for category mangage
 
 router.route('/category/:id')
@@ -34,7 +38,6 @@ router.route('/category')
     .get(controller.getCategoryPage)
     .post(controller.insertCategory)
     
-// router.get('/:page', controller.getAdminPage)
-router.get('/', controller.getAdminPage)
+
 
 module.exports = router

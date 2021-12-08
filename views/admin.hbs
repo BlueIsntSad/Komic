@@ -44,7 +44,7 @@
                 </thead>
                 <tbody class="manga_table_body">
                     {{#each this.mangas}}
-                        <tr>
+                        <tr id="manga_{{this._id}}">
                             <td class="text-center align-middle">
                                 <img class="cover" src="{{this.cover}}" alt="">
                             </td>
@@ -78,15 +78,15 @@
             <nav aria-label="...">
                 <ul class="pagination">
                     <li class="page-item {{disablePage page maxPage false}}">
-                        <a class="page-link" href="/admin/{{pre}}">Previous</a>
+                        <a class="page-link" href="/admin/manga?page={{pre}}">Previous</a>
                     </li>
                     {{#each pages}}
                         <li class="page-item {{activeItem this ../page}}" aria-current="page">
-                            <a class="page-link" href="/admin/{{this}}">{{this}}</a>
+                            <a class="page-link" href="/admin/manga?page={{this}}">{{this}}</a>
                         </li>                
                     {{/each}}
                     <li class="page-item {{disablePage page maxPage true}}">
-                        <a class="page-link" href="/admin/{{next}}">Next</a>
+                        <a class="page-link" href="/admin/manga?page={{next}}">Next</a>
                     </li>
                 </ul>
             </nav>

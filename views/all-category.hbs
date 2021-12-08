@@ -1,0 +1,51 @@
+<!-- Breadcrumb section-->
+{{> breadcrumb path}}
+
+<!-- All category section -->
+<section class="all_category_page">
+    <div class="container category_panel ">
+        <div class="row">
+            {{#each this.categories}}         
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 px-4 mb-5">
+                        <div  class="category_item">
+                            <div href="/manga/categories/{{this.slug}}" class="row shadow-sm">
+                                {{#each this.mangas}}                      
+                                    {{#gt 8 @index}}
+                                       <a href="/manga/{{this.slug}}" class="col-4 manga_item px-0" style=" background-image: url({{this.cover}});" ></a>
+                                    {{/gt}}
+
+                                    {{#eq @index 8}}
+                                       <div class="col-4 px-0 d-flex align-items-center justify-content-center">
+                                           <a href="/manga/categories/{{../this.slug}}"><h5 class="text-center">+{{../this.count}} more...</h5></a>
+                                       </div>
+                                    {{/eq}}
+                                {{/each}}
+                                {{#addManga this.mangas}}
+                                    <div class="col-4 manga_item px-0" style=" background-image: url();" ></div>
+                                {{/addManga}}
+                            </div>
+                            <a href="/manga/categories/{{this.slug}}" class="category_item_title">   
+                                <h4 >{{this.name}}</h4>
+                            </a> 
+                        </div>
+                    </div>
+                
+            {{/each}}   
+        </div>
+    </div>
+   <div class="container mt-3">
+        <ol class="pagination"></ol>
+   </div>
+</section>
+
+
+<script src="/js/pagination.js"></script>
+{{#if currentPage }}
+    <script>
+        pagination({{currentPage}}, {{pages}});
+    </script>    
+{{else}}
+    <script>
+        pagination(1, {{pages}});
+    </script> 
+{{/if}}
