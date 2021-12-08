@@ -18,7 +18,7 @@ router.get('/:manga', controller.getMangaDetails)
 //GET top view 
 router.get("/top/:id", controller.getTopView)
 
-router.get('/:id/:ep', controller.read)
+router.get('/:manga/:chapter', controller.readChapter)
 //GET category
 
 

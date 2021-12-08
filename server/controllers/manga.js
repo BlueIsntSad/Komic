@@ -97,13 +97,13 @@ async function index(req, res) {
 }
 
 async function getMangaDetails(req, res) {
-    var manga_slug = req.params.manga;
-    await Manga.findOne({slug: manga_slug})
+    var mangaSlug = req.params.manga;
+    await Manga.findOne({slug: mangaSlug})
         .lean()
         .populate('categories')
         .populate('chapters')
         .then(async function (mangaDoc) {
-            const comments = await Comment.find({ slug: manga_slug }).
+            const comments = await Comment.find({ slug: mangaSlug }).
                 lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
             res.render('manga-details', {
                 manga: mangaDoc,
@@ -123,18 +123,15 @@ function read(req, res) {
 }
 
 async function readChapter(req, res) {
-    var mangaId = req.params.id;
-    var mangaEp = req.params.ep;
-    console.log(mangaId)
-    console.log(mangaEp)
-    await Manga.findById(mangaEp)
+    var mangaSlug = req.params.manga;
+    var chapterIndex = req.params.chapter;
+    await Manga.findOne({slug:mangaSlug})
         .lean()
         .populate('chapters')
-        .then(async function (EpDoc) {
-            console.log('read')
+        .then(async function (mangaDoc) {
             res.render('manga-reading', {
-                chapter: EpDoc,
-                title: `Lorem ipsum dolor - Chapter ${EpDoc.name} | Komic`,
+                //chapter: EpDoc,
+                title: `${mangaDoc.title} - Chapter X | Komic`,
                 script: 'manga-reading.js'
             })
         })
