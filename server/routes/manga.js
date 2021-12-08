@@ -4,6 +4,11 @@ const router = express.Router();
 // Require controller
 const controller = require('../controllers/manga.js');
 
+// GET all category page
+router.route("/categories")
+    .get(controller.getAllCategoryPage)
+
+// GET manga of category page
 router.route("/categories/:id")
     .get(controller.getCategory)
 

@@ -1,7 +1,7 @@
 @import "variables";
 @import "base";
 
-//@import "home";
+@import "home";
 @import "manga-panel";
 @import "sidebar";
 @import "categories";
@@ -14,7 +14,9 @@
 @import "admin-sidebar";
 @import "category-manage";
 @import "breadcrumb";
-
+@import "all-category";
+@import "paginations";
+@import "toast";
 
 html,
 body {

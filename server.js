@@ -21,12 +21,12 @@ const port = 3000;
 
 // For parsing POST
 app.use(express.json())
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', expressHandlebars({
-    extname:'hbs',
+    extname: 'hbs',
     defaultLayout: 'default',
     layoutsDir: __dirname + '/views/layouts/',
     helpers: {
@@ -34,7 +34,11 @@ app.engine('hbs', expressHandlebars({
         convertDateString: hbsHelper.convertDateString,
         itemChecked: hbsHelper.itemChecked,
         activeItem: hbsHelper.activeItem,
-        disablePage: hbsHelper.disablePage
+        disablePage: hbsHelper.disablePage,
+        addManga: hbsHelper.addManga,
+        BreadCrumb: hbsHelper.BreadCrumb,
+        showToast: hbsHelper.showToast,
+        selectedItem: hbsHelper.selectedItem
     }
 }));
 app.set('view engine', 'hbs');
@@ -57,7 +61,7 @@ app.use('/user', userRoute)
 database = process.env.db_URI
 mongoose.connect(database, {
     useNewUrlParser: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true
 })
     .then((result) => {
         console.log("Database connection successfully!");
@@ -65,6 +69,6 @@ mongoose.connect(database, {
     .catch((err) => console.log(err));
 
 // Listen request
-app.listen(process.env.PORT || port, function(){
-    console.log('Server is running on Port '+ port);
+app.listen(process.env.PORT || port, function () {
+    console.log('Server is running on Port ' + port);
 })

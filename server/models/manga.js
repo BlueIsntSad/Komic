@@ -2,39 +2,52 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mangaSchema = new Schema({
-    cover:{
+    cover: {
         type: String,
         required: true,
     },
+    slug: {
+        type: String,
+        required: true,
+        default: ''
+    },
     title: {
-        type: String, 
-        required: true, 
+        type: String,
+        required: true,
         default: 'No Name'
     },
     title_org: {
-        type: String,  
+        type: String,
         default: ''
     },
     description: {
-        type: String, 
-        required: true, 
+        type: String,
+        required: true,
         default: 'No Type'
     },
     author: {
-        type: String, 
+        type: String,
         default: 'No author',
     },
     translator: {
-        type: String, 
+        type: String,
         default: 'No translator',
     },
     status: {
-        type: String, 
+        type: String,
         default: 'Unknown',
         required: true
     },
     releaseDay: {
-        type: Date, 
+        type: Date,
+        default: Date.now,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
         default: Date.now,
     },
     follower: {
@@ -42,15 +55,15 @@ const mangaSchema = new Schema({
         default: 0
     },
     views: {
-        type: Number, 
+        type: Number,
         default: 0
     },
     categories: {
-        type: [{type: Schema.Types.ObjectId, ref: 'Category'}],
+        type: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
         default: []
     },
     chapters: {
-        type: [{type: Schema.Types.ObjectId, ref: 'Chapter'}],
+        type: [{ type: Schema.Types.ObjectId, ref: 'Chapter' }],
         required: true,
         default: []
     },
@@ -71,6 +84,6 @@ const mangaSchema = new Schema({
         default: 0
     }
 
-},{ timestamps: true});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Manga', mangaSchema, "mangas");
