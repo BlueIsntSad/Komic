@@ -4,6 +4,7 @@ const Chapter = require('../server/models/chapter');
 const Category = require('../server/models/category');
 const faker = require('faker');
 const async = require('async');
+const slugify = require('slugify');
 const mongoose = require('mongoose');
 
 var database = process.env.db_URI
@@ -68,10 +69,12 @@ new Promise((resolve) => {
             for (j = 0; j < totalChap; j++) {
                 chapters.push(faker.random.arrayElement(results[1])._id)
             }
+            var title = faker.name.title();
             mangas.push({
                     cover: faker.random.arrayElement(covers),
-                    title: faker.name.title(),
+                    title: title,
                     title_org: faker.random.arrayElement(japan_titles),
+                    slug: slugify(title, {lowercase: true, strict: true}),
                     description: faker.lorem.paragraphs(),
                     author: faker.name.findName(),
                     translator: faker.name.findName(),
