@@ -20,7 +20,25 @@ async function getUserProfile(req, res) {
                 user: userDoc,
                 title: `${userDoc.name} | Komic`,
                 script: 'profile',
-                history: userDoc.library.history.mangaCollect.slice(0, 3),
+                history: userDoc.library.history.mangaCollect,
+                collections: userDoc.library.collections.collect
+            });
+        })
+        .catch(function (err) { console.log(err) });
+}
+
+async function getUserStorage(req, res) {
+    var userId = req.params.uid;
+    await User.findById(userId)
+        .lean()
+        .populate('library.history.mangaCollect.manga')
+        .populate('library.collections.collect.mangaCollect.manga')
+        .then(userDoc => {
+            res.render('storage', {
+                user: userDoc,
+                title: `${userDoc.name} - Library | Komic`,
+                script: 'profile',
+                history: userDoc.library.history.mangaCollect,
                 collections: userDoc.library.collections.collect
             });
         })
@@ -29,4 +47,4 @@ async function getUserProfile(req, res) {
 
 function add(req, res) {}
 
-module.exports = { index, getUserProfile, add };
+module.exports = { index, getUserProfile, getUserStorage, add };
