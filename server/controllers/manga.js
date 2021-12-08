@@ -2,8 +2,7 @@ const Manga = require('../models/manga');
 const Category = require('../models/category');
 const Chapter = require('../models/chapter');
 const category = require('../models/category');
-
-
+const { User, Comment } = require('../models/user');
 
 async function getTopView(req, res) {
     const param = req.params['id'];
@@ -53,7 +52,6 @@ async function getCategory(req, res) {
 
     category.products = products;
     category.sort = sort
-
     res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
 }
 
@@ -94,25 +92,41 @@ async function getAllCategoryPage(req, res) {
     res.render('all-category', { categories })
 }
 
-function index(req, res) {
-    res.render('manga-details', {
-        title: 'Lorem ipsum dolor | Komic',
-        script: 'manga-details.js'
-    })
-}
-
-async function getMangaDetails(req, res) {
-    var mangaId = req.params.id;
-    await Manga.findById(mangaId)
+async function index(req, res) {
+    await Manga.findOne()
         .lean()
-        .then(mangaDoc => {
+        .populate('categories')
+        .populate('chapters')
+        .then(async function (mangaDoc) {
+            const comments = await Comment.find({ onManga: mangaId }).
+                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
             res.render('manga-details', {
                 manga: mangaDoc,
                 title: `${mangaDoc.title} | Komic`,
-                script: 'manga-details'
+                script: 'manga-details',
+                comments: comments
+            })
+        })
+        .catch(function (err) { console.log(err.message) });
+}
+
+async function getMangaDetails(req, res) {
+    var mangaSlug = req.params.manga;
+    await Manga.findOne({slug: mangaSlug})
+        .lean()
+        .populate('categories')
+        .populate('chapters')
+        .then(async function (mangaDoc) {
+            const comments = await Comment.find({ slug: mangaSlug }).
+                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
+            res.render('manga-details', {
+                manga: mangaDoc,
+                title: `${mangaDoc.title} | Komic`,
+                script: 'manga-details',
+                comments: comments
             });
         })
-        .catch(function (err) { console.log(err) });
+        .catch(function (err) { console.log(err.message) });
 }
 
 function read(req, res) {
@@ -122,35 +136,6 @@ function read(req, res) {
     })
 }
 
-async function add() {
-    try {
-        const manga = new Manga({
-            cover: "https://res.cloudinary.com/hehohe/image/upload/v1638207497/manga/cover/cover_ua1xge.png",
-            title: "Lorem ipsum dolor: Lorem ipsum adipisic",
-            title_org: "リベンジャーズ, Feito sutei naito",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio labore soluta ducimus praesentium, enim necessitatibus quas nihil unde obcaecati dolor totam molestias possimus voluptatem delectus aperiam ea optio, cupiditate sapiente. Ab hic est magnam praesentium fugiat nihil eaque commodi rem tempore illum ut, sequi repellendus quae. Dolores eligendi eos nostrum impedit nobis voluptatum asperiores totam. A iusto numquam laboriosam!",
-            author: "Lorem ipsum",
-            status: "Đang tiến hành",
-            translator: "Dolor sit amet",
-            status: "Đang tiến hành",
-            follower: 4242,
-            views: 1234567,
-            releaseDay: "2021-11-06",
-            total: 20,
-            finished: 25,
-            rate: 3.5,
-            totalRate: 156
-        });
-        const chap = await Chapter.find({}).limit(5);
-        const genre = await Category.find({}).limit(3);
-        manga.chapters = chap;
-        manga.categories = genre;
-        console.log(manga)
-        await manga.save()
-    } catch (err) {
-        console.log(err.message)
-    }
-}
 
 async function getMangaTopviews() {
     const topViews = await Manga.find()
@@ -176,5 +161,22 @@ async function getMangaNewComment() {
     return []
 }
 
-module.exports = { index, getMangaDetails, read, add, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
+
+
+async function readChapter(req, res) {
+    var mangaSlug = req.params.manga;
+    var chapterIndex = req.params.chapter;
+    await Manga.findOne({slug:mangaSlug})
+        .lean()
+        .populate('chapters')
+        .then(async function (mangaDoc) {
+            res.render('manga-reading', {
+                //chapter: EpDoc,
+                title: `${mangaDoc.title} - Chapter X | Komic`,
+                script: 'manga-reading.js'
+            })
+        })
+}
+
+module.exports = { index, getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
 

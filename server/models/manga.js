@@ -17,7 +17,13 @@ const mangaSchema = new Schema({
         default: 'No Name'
     },
     title_org: {
+        type: String,  
+        default: 'Unknown'
+    },
+    slug: {
         type: String,
+        //required: true,
+        unique: true,
         default: ''
     },
     description: {
@@ -85,5 +91,6 @@ const mangaSchema = new Schema({
     }
 
 }, { timestamps: true });
+
 
 module.exports = mongoose.model('Manga', mangaSchema, "mangas");
