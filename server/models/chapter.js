@@ -21,4 +21,8 @@ const chapterSchema = new Schema({
     }
 }, { timestamps: true })
 
+/* chapterSchema.virtual('url').get(function url(){
+    return `/manga/${this.parent().id}/chapter-${this.index}`;
+}) */
+
 module.exports = mongoose.model('Chapter', chapterSchema, 'chapters');
