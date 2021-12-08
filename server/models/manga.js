@@ -15,9 +15,9 @@ const mangaSchema = new Schema({
         type: String,  
         default: 'Unknown'
     },
-    url_param: {
+    slug: {
         type: String,
-        required: true,
+        //required: true,
         unique: true,
         default: ''
     },
