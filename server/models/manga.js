@@ -13,6 +13,12 @@ const mangaSchema = new Schema({
     },
     title_org: {
         type: String,  
+        default: 'Unknown'
+    },
+    url_param: {
+        type: String,
+        required: true,
+        unique: true,
         default: ''
     },
     description: {

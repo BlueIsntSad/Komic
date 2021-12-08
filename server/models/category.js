@@ -16,6 +16,14 @@ const categorySchema = new Schema({
         type: String,
         required: true,
         default: "primary-color"
+    },
+    text_color: {
+        type: String,
+        default: "white"
+    },
+    slug: {
+        type: String,
+        default: "white"
     }
 })
 
