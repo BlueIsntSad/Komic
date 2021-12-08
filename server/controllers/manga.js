@@ -1,6 +1,7 @@
 const Manga = require('../models/manga');
 const Category = require('../models/category');
 const Chapter = require('../models/chapter');
+const category = require('../models/category');
 const { User, Comment } = require('../models/user');
 
 async function getTopView(req, res) {
@@ -12,13 +13,12 @@ async function getTopView(req, res) {
             path: 'categories'
         })
         .lean()
-    console.log(param)
     res.json(topViews)
 }
 
 async function getCategory(req, res) {
     let id = req.params.id;
-    let perPage = 6;
+    let perPage = 12;
     let page = req.query.page || 1;
     let sort = req.query.sort || 'must_views'
     let sortQuery = initSortQuery(sort);
@@ -31,18 +31,15 @@ async function getCategory(req, res) {
         })
         .lean()
 
-    const category = await Category.findById(id).lean();
-
+    const category = await Category.findOne({ slug: id }).lean();
+    console.log(id)
+    if (!category)
+        return res.redirect('/manga/categories')
     let maxPage = await Manga.countDocuments({ "categories": category._id })
     maxPage = Math.ceil(maxPage / perPage);
 
-    const topViews = await Manga.find()
-        .sort({ 'views': -1 })
-        .limit(6)
-        .populate({
-            path: 'categories'
-        })
-        .lean()
+    const topViews = await getMangaTopviews();
+    const newComment = await getMangaNewComment()
 
     const products = await Manga.find({ "categories": category._id })
         .sort(sortQuery)
@@ -54,17 +51,17 @@ async function getCategory(req, res) {
         .lean();
 
     category.products = products;
-
-    res.render('categories', { categories: [category], topViews: topViews, newComment: topViews, news: newManga, pages: maxPage, currentPage: page })
+    category.sort = sort
+    res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
 }
 
 function initSortQuery(sortOption) {
     switch (sortOption) {
         case "must_views": {
-            return { "views": -1 }
+            return { "views": 1 }
         }
         case "least_views": {
-            return { "views": 1 }
+            return { "views": -1 }
         }
         case "namea_z": {
             return { "title": 1 }
@@ -76,6 +73,23 @@ function initSortQuery(sortOption) {
             return { "views": -1 }
         }
     }
+}
+
+async function getAllCategoryPage(req, res) {
+    let perPage = 12;
+    let page = req.query.page || 1;
+    const categories = await Category.find()
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .lean();
+    for await (let category of categories) {
+        const mangas = await Manga.find({ categories: category._id }).limit(9).lean();
+        const count = await Manga.countDocuments({ categories: category._id })
+        category.mangas = mangas,
+            category.count = count - 8;
+    }
+    const toast = { type: "error", title: "Thất bại", message: "Tải thông tin truyện thất bại" }
+    res.render('all-category', { categories })
 }
 
 async function index(req, res) {
@@ -122,6 +136,33 @@ function read(req, res) {
     })
 }
 
+
+async function getMangaTopviews() {
+    const topViews = await Manga.find()
+        .sort({ 'views': -1 })
+        .limit(6)
+        .populate({
+            path: 'categories'
+        })
+        .lean()
+
+    return topViews;
+}
+
+async function getMangaNewComment() {
+    // const newComment = await Comment.find()
+    //     .sort({ "createdAt": -1 })
+    //     .limit(6)
+    //     .select({ "onManga": 1 })
+    //     .lean();
+
+    // const manga = await Manga.find({ "id": { $in: newComment } });
+    // return manga;
+    return []
+}
+
+
+
 async function readChapter(req, res) {
     var mangaSlug = req.params.manga;
     var chapterIndex = req.params.chapter;
@@ -137,5 +178,5 @@ async function readChapter(req, res) {
         })
 }
 
-module.exports = { index, getMangaDetails, read, readChapter, getTopView, getCategory };
+module.exports = { index, getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
 

@@ -1,4 +1,4 @@
-<div class="wrap_conainer container-fluid" >
+<div class="wrap_conainer container-fluid edit_manga_page" >
     {{> admin-sidebar curentPage }}
     <div class="main_content insert_main_container container-fluid ">
         <div class="header_content row">
@@ -29,14 +29,15 @@
                         class="insert-tabs custom_tab conainer-fuild"
                         method="POST"
                         enctype="multipart/form-data"
-                        action="/admin/manga/insert"    
+                        action="/admin/manga/insert"  
+                        onsubmit="submitInsertNewManga(event)"  
                     >
                         <div class="tab-header d-flex justify-content-between mb-1">
                             <h4><strong>Thông tin truyện mới</strong></h4>
                             <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                         <nav>
-                            <div class="nav nav-tabs custom_nav_tab" id="nav-tab" role="tablist">
+                            <div class="nav nav-tabs custom_nav_tabs" id="nav-tab" role="tablist">
                                 <button 
                                     class="nav-link custom_nav_link active" 
                                     id="nav-info-tab" 
@@ -80,6 +81,10 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"></span>
+                                            <input type="text" class="form-control info_input" placeholder="Tên truyện gốc" name="title_org" value="{{manga.title_org}}"> 
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"></span>
                                             <input type="text" class="form-control info_input" placeholder="Tác giả" name="author" required>    
                                         </div>
                                         <div class="input-group mb-3">
@@ -96,11 +101,14 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"></span>
-                                            <input type="date" class="form-control info_input" placeholder="Ngày xuất bản" name="releaseDay" required> 
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text"></span>
-                                            <input type="date" class="form-control info_input" placeholder="Ngày tạo" name="createdAt" required>  
+                                            <input 
+                                                type="date" 
+                                                class="form-control info_input" 
+                                                placeholder="Ngày xuất bản" 
+                                                name="releaseDay" 
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Ngày xuất bản"
+                                                required> 
+
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"></span>
@@ -125,7 +133,7 @@
                                                                 type="checkbox" 
                                                                 class="input_category" 
                                                                 id="category_{{this._id}}" 
-                                                                name="category" 
+                                                                name="categories" 
                                                                 value="{{this._id}}"
                                                                 title="{{this.name}}"                                                                
                                                             >
@@ -146,7 +154,7 @@
                             
                             <div class="tab-pane fade chapters_panel" id="nav-chapters" role="tabpanel" aria-labelledby="nav-chapters-tab">
                                 <div class="row">
-                                    <div class="col-sm-4 col-md-6 col-lg-6">
+                                    <div class="col-12">
                                         <div class="manga_title">
                                             <h4>
                                                 <strong>
@@ -165,19 +173,20 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-sm-8 col-md-6 col-lg-6">
-                                        <div class="preview_section_image">
-                                            <img src="" alt="" id="preview_section_image" class="preview_section_image">
-                                        </div>     
-                                    </div>
-                                </div>
-                            
+                                </div>                            
                             </div>
                         </div>
                     </form>
                 </div>
             </div>  
         </div>
+    </div>
+
+    <div style="max-width: 400px; width: 400px;  position: fixed;" id="move" class="d-none">
+        <img src="" style="max-width: 100%; width: 100%;  border: 1px solid #000;"></img>  
+    </div>
+    <div class="spinner-border text-secondary d-none" style="position: fixed;" role="status" id="loading_cursor">
+        <span class="visually-hidden">Loading...</span>
     </div>
 </div>
 
@@ -195,7 +204,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-        <button type="button" class="btn btn-primary" onclick="insertNewChap()">Lưu</button>
+        <button type="button" class="btn btn-primary" onclick="insertNewChap()">Thêm</button>
       </div>
     </div>
   </div>
@@ -203,20 +212,20 @@
 <script src="/js/insert-manga.js"></script>
 
 <!--Template section-->
-<li id="template_section" class="caret d-none" onclick="showImage('{{_id}}', '{{url}}')">
+<li id="template_section" class="insert_section caret col-6 col-sm-4 col-md-3 col-lg-2 d-none">
     <div class="caret_title">
-        <div class="section_care_title" onclick="showPreviewImage(event)"> Section ${i+1}</div>   
+        <div class="section_care_title" onmouseenter="mouseEnterInsert(event)" onmousemove="mouseMoveInsert(event)"> Trang ${i+1}</div>   
         <button 
             type="button"
             onclick="deleteInsertSection(event)" 
-            class="icon_button mx-1 delete_button"
+            class="icon_button mx-2 delete_button"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Xoá đoạn"
         >
             <i class="fas fa-trash-alt"></i>
         </button>
         <label
             for="chapter_section"           
-            class="icon_button mx-1 edit_button"
+            class="icon_button mx-2 edit_button"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Chỉnh sửa đoạn đoạn"
         >
             <i class="fas fa-pencil-alt"></i>
@@ -226,14 +235,14 @@
 </li>
 
 <!--Template chapter-->
-<li class="caret d-none" id="template_chapter">
+<li class="caret d-none chapter" id="template_insert_chapter">
     <div class="caret_title">
         <div class="chapter_title">Chap </div>
         <input class="i_chapter_title d-none" type="text" name="" value="" />
         <input class="i_chapter d-none" type="text" name="chapter" value="">
         <button 
             type="button"
-            class="icon_button mx-1 delete_button" 
+            class="icon_button mx-2 delete_button" 
             onclick="deleteChap(event)"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Xoá chương"
         >
@@ -241,14 +250,14 @@
         </button>
         <button 
             type="button"
-            class="icon_button mx-1" 
+            class="icon_button mx-2 " 
             onclick="addInsertSection(event)"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Thêm đoạn"
         >
             <i class="fas fa-plus"></i>
         </button>
     </div> 
-    <ul class="nested section_list">
+    <ul class="nested section_list row">
         
                                                     
     </ul>

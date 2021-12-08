@@ -1,9 +1,11 @@
 const Category = require("../models/category");
-const Manga = require("../models/manga")
+const Manga = require("../models/manga");
+const mangaController = require("./manga")
+// const Comment = require("../models/")
 
-async function index(req, res, next){
+async function index(req, res, next) {
     const manga = await Manga.find()
-        .sort({'createdAt' : -1})
+        .sort({ 'createdAt': -1 })
         .limit(5)
         .populate({
             path: 'categories'
@@ -11,9 +13,9 @@ async function index(req, res, next){
         .lean()
 
     const categories = await Category.find().limit(3).lean();
-    for(let i =0; i< categories.length; i++){
-        const products = await Manga.find({"categories": categories[i]._id})
-            .sort({"views": -1})
+    for (let i = 0; i < categories.length; i++) {
+        const products = await Manga.find({ "categories": categories[i]._id })
+            .sort({ "views": -1 })
             .limit(9)
             .populate({
                 path: 'categories'
@@ -22,15 +24,9 @@ async function index(req, res, next){
         categories[i].products = products;
     }
 
-    const topViews = await Manga.find()
-        .sort({'views' : -1})
-        .limit(6)
-        .populate({
-            path: 'categories'
-        })
-        .lean()
-
-    res.render('home', {categories: categories, topViews: topViews, newComment: [], news: manga})
+    const topViews = await mangaController.getMangaTopviews();
+    const newComment = await mangaController.getMangaNewComment();
+    res.render('home', { categories: categories, topViews: topViews, newComment: newComment, news: manga })
 }
 
-module.exports.index = index
+module.exports.index = index;

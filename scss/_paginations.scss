@@ -1,0 +1,24 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+
+  .pagination_item {
+    border: 0px;
+    color: $black-color;
+    font-weight: 600;
+    border-radius: 50%;
+    margin: 0 3px;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .active {
+    border: 1px solid $black-color;
+  }
+}

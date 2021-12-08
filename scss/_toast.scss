@@ -1,0 +1,90 @@
+.toast-container {
+  z-index: 10000;
+  .toast.hide {
+    display: none;
+  }
+  .toast.show {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    width: 400px;
+    .success {
+      color: $green-color;
+      background-color: rgba($color: $green-color, $alpha: 0.2);
+      .fa-question-circle,
+      .fa-exclamation-circle,
+      .fa-times-circle {
+        display: none;
+      }
+
+      .fa-check-circle {
+        display: block;
+      }
+    }
+
+    .info {
+      color: $green-color;
+      background-color: rgba($color: $green-color, $alpha: 0.2);
+      .fa-check-circle,
+      .fa-exclamation-circle,
+      .fa-times-circle {
+        display: none;
+      }
+      .fa-question-circle {
+        display: block;
+      }
+    }
+    
+    .warning {
+      color: $yelow-color;
+      background-color: rgba($color: $yelow-color, $alpha: 0.2);
+      .fa-check-circle,
+      .fa-question-circle,
+      .fa-times-circle {
+        display: none;
+      }
+      .fa-exclamation-circle {
+        display: block;
+      }
+
+    }
+    .error {
+      color: $red-color;
+      background-color: rgba($color: $red-color, $alpha: 0.2);
+      .fa-question-circle,
+      .fa-exclamation-circle,
+      .fa-check-circle {
+        display: none;
+      }
+      .fa-times-circle{
+        display: block;
+      }
+    }
+    .toast-header {
+      padding: 5px;
+      border: 0px;
+      border-radius: 0px;
+
+      i {
+        font-size: 1.7rem;
+      }
+    }
+  }
+  .toast-body {
+    padding: 6px;
+    width: calc(100% - 38px);
+    background-color: $white-color;
+  }
+  .toast-footer {
+    display: flex;
+    background-color: $white-color;
+    flex-direction: column;
+    justify-content: center;
+    .btn-close {
+      margin-right: 0.5rem;
+    }
+  }
+}
