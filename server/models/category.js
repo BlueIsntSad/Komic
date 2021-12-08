@@ -20,10 +20,6 @@ const categorySchema = new Schema({
     text_color: {
         type: String,
         default: "white"
-    },
-    slug: {
-        type: String,
-        default: "white"
     }
 })
 
