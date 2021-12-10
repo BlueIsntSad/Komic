@@ -39,7 +39,9 @@
         {{> footer}}
         {{> loading}}
 
-        <script src="/js/{{script}}.js"></script>
+        {{#each script}}
+        <script src="/js/{{this}}.js"></script>
+        {{/each}}
     </body>
     
 </html>

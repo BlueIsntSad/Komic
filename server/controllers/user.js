@@ -19,7 +19,7 @@ async function getUserProfile(req, res) {
             res.render('profile', {
                 user: userDoc,
                 title: `${userDoc.name} | Komic`,
-                script: 'profile',
+                script: ['profile'],
                 history: userDoc.library.history.mangaCollect,
                 collections: userDoc.library.collections.collect
             });
@@ -37,7 +37,7 @@ async function getUserStorage(req, res) {
             res.render('storage', {
                 user: userDoc,
                 title: `${userDoc.name} - Library | Komic`,
-                script: 'profile',
+                script: ['profile'],
                 history: userDoc.library.history.mangaCollect,
                 collections: userDoc.library.collections.collect
             });

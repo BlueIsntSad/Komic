@@ -108,38 +108,4 @@ $(document).ready(function () {
             $(this).css("border-bottom-right-radius", "10px");
         }
     }); */
-
-    /* ---------- Review comment show ---------- */
-    var limitPerStack = 5;
-    $(".manga_review .row .review-item:gt(" + (limitPerStack - 1) + ")").hide();
-
-    var numberOfComments = $(".manga_review .row .review-item").length;
-
-    if (numberOfComments <= limitPerStack) {
-        var currentLastComment = numberOfComments
-        $(".review-showmore .showmore a").addClass("disabled")
-    } else {
-        var currentLastComment = limitPerStack
-    }
-
-    $(".review-showmore .text-end span").html(currentLastComment)
-
-    $(".review-showmore .showmore a").on("click", function () {
-        if (currentLastComment + limitPerStack <= numberOfComments) { currentLastComment = currentLastComment + limitPerStack; }
-        else { currentLastComment = numberOfComments; }
-
-        for (var i = currentLastComment - limitPerPage; i < currentLastComment; i++) {
-            $(".manga_review .row .review-item:eq(" + i + ")").show();
-        }
-        $(".review-showmore .text-end span").html(currentLastComment)
-
-        if (currentLastComment >= numberOfComments) {
-            $(".review-showmore .showmore a").addClass("disabled")
-        }
-    })
-    /* var totalPages = Math.round(numberOfChapters / limitPerPage);
-    $("#chapterPage .page-item.prev").after("<li class='page-item number active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>")
-    for (var i = 2; i <= totalPages; i++) {
-        $("#chapterPage .page-item.next").before("<li class='page-item number'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>")
-    } */
 });
