@@ -117,15 +117,25 @@ $(document).ready(function () {
 
     if (numberOfComments <= limitPerStack) {
         var currentLastComment = numberOfComments
-    } else { var currentLastComment = limitPerStack }
+        $(".review-showmore .showmore a").addClass("disabled")
+    } else {
+        var currentLastComment = limitPerStack
+    }
+
     $(".review-showmore .text-end span").html(currentLastComment)
 
     $(".review-showmore .showmore a").on("click", function () {
-        currentLastComment = currentLastComment + limitPerStack;
+        if (currentLastComment + limitPerStack <= numberOfComments) { currentLastComment = currentLastComment + limitPerStack; }
+        else { currentLastComment = numberOfComments; }
+
         for (var i = currentLastComment - limitPerPage; i < currentLastComment; i++) {
             $(".manga_review .row .review-item:eq(" + i + ")").show();
         }
         $(".review-showmore .text-end span").html(currentLastComment)
+
+        if (currentLastComment >= numberOfComments) {
+            $(".review-showmore .showmore a").addClass("disabled")
+        }
     })
     /* var totalPages = Math.round(numberOfChapters / limitPerPage);
     $("#chapterPage .page-item.prev").after("<li class='page-item number active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>")
