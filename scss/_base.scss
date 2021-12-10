@@ -38,6 +38,11 @@ a:focus {
   color: white;
 }
 
+a.disabled {
+  color: gray !important;
+  pointer-events: none;
+}
+
 /*---------------------
   Helper CSS
 -----------------------*/
