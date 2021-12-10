@@ -8,53 +8,43 @@
       <div class="row p-4 g-3">
         <div class="col text-center">
           <div class="title chapter">
-            <h2><b>Lorem ipsum dolor: Lorem ipsum - Chapter 1</b></h2>
-            <p><i>[Cập nhật lúc: 09:35 05/08/2020]</i></p>
+            <h1>{{chapter._id}}</h1>
+            <h2 class='mb-3'><b>Chapter {{chapter.index}} - {{chapter.name}}</b></h2>
+            <p><i>[Cập nhật lúc: {{moment chapter.updatedAt format="HH:mm DD/MM/YYYY"}}]</i></p>
           </div>
           <div class="chapter_control pb-4">
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-dark mx-2">Prev</button>
+              <button type="button prev" class="btn btn-dark mx-2">Prev</button>
               <select class="selectpicker mx-2 height-fix">
-                <option>Chapter 1</option>
-                <option>Chapter 2</option>
-                <option>Chapter 3</option>
-                <option>Chapter 4</option>
-                <option>Chapter 1</option>
-                <option>Chapter 2</option>
-                <option>Chapter 3</option>
-                <option>Chapter 4</option>
+                {{#each manga.chapters}}
+                {{#eq index ../chapter.index}}
+                <option selected value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
+                {{else}}
+                <option value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
+                {{/eq}}
+                {{/each}}
               </select>
-              <button type="button" class="btn btn-warning mx-2">Next</button>
+              <button type="button next" class="btn btn-warning mx-2">Next</button>
             </div>
           </div>
           <div class="chapter_content pb-4">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
-            <img src="/img/manga-page.jpg" alt="page_1" class="img-fluid">
+            {{#each chapter.sections}}
+            <img src="{{url}}" alt="page {{plus @index 1}}" class="img-fluid">
+            {{/each}}
           </div>
           <div class="chapter_control pb-4">
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-dark mx-2">Prev</button>
+              <button type="button prev" class="btn btn-dark mx-2">Prev</button>
               <select class="selectpicker mx-2 height-fix">
-                <option>Chapter 1</option>
-                <option>Chapter 2</option>
-                <option>Chapter 3</option>
-                <option>Chapter 4</option>
-                <option>Chapter 1</option>
-                <option>Chapter 2</option>
-                <option>Chapter 3</option>
-                <option>Chapter 4</option>
+                {{#each manga.chapters}}
+                {{#eq index ../chapter.index}}
+                <option selected value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
+                {{else}}
+                <option value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
+                {{/eq}}
+                {{/each}}
               </select>
-              <button type="button" class="btn btn-warning mx-2">Next</button>
+              <button type="button next" class="btn btn-warning mx-2">Next</button>
             </div>
           </div>
         </div>
