@@ -17,9 +17,6 @@ router.get('/', function(req, res) {
     res.redirect('/');
 })
 
-// GET manga reading page
-router.get('/ep', controller.read)
-
 // GET specific manga details page
 router.route('/:manga')
     .get(controller.getMangaDetails)
