@@ -92,30 +92,12 @@ async function getAllCategoryPage(req, res) {
     res.render('all-category', { categories })
 }
 
-async function index(req, res) {
-    await Manga.findOne()
-        .lean()
-        .populate('categories')
-        .populate('chapters')
-        .then(async function (mangaDoc) {
-            const comments = await Comment.find({ onManga: mangaId }).
-                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
-            res.render('manga-details', {
-                manga: mangaDoc,
-                title: `${mangaDoc.title} | Komic`,
-                script: 'manga-details',
-                comments: comments
-            })
-        })
-        .catch(function (err) { console.log(err.message) });
-}
-
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
     await Manga.findOne({slug: mangaSlug})
         .lean()
         .populate('categories')
-        .populate('chapters')
+        .populate('chapters','index name views updatedAt')
         .then(async function (mangaDoc) {
             const comments = await Comment.find({ slug: mangaSlug }).
                 lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
@@ -178,5 +160,5 @@ async function readChapter(req, res) {
         })
 }
 
-module.exports = { index, getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
+module.exports = { getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
 
