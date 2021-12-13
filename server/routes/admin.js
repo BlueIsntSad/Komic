@@ -26,8 +26,7 @@ router.route('/manga/:id')
 
 // router.get('/:page', controller.getAdminPage)
 router.get('/manga', controller.getAdminPage)
-
-
+router.get('/dashboard', controller.dasboard)
 //Router for category mangage
 
 router.route('/category/:id')
@@ -37,7 +36,7 @@ router.route('/category/:id')
 router.route('/category')
     .get(controller.getCategoryPage)
     .post(controller.insertCategory)
-    
 
+router.get('/', controller.dasboard)
 
 module.exports = router

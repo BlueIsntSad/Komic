@@ -71,7 +71,12 @@
                                     </a>
                                     <div class="manga_categories">
                                         {{#each this.categories}}
-                                            <a href="/manga/categories/{{this.slug}}" class="manga_category_item">
+                                            <a 
+                                                href="/manga/categories/{{this.slug}}" 
+                                                class="manga_category_item" 
+                                                style="background-color: {{this.color}}; color: {{this.text_color}}"
+
+                                            >
                                                 {{this.name}}
                                             </a>
                                         {{/each}} 

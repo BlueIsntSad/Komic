@@ -3,11 +3,28 @@
     .categories_table_body {
       .category_input_field {
         text-align: center;
-        color: $black-color;
+        font-weight: 600;
         &:disabled {
           border: 0;
           background-color: transparent;
         }
+      }
+
+      .input_preview_color {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        outline: none;
+        border: none;
+      }
+
+      .input_color {
+        opacity: 0;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border: none;
       }
 
       .icon_button {

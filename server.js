@@ -38,7 +38,8 @@ app.engine('hbs', expressHandlebars({
         addManga: hbsHelper.addManga,
         BreadCrumb: hbsHelper.BreadCrumb,
         showToast: hbsHelper.showToast,
-        selectedItem: hbsHelper.selectedItem
+        selectedItem: hbsHelper.selectedItem,
+        initScripData: hbsHelper.initScripData
     }
 }));
 app.set('view engine', 'hbs');

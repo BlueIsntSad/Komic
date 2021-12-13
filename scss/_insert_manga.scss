@@ -111,6 +111,13 @@
               margin-right: 10px;
             }
           }
+          .chapters {
+            list-style: none;
+            .chapter {
+              list-style: none;
+            }
+          }
+
         }
         .preview_section_image {
           width: 100%;
