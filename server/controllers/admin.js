@@ -7,6 +7,7 @@ const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
 const slugify = require('slugify');
 const { index } = require("./manga");
+const { User, Comment } = require("../models/user");
 require('dotenv').config();
 
 //Config cloundinary
@@ -20,12 +21,12 @@ cloudinary.config({
 
 //Render admin homepage
 async function getAdminPage(req, res) {
-
+    let searchQuery = req.query.search ? { title: req.query.search } : {};
     let perPage = 10;
     let page = req.query.page || 1;
-    let maxPage = await Manga.countDocuments({})
+    let maxPage = await Manga.countDocuments(searchQuery);
     maxPage = Math.ceil(maxPage / perPage);
-    const mangas = await getAllManga(perPage, page);
+    const mangas = await getAllManga(searchQuery, perPage, page);
 
     let pages = [];
     for (let i = 1; i <= maxPage; i++) {
@@ -211,10 +212,17 @@ async function insertChapter(req, res, next) {
                 if (chapterIds.length <= 0)
                     return res.json({ success: false, message: "Thêm không thành công!" })
 
+                const manga = await Manga.findById(mangaId);
+                var index = manga.chapters.indexOf(fields.before);
+                if (index == -1)
+                    index = manga.chapters.length;
+                manga.chapters.splice(index, 0, ...chapterIds);
+
                 const updateQuery = {
-                    $push: { chapters: chapterIds },
+                    chapters: manga.chapters,
                     $inc: { finished: chapterIds.length }
                 }
+
                 const result = await Manga.findByIdAndUpdate(mangaId, updateQuery, { new: true })
                     .lean()
                     .populate({
@@ -228,7 +236,7 @@ async function insertChapter(req, res, next) {
                         }
                     })
 
-                return res.json({ success: true, message: "Thêm thành công!", newManga: result });
+                return res.json({ success: true, message: "Thêm thành công!", newManga: result, start: index, end: index + chapterIds.length });
             } else {
                 return res.json({ success: false, message: "Thêm không thành công!" })
             }
@@ -372,7 +380,9 @@ async function insertCategory(req, res) {
         const newCategory = new Category({
             name: info.name,
             description: info.description,
-            slug: slug
+            slug: slug,
+            color: info.color,
+            text_color: info.text_color
         });
 
         const result = await newCategory.save();
@@ -416,7 +426,9 @@ async function editCategory(req, res) {
         const id = req.params['id'];
         const newInfo = {
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            color: req.body.color,
+            text_color: req.body.text_color
         }
         const result = await Category.findByIdAndUpdate(id, newInfo, { new: true });
         if (result)
@@ -446,6 +458,73 @@ async function deleteCategory(req, res) {
     }
 }
 
+async function dasboard(req, res) {
+    try {
+        const categories = await Category.find();
+        const categoriesData = await Promise.all(categories.map(async (category) => {
+            const mangas = await Manga.find({ categories: category._id });
+            var totalViews = 0;
+            mangas.forEach(manga => {
+                totalViews += manga.views;
+            })
+            return { ...category._doc, mangas: mangas.length, totalViews: totalViews }
+        }))
+
+        const totalViews = await Manga.aggregate(
+            [{
+                $group: {
+                    _id: "total",
+                    totalViews: { $sum: "$views" },
+                    totalMangas: { $sum: 1 }
+                }
+            }]
+        )
+        const totalUsers = await User.countDocuments();
+        const totalComments = await Comment.countDocuments();
+
+        const mangaStatus = await Manga.aggregate(
+            [{
+                $group: {
+                    _id: "$status",
+                    count: { $sum: 1 }
+                }
+            }]
+        )
+
+        const mangaCreated = await Manga.aggregate(
+            [{
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                    count: { $sum: 1 }
+                }
+            }]
+        )
+
+        mangaCreated.sort((item1, item2) => {
+            var d1 = Date.parse(item1._id);
+            var d2 = Date.parse(item2._id);
+            return d1 - d2;
+        })
+
+        const dashboardData = {
+            categories: categoriesData,
+            mangaStatus: mangaStatus,
+            mangaCreated: mangaCreated,
+            totalViews: totalViews[0].totalViews,
+            totalUsers: totalUsers,
+            totalComments: totalComments,
+            totalMangas: totalViews[0].totalMangas
+        }
+
+        const dashboardJSONData = JSON.stringify(dashboardData);
+        res.render('dashboard', { dashboardData: dashboardData, curentPage: "dashboard" })
+
+    } catch (error) {
+        console.log(error);
+        res.redirect('/admin/dashboard')
+    }
+}
+
 
 module.exports = {
     getAdminPage,
@@ -462,16 +541,17 @@ module.exports = {
     editMangaInfo,
     insertCategory,
     editCategory,
-    deleteCategory
+    deleteCategory,
+    dasboard
 }
 
 
 //--------------ADMIN SERVICE------------------//
 
 //Get all manga
-async function getAllManga(perPage, page) {
+async function getAllManga(query, perPage, page) {
     const mangas = await Manga
-        .find()
+        .find(query)
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .populate({
@@ -523,7 +603,7 @@ function checkManga(manga, files, isNew) {
         return { valid: false, message: `Ngày xuất bản không hợp lệ!` };
     else if (isNaN(parseInt(manga.total)) || parseInt(manga.total) < 0)
         return { valid: false, message: `Số chương không hợp lệ!` };
-    else if (!files.coverImage && isNew)
+    else if (!files.coverImage.size && isNew)
         return { valid: false, message: "Ảnh bìa không dược để trống!" };
     else
         return { valid: true, message: "" }
@@ -555,7 +635,7 @@ async function saveNewManga(fields, files) {
             slug: slug
         })
 
-        if (files.coverImage) {
+        if (files.coverImage.size) {
             const result = await uploadImage(files.coverImage.filepath);
             if (!result.error)
                 newManga.cover = result.url;
@@ -598,7 +678,8 @@ async function updateMangaInfo(mangaId, fields, files) {
             categories: fields.categories,
             total: fields.total
         }
-        if (files.coverImage) {
+
+        if (files.coverImage.size) {
             const result = await uploadImage(files.coverImage.filepath);
             if (!result.error)
                 newInfo.cover = result.url;
@@ -632,6 +713,7 @@ async function addChapters(chapterList, fields, files) {
 async function addChapter(name, sections) {
     const newChapter = new Chapter({
         name: name,
+        index: name
     })
     var sectionsList = sections ? [].concat(sections) : []
 

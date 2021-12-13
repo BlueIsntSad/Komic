@@ -57,6 +57,13 @@ function showToast(type) {
         return "show"
 }
 
+function initScripData(name, data) {
+    return ` 
+    <script>
+        ${name}(${JSON.stringify(data)})
+    </script>`
+}
+
 module.exports = {
     convertDateString,
     itemChecked,
@@ -65,5 +72,6 @@ module.exports = {
     addManga,
     BreadCrumb,
     showToast,
-    selectedItem
+    selectedItem,
+    initScripData
 }

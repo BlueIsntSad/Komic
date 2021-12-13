@@ -101,10 +101,14 @@ function addRow(category) {
     row.attr('categoryId', `${category._id}`);
     row.children('form').attr('action', `/admin/category/${category._id}`);
     row.find('input.input_name').attr('id', `category_name_${this._id}`);
+    row.find('input.input_name').css("background-color", category.color);
+    row.find('input.input_name').css("color", category.text_color);
     row.find('input.input_name').val(category.name);
     row.find('input.input_name').attr('defaultValue', category.name);
     row.find('input.input_category').val(category.description);
     row.find('input.input_category').attr('defaultValue', category.description);
+    row.find('div.background_color').css("background-color", category.color)
+    row.find('div.text_color').css("background-color", category.text_color)
     row.find('button.edit_button').attr("onclick", `editRow('${category._id}')`);
     row.find('button.delete_button').attr("onclick", `deleteCategory('${category._id}')`);
     row.find('button.cancel_button').attr("onclick", `cancelEditRow('${category._id}')`);
@@ -115,4 +119,14 @@ function addRow(category) {
 
 function deleteRow(id) {
     $(`category_row_${id}`).remove();
+}
+
+function changePreview(event) {
+    $(event.target).parent().css("background-color", $(event.target).val());
+    console.log($(event.target).closest("tr").find('input.input_name'));
+    console.log($(event.target).attr('name'))
+    if ($(event.target).attr('name') == "color")
+        $(event.target).closest("tr").find('input.input_name').css('background-color', $(event.target).val());
+    else
+        $(event.target).closest("tr").find('input.input_name').css('color', $(event.target).val());
 }

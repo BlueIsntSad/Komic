@@ -41,6 +41,7 @@
                                         type="button" role="tab" 
                                         aria-controls="nav-info" 
                                         aria-selected="true"
+                                        onclick="showSaveInfoButton()"
                                     >
                                         Thông tin cơ bản
                                     </button>
@@ -53,6 +54,7 @@
                                         role="tab" 
                                         aria-controls="nav-chapters" 
                                         aria-selected="false"
+                                        onclick="hideSaveInfoButton()"
                                     >
                                         Nội dung
                                     </button>
@@ -98,9 +100,10 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"></span>
                                             <select type="text" class="form-select info_input" placeholder="Trạng thái" name="status" value="{{manga.status}}" required>
-                                                <option value="finished">Hoàn thành</option>
-                                                <option value="notFinished">Chưa hoàn thành</option>
-                                                <option value="drop">Drop</option>
+                                                <option value="Sắp ra mắt">Sắp ra mắt</option>
+                                                <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                                <option value="Đang tiến hành">Đang tiến hành</option>
+                                                <option value="Drop">Drop</option>
                                             </select>
                                         </div>
                                         <div class="input-group mb-3">
@@ -172,7 +175,13 @@
                                                     Danh sách chương
                                                 </strong>                                       
                                             </h4>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert_chapter_modal">
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#insert_chapter_modal"
+                                                onclick="insertLast(event)"    
+                                            >
                                                 <i class="fas fa-plus"></i>
                                                 Thêm chương mới    
                                             </button>
@@ -181,10 +190,20 @@
                                             {{#with manga}}
                                                 <ul class="chapters" id="chapter_list">                                        
                                                     {{#each chapters}}
-                                                        <li class="caret chapter" id="{{_id}}">
+                                                        <li class="caret chapter chapter_{{@index}}" id="{{_id}}">
                                                             <div class="caret_title caret_chapter_title">
+                                                                <button
+                                                                    class="icon_button insert_chapter me-3"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#insert_chapter_modal"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Chèn thêm chương vào bên trên"
+                                                                    onclick="insertChapterBefore('{{@index}}', '{{_id}}')"
+                                                                >
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
                                                                 <div class="me-3" onclick="expand(event)">
-                                                                    <strong>Chương {{@index}}: {{this.name}}</strong> 
+
+                                                                    <strong>{{this.name}}</strong> 
                                                                 </div>
                                                                 <button 
                                                                     type="button"
@@ -281,11 +300,6 @@
                                             {{/with}}
                                         </div>
                                     </div>
-                                    {{!-- <div class="col-sm-8 col-md-6 col-lg-6">
-                                        <div class="preview_section_image">
-                                            <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="" id="preview_section_image" class="preview_section_image">
-                                        </div>     
-                                    </div> --}}
                                 </div>
                             
                             </div>
@@ -296,48 +310,13 @@
         </div>
     </div>
 
-    {{!-- <div class="modal loading_modal" id="loading_modal" style="z-index: 1000">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-body d-flex justify-content-center align-items-center"> 
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>              
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    <div style="max-width: 400px; width: 400px;  position: fixed;" id="move" class="d-none">
+    <div style="max-width: 400px; width: 400px;  position: fixed; z-index: 10000 " id="move" class="d-none">
         <img src="" style="max-width: 100%; width: 100%;  border: 1px solid #000;"></img>  
     </div>
     <div class="spinner-border text-secondary d-none" style="position: fixed;" role="status" id="loading_cursor">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
-
-
-{{!-- <!-- Modal -->
-<div class="modal fade" id="insert_chapter_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thêm chương mới</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div action="#" class="insert_chapter_form" id="insert_chapter_form">
-            <input type="text" class="input_chapter_name" name="chapter_name" id="input_chapter_name" placeholder="Tên chương">
-            <input type="file" multiple class="input_section_files" name="section_list" id="input_section_files">
-        </div>    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-        <button type="button" class="btn btn-primary">Lưu</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
 
 <!-- Modal -->
 <div class="modal fade" id="insert_chapter_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -359,6 +338,8 @@
             onsubmit="submitFormInsertChapter(event)"
         >
             <input type="submit" value="" id="btn_submit_insert_chap">
+            <input type="number" value="" name="index" id="input_chapter_index" class="input_chapter_index d-none">
+            <input type="string" value="" name="before" id="input_chapter_before" class="input_chapter_before d-none">
             <ul class="insert_chapter_list" id="form_insert_chapter_list">
 
             </ul>
@@ -439,8 +420,17 @@
 <!--Template chapter-->
 <li class="caret chapter d-none" id="template_chapter">
     <div class="caret_title caret_chapter_title">
+        <button
+            class="icon_button insert_chapter me-3"
+            data-bs-toggle="modal" 
+            data-bs-target="#insert_chapter_modal"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Chèn thêm chương vào bên trên"
+            onclick="insertChapterAbouve('{{@index}}', '{{_id}}')"
+        >
+            <i class="fas fa-plus"></i>
+        </button>
         <div class="me-3" onclick="expand(event)">
-            <strong>Chương {{@index}}: {{this.name}}</strong> 
+            <strong>{{this.name}}</strong> 
         </div>
         <button 
             type="button"

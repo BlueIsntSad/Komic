@@ -32,7 +32,6 @@ async function getCategory(req, res) {
         .lean()
 
     const category = await Category.findOne({ slug: id }).lean();
-    console.log(id)
     if (!category)
         return res.redirect('/manga/categories')
     let maxPage = await Manga.countDocuments({ "categories": category._id })
@@ -112,7 +111,7 @@ async function index(req, res) {
 
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
-    await Manga.findOne({slug: mangaSlug})
+    await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
         .populate('chapters')
@@ -150,15 +149,27 @@ async function getMangaTopviews() {
 }
 
 async function getMangaNewComment() {
-    // const newComment = await Comment.find()
-    //     .sort({ "createdAt": -1 })
-    //     .limit(6)
-    //     .select({ "onManga": 1 })
-    //     .lean();
+    const newComment = await Comment.find()
+        .sort({ "createdAt": -1 })
+        .limit(6)
+        .select({ "onManga": 1 })
+        .lean();
+    const newComments = await Comment.aggregate(
+        [
+            {
+                "$group": {
+                    "_id": '$onManga',
+                    "date": { "$max": "$createdAt" }
+                }
+            },
+            { "$sort": { "createdAt": -1 } },
+            { "$limit": 6 }
+        ]
+    )
 
-    // const manga = await Manga.find({ "id": { $in: newComment } });
-    // return manga;
-    return []
+    const ids = newComments.map(item => { return item._id })
+    const manga = await Manga.find({ "_id": { $in: ids } }).lean();;
+    return manga;
 }
 
 
@@ -166,7 +177,7 @@ async function getMangaNewComment() {
 async function readChapter(req, res) {
     var mangaSlug = req.params.manga;
     var chapterIndex = req.params.chapter;
-    await Manga.findOne({slug:mangaSlug})
+    await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('chapters')
         .then(async function (mangaDoc) {
