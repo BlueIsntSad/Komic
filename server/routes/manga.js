@@ -13,9 +13,7 @@ router.route("/categories/:id")
     .get(controller.getCategory)
 
 // Redirect manga details page to home page
-router.get('/', function(req, res) {
-    res.redirect('/');
-})
+router.get('/', controller.getManga)
 
 // GET specific manga details page
 router.route('/:manga')
