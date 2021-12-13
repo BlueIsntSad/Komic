@@ -1,210 +1,90 @@
 <section class="user_storage my-4">
     <div class="container">
-        <div class="row">
+        <div class="row storage_header">
             <header class="p-4">
-                <h1><b>Library</b></h1>
+                <h1><b>Thư viện</b></h1>
             </header>
-            <div class="sub-nav p-4">
-                <ul class="nav nav-pills flex" id="sideTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#" role="tab"
-                            aria-controls="">Danh sách đọc</a>
+            <div class="sub-nav px-4">
+                <ul class="nav nav-pills" id="sideTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-toggle="pill" data-bs-target="#history">
+                            Danh sách đọc</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#" role="tab"
-                            aria-controls="">Kho lưu trữ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#" role="tab"
-                            aria-controls="">Kho lưu trữ</a>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-toggle="pill" data-bs-target="#collection">
+                            Kho lưu trữ</button>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="profile-library shadow rounded-3 p-3 mb-4">
-                <div class="row gap-3">
-                    <div class="library-body px-4">
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
+        <div class="row storage_body p-4">
+            <div class="tab-pane fade show active" id="history" role="tabpanel">
+                <div class="profile-library shadow rounded-3 p-4 mb-4">
+                    <div class="row gap-3">
+                        <div class="library-body py-4">
+                        {{#each history}}
+                            <div class="reading-list">
+                                <div class="d-flex">
+                                    <div class="cover pe-4">
+                                        <img src="https://picsum.photos/100/160" class="img-fluid w-100 rounded-2">
+                                    </div>
+                                    <div class="info flex-grow-1">
+                                        <header class="collect-title d-flex">
+                                            <div class='w-100'>
+                                                <h5><b>Lorem ipsum dolor</b></h5>
+                                                <p>25 truyện</p>
+                                            </div>
+                                            <div class="flex-shrink-1 fuction">
+                                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </header>
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
+                                            voluptatum
+                                            distinctio officiis dolorem? Ab laborum deserunt aliquid, repudiandae
+                                            eos
+                                            ullam,
+                                            aspernatur
+                                            quas ea ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
+                                <hr>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
+                        {{/each}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="profile-library shadow rounded-3 p-3 mb-4">
-                <div class="row gap-3">
-                    <div class="library-heading p-4">
-                        <h3><b>Library > Lorem ipsum dolor</b></h3>
-                    </div>
-                    <div class="library-body px-4">
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="reading-list">
-                            <div class="row">
-                                <div class="col-1 cover d-inline">
-                                    <img src="https://picsum.photos/100/160" class="img-fluid">
-                                </div>
-                                <div class="col info d-inline">
-                                    <h5><b>Lorem ipsum dolor</b></h5>
-                                    <p>25 truyện</p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum
-                                        distinctio
-                                        officiis dolorem? Ab laborum deserunt aliquid, repudiandae eos ullam, aspernatur
-                                        quas ea
-                                        ad excepturi placeat qui explicabo temporibus perspiciatis.
-                                    </p>
-                                </div>
-                                <div class="col-1 fuction d-inline">
-                                    <button class="btn btn-primary"><i class="fas fa-ellipsis-h"></i></button>
+            <div class="tab-pane fade" id="collection" role="tabpanel">
+                <div class="profile-library shadow rounded-3 p-4 mb-4">
+                    <div class="row gap-3">
+                        <div class="library-body py-4">
+                            <div class="reading-list">
+                                <div class="d-flex">
+                                    <div class="cover pe-4">
+                                        <img src="https://picsum.photos/100/160" class="img-fluid w-100 rounded-2">
+                                    </div>
+                                    <div class="info flex-grow-1">
+                                        <header class="collect-title d-flex">
+                                            <div class='w-100'>
+                                                <h5><b>Lorem ipsum dolor</b></h5>
+                                                <p>25 truyện</p>
+                                            </div>
+                                            <div class="flex-shrink-1 fuction">
+                                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </header>
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
+                                            voluptatum
+                                            distinctio officiis dolorem? Ab laborum deserunt aliquid, repudiandae
+                                            eos
+                                            ullam,
+                                            aspernatur
+                                            quas ea ad excepturi placeat qui explicabo temporibus perspiciatis.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,47 @@
+.user_storage {
+    .storage_header {
+        .sub-nav {
+            .nav-item {
+                .nav-link {
+                    &.active {
+                        background-color: $primary-color-hover;
+                        &:hover { background-color: $primary-color}
+                    }
+                    &:hover { background-color: lightgray}
+                    /* &:active { background-color: $primary-color } */
+                    font-family: $title-font;
+                    font-size: 16px;
+                    margin:5px;
+                    color: black !important;
+                    &:hover {
+                        font-weight: normal !important;
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .storage_body {
+        .reading-list {
+            .cover {
+                min-width: 120px;
+            }
+
+            .info {
+                header {
+                    h5 {
+                        margin-bottom: 6px;
+                    }
+                    button {
+                        color: #dc3545;
+                        &:hover {
+                            color: white;
+                            background-color: #dc3545;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

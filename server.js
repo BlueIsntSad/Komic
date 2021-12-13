@@ -43,18 +43,27 @@ app.engine('hbs', expressHandlebars({
 }));
 app.set('view engine', 'hbs');
 
-// Static file
+/* app.use(sesion({
+    serect:'',
+    resave:false,
+    saveUninitialized:false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { maxAge: 120*60*1000 }
+})); */
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Home page
+/* app.use(function(req, res, next) {
+    res.locals.login = req.isAuthenticated();
+    res.locals.session = req.session;
+    next();
+}) */
+
+// Page routing
 app.use('/', route)
-
-// Manga branch page (manga-detail, manga-reading)
 app.use('/manga', mangaRoute)
-
-//admin branch page
 app.use('/admin', adminRouter)
-// Manga branch page (manga-detail, manga-reading)
 app.use('/user', userRoute)
 
 // Connect the database
