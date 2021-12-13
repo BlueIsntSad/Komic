@@ -44,7 +44,10 @@ new Promise((resolve) => {
             var histories = [];
             var total_his = faker.datatype.number(10);
             for (j = 0; j < total_his; j++) {
-                histories.push({ manga: faker.random.arrayElement(results[0])._id })
+                histories.push({
+                    manga: faker.random.arrayElement(results[0])._id,
+                    lastRead: faker.date.past()
+                })
             }
             // collections
             var collections = [];

@@ -3,17 +3,18 @@
         .sub-nav {
             .nav-item {
                 .nav-link {
+                    font-family: $title-font;
+                    font-size: 25px;
+                    margin:5px;
+                    color: black !important;
+
                     &.active {
                         background-color: $primary-color-hover;
                         &:hover { background-color: $primary-color}
                     }
-                    &:hover { background-color: lightgray}
-                    /* &:active { background-color: $primary-color } */
-                    font-family: $title-font;
-                    font-size: 16px;
-                    margin:5px;
-                    color: black !important;
+
                     &:hover {
+                        background-color: lightgray;
                         font-weight: normal !important;
                         border-bottom: none;
                     }
@@ -24,24 +25,64 @@
 
     .storage_body {
         .reading-list {
-            .cover {
-                min-width: 120px;
+            .cover img {
+                width: 100px;
+                height: 160px;
+                object-fit: cover;
             }
 
             .info {
-                header {
-                    h5 {
-                        margin-bottom: 6px;
-                    }
-                    button {
-                        color: #dc3545;
-                        &:hover {
-                            color: white;
-                            background-color: #dc3545;
-                        }
+                h5 {
+                    margin-bottom: 6px;
+                }
+                .del.btn {
+                    color: #dc3545;
+                    &:hover {
+                        color: white;
+                        background-color: #dc3545;
                     }
                 }
+
+                .edit.btn {
+                    &:hover {
+                        color: white;
+                        background-color: $primary-color-hover;
+                    }
+                }
+
+                span {
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    white-space: normal;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-right: 25px;
+                    text-align: justify;
+                    text-justify: inter-character;
+                }
             }
+        }
+    }
+
+    #addCollect {
+        border-radius: 20px;
+        font-style: italic;
+        color: #fff;
+        background-color: black;
+        i { margin-left: 8px }
+    }
+
+    a {
+        text-decoration: none;
+        &:hover { text-decoration: under; }
+    }
+
+    .btn.submit {
+        color: #fff;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
     }
 }

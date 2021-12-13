@@ -5,16 +5,22 @@ const router = express.Router();
 const controller = require('../controllers/user');
 
 // GET user profile page
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.redirect('/login');
 })
 
 router.get('/add', controller.add)
 
-router.route('/storage/:uid')
-    .get(controller.getUserLibrary)
-
 router.route('/:uid')
     .get(controller.getUserProfile)
+
+router.route('/:uid/storage')
+    .get(controller.getUserLibrary)
+
+router.route('/:uid/storage/history')
+    //.put(controller.getUserLibrary)
+
+router.route('/:uid/storage/collection')
+    //.put(controller.addCollection)
 
 module.exports = router;
