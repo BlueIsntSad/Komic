@@ -1,0 +1,26 @@
+{{>breadcrumb}}
+<section class="category_page manga_pannel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                {{> manga-panel categories=categories}}
+                <ol class="pagination">
+                </ol>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                    {{> sidebar topViews = topViews newComment = newComment}}
+            </div>
+        </div>
+    </div>   
+    
+</section>
+<script src="/js/pagination.js"></script>
+{{#if currentPage }}
+    <script>
+        pagination({{currentPage}}, {{pages}});
+    </script>    
+{{else}}
+    <script>
+        pagination(1, {{pages}});
+    </script> 
+{{/if}}
