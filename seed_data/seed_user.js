@@ -42,18 +42,23 @@ new Promise((resolve) => {
         for (i = 0; i < 10; i++) {
             // histories
             var histories = [];
-            for (j = 0; j < faker.datatype.number(10); j++) {
-                histories.push({manga: faker.random.arrayElement(results[0])._id})
+            var total_his = faker.datatype.number(10);
+            for (j = 0; j < total_his; j++) {
+                histories.push({ manga: faker.random.arrayElement(results[0])._id })
             }
             // collections
             var collections = [];
+            var total_col = 0;
             for (j = 0; j < faker.datatype.number(5); j++) {
                 collect = [];
-                for (k = 0; k < faker.datatype.number(10); k++) {
-                    collect.push( {manga: faker.random.arrayElement(results[0])._id} );
+                var num = faker.datatype.number({ 'min': 1, 'max': 10 });
+                total_col = total_col + num;
+                for (k = 0; k < num; k++) {
+                    collect.push({ manga: faker.random.arrayElement(results[0])._id });
                 }
                 collections.push({
                     title: faker.name.title(),
+                    total: num,
                     mangaCollect: collect
                 });
             }
@@ -69,8 +74,14 @@ new Promise((resolve) => {
                     about: faker.lorem.sentences(),
                     adress: `${faker.address.cityName()}, ${faker.address.country()}`,
                     library: {
-                        history: { mangaCollect: histories },
-                        collections: { collect: collections }
+                        history: {
+                            total: total_his,
+                            mangaCollect: histories
+                        },
+                        collections: {
+                            total_collect: total_col,
+                            collect: collections
+                        }
                     }
                 }
             );

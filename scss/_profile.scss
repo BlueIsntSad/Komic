@@ -53,6 +53,11 @@
     }
     .collections {
         background-color:#fff;
+        header.d-flex {
+            button {
+                &:hover { background-color: $primary-color-hover }
+            }
+        }
         .reading-list {
             .list-heading {
                 a{

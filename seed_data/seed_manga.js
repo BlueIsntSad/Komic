@@ -57,7 +57,7 @@ new Promise((resolve) => {
         ];
         var status = ['Đã hoàn thành','Đang tiến hành','Drop','Sắp ra mắt'];
         var mangas = [];
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < 20; i++) {
             // categories
             var categories = [];
             for (j = 0; j < faker.datatype.number({ 'min': 2, 'max': 5 }); j++) {
@@ -74,7 +74,7 @@ new Promise((resolve) => {
                     cover: faker.random.arrayElement(covers),
                     title: title,
                     title_org: faker.random.arrayElement(japan_titles),
-                    slug: slugify(title, {lowercase: true, strict: true}),
+                    slug: slugify(title, {lower: true, strict: true}),
                     description: faker.lorem.paragraphs(),
                     author: faker.name.findName(),
                     translator: faker.name.findName(),

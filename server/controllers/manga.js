@@ -91,37 +91,25 @@ async function getAllCategoryPage(req, res) {
     res.render('all-category', { categories })
 }
 
-async function index(req, res) {
-    await Manga.findOne()
-        .lean()
-        .populate('categories')
-        .populate('chapters')
-        .then(async function (mangaDoc) {
-            const comments = await Comment.find({ onManga: mangaId }).
-                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
-            res.render('manga-details', {
-                manga: mangaDoc,
-                title: `${mangaDoc.title} | Komic`,
-                script: 'manga-details',
-                comments: comments
-            })
-        })
-        .catch(function (err) { console.log(err.message) });
-}
-
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
-        .populate('chapters')
-        .then(async function (mangaDoc) {
-            const comments = await Comment.find({ slug: mangaSlug }).
+        .populate({
+            path: 'chapters',
+            select: 'index name views updatedAt'
+        })
+        .then(async function (manga) {
+            const comments = await Comment.find({ onManga: manga._id }).
                 lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
+            manga.chapters.sort(function (a, b) {
+                return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
+            })
             res.render('manga-details', {
-                manga: mangaDoc,
-                title: `${mangaDoc.title} | Komic`,
-                script: 'manga-details',
+                manga: manga,
+                title: `${manga.title} | Komic`,
+                script: ['manga-details','review'],
                 comments: comments
             });
         })
@@ -176,18 +164,34 @@ async function getMangaNewComment() {
 
 async function readChapter(req, res) {
     var mangaSlug = req.params.manga;
-    var chapterIndex = req.params.chapter;
+    var chapterIndex = req.params.chapter.slice(8);
     await Manga.findOne({ slug: mangaSlug })
         .lean()
-        .populate('chapters')
-        .then(async function (mangaDoc) {
-            res.render('manga-reading', {
-                //chapter: EpDoc,
-                title: `${mangaDoc.title} - Chapter X | Komic`,
-                script: 'manga-reading.js'
+        .populate('chapters', '_id index')
+        .then(async function (manga) {
+            manga.chapters.sort(function (a, b) {
+                return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
             })
+            var chapter = manga.chapters.filter(function (chapter) {
+                return chapter.index === chapterIndex
+            })
+            var comments = await Comment.find({ onManga: manga._id, onChapter: chapter[0]._id })
+                .lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
+            await Chapter.findById(chapter[0]._id)
+                .lean()
+                .populate('sections', 'url')
+                .then(function (chapter) {
+                    res.render('manga-reading', {
+                        chapter: chapter,
+                        manga: manga,
+                        comments: comments,
+                        title: `${manga.title} - Chapter ${chapter.index} | Komic`,
+                        script: ['manga-reading','review']
+                    })
+                })
         })
+        .catch((err) => console.log(err));
 }
 
-module.exports = { index, getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
+module.exports = { getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
 

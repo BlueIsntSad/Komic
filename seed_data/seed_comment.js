@@ -33,7 +33,8 @@ new Promise((resolve) => {
                     content: faker.lorem.sentences(faker.datatype.number({ 'min': 1, 'max': 3 })),
                     byUser: faker.random.arrayElement(results[0])._id,
                     onManga: faker.random.arrayElement(results[1])._id,
-                    onChapter: faker.random.arrayElement(results[2])._id
+                    onChapter: faker.random.arrayElement(results[2])._id,
+                    createdAt: faker.date.past(),
                 }
             );
         }

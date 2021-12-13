@@ -58,15 +58,23 @@
 	
 	.manga_chapter_table {
 		background: #fff;
-		.date, .bookmark {
-            color: lightgray
-        }
+
+		.list-group-item {
+			a {
+				color: black;
+				text-decoration: none;
+			}
+			.date, .bookmark {
+				color: lightgray
+			}
+		}
+
 		.paginate .pagination {
 			.page-item {
 				.page-link {
 					color: black;
 					border-style: none;
-					border-radius: 5px;			
+					border-radius: 5px;
 				}
 
 				&.active {
@@ -85,10 +93,12 @@
 				}
 
 				&:not(:first-child) {
-					.page-link {
-						margin-left: 5px;
-					}
+					margin-left: 6px;
 				}
+			}
+
+			.active {
+				border: none !important;
 			}
 		}
 	}
@@ -146,6 +156,19 @@
 			p {
 				color: gray;
 			}
+		}
+	}
+
+	#no-comment h6 {
+		color: gray;
+		font-style: italic;
+	}
+
+	.review-showmore {
+		.showmore a{
+			color: black;
+			text-decoration: none;
+			&:hover { text-decoration: underline; }
 		}
 	}
 }

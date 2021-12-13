@@ -8,17 +8,20 @@
                 background-color: $primary-color;
             }
         }
+
+        /* .chapter_content {
+            img {
+                width: 70%;
+                height: auto;
+            }
+        } */
     }
-    
+        
+    .manga_details_other {
+        background: #fff;
+    }
+
     .height-fix li a {
-        height: 30px;
+        height: 35px;
     }
-
-        .height-fix li a {
-         height: 30px;
-     }
-
-     .manga_details_other {
-         background: #fff;
-     }
- }
+}

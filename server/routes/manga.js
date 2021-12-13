@@ -12,19 +12,20 @@ router.route("/categories")
 router.route("/categories/:id")
     .get(controller.getCategory)
 
-// GET manga details page
-router.get('/', controller.index)
+// Redirect manga details page to home page
+router.get('/', function(req, res) {
+    res.redirect('/');
+})
 
-// GET manga reading page
-router.get('/ep', controller.read)
-
-router.get('/:manga', controller.getMangaDetails)
+// GET specific manga details page
+router.route('/:manga')
+    .get(controller.getMangaDetails)
 
 //GET top view 
 router.get("/top/:id", controller.getTopView)
 
-router.get('/:manga/:chapter', controller.readChapter)
-//GET category
-
+// GET specific chapter
+router.route('/:manga/:chapter')
+    .get(controller.readChapter)
 
 module.exports = router;

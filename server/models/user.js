@@ -52,7 +52,7 @@ userSchema.methods.getHistory = function () {
     return mangaCollect;
 }
 
-userSchema.pre('save', function (next) {
+/* userSchema.pre('save', function (next) {
     this.library.history.total = this.library.history.mangaCollect.length;
     this.library.collections.collect.forEach(collectList => {
         collectList.total = collectList.mangaCollect.length;
@@ -63,7 +63,7 @@ userSchema.pre('save', function (next) {
     }
     this.following = sum;
     next()
-})
+}) */
 
 
 const commentSchema = new Schema({
