@@ -1,0 +1,53 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/helpers.esm.min.js" integrity="sha512-Tr7rEJNzZS8JWzmaQbTL/99DQDgnsklnYBH+mXNvbngHVHPP0hhb2cjWLbFjyKTqE8QZXmEtgC1WDPKZwcrYEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/dashboard.js"></script>
+
+<div class="wrap_conainer admin_dashboard_page" >
+    {{> admin-sidebar curentPage}}
+    <div class="container-fluid">
+        <div class="category_panel row" >
+            <div class="mt-3 col-sm-12 col-md-8 col-lg-9 container d-flex flex-column justify-content-between">
+                <div class="row  mb-4 px-4">
+                    <div class="my-2 col-sm-6 col-md-3">
+                        <div class="total_item total_users">
+                            <h4>Tổng số người dùng</h4>
+                            <h3><strong>{{dashboardData.totalUsers}}</strong></h3>  
+                        </div>
+                    </div>
+                    <div class="my-2 col-sm-6 col-md-3">
+                        <div class="total_item total_users">
+                            <h4>Tổng số truyện</h4>
+                            <h3><strong>{{dashboardData.totalMangas}}</strong></h3>  
+                        </div>
+                    </div>
+                    <div class="my-2 col-sm-6 col-md-3">
+                        <div class="total_item total_views">
+                            <h4>Tổng số lượt xem</h4>
+                            <h3><strong>{{dashboardData.totalViews}}</strong></h3>
+                        </div>
+                    </div>
+                    <div class="my-2 col-sm-6 col-md-3">
+                        <div class="total_item total_comments">
+                            <h4>Tổng số lượt bình luận</h4>
+                            <h3><strong>{{dashboardData.totalComments}}</strong></h3>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <canvas class="line_chart_item" id="manga_created_chart" ></canvas>
+                </div>  
+            </div>
+            <div class="mt-3 col-sm-12 col-md-4 col-lg-3 ">
+                <canvas class="chart_item" id="category_chart" ></canvas>
+                <canvas class="chart_item" id="manga_status_chart" ></canvas>
+            </div>
+            
+        </div>
+    </div>   
+     
+    
+</div>
+{{#initScripData "onLoad" dashboardData}}{{/initScripData}}    
+

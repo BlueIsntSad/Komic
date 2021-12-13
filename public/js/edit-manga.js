@@ -274,7 +274,7 @@ function insertNewSection(newSection, num, pos) {
 
 }
 
-function insertNewChapter(newChapter, num) {
+function insertNewChapter(index, before, newChapter, num) {
     var chapter = $('#template_chapter')
         .clone().removeAttr("id");
 
@@ -282,7 +282,7 @@ function insertNewChapter(newChapter, num) {
 
     chapter.removeClass('d-none');
     chapter.attr('id', newChapter._id);
-    chapter.find(".caret_title div strong").html(`Chương ${num}: ${newChapter.name}`);
+    chapter.find(".caret_title div strong").html(`${newChapter.name}`);
 
     chapter.find("label.insert_chapter").attr('for', `input_chapter${newChapter._id}_sections`);
     chapter.find("label.save_button").attr('for', `submit_save_chapter${newChapter._id}`);
@@ -297,21 +297,24 @@ function insertNewChapter(newChapter, num) {
     for (var t = 0; t < sections.length; t++) {
         insertNewSection(sections[t], t, chapter.find('hr'));
     }
-    chapter.appendTo('#chapter_list')
+    if (before == "-1")
+        chapter.appendTo('#chapter_list')
+    else {
+        chapter.insertBefore(`#${before}`)
+    }
 }
 
 function addChapterToModal(event) {
     event.preventDefault();
     event.stopPropagation();
     const inputChapterName = $(event.target).parent().children('input:text')[0];
-    console.log($(inputChapterName).val())
     if (!$(inputChapterName).val()) {
         showToast("error", "Không thành công", "Vui lòng nhập tên chương")
         return;
     }
 
     const inputSectionFiles = $(event.target).parent().children('input:file')[0];
-    const countInsert = $('#form_insert_chapter').children('li.chapter').length;
+    const countInsert = $('#form_insert_chapter').find('li.chapter').length;
     addChapter($("#chapter_list").children().length + countInsert, $(inputChapterName).val(), $(inputSectionFiles)[0].files);
     $(event.target).parent().find('li.insert_section').removeClass('col-lg-2 col-sm-4 col-md-3 col-6');
     $(event.target).parent().find('li.insert_section').addClass('col-lg-4 col-md-6 col-sm-6 col-12');
@@ -324,7 +327,7 @@ function addChapter(num, name, files) {
     chapter = $(chapter);
     chapter.removeClass('d-none');
     chapter.attr('id', `insert_chapter_${num}`);
-    chapter.find(".caret_title .chapter_title").text(`Chương ${num}: ${name}`);
+    chapter.find(".caret_title .chapter_title").text(`${name}`);
     chapter.find('.caret_title input.i_chapter').val(`insert_chapter_${num}`);
     chapter.find('.caret_title input.i_chapter_title').val(name);
     chapter.find('.caret_title input.i_chapter_title').attr('name', `insert_chapter_${num}`);
@@ -369,6 +372,8 @@ function deleteChapFromModal(event) {
 
 function submitFormInsertChapter(event) {
     event.preventDefault();
+    const index = $(event.target).find(".input_chapter_index").val();
+    const before = $(event.target).find("input.input_chapter_before").val();
     var form = $(event.target)[0];
     var data = new FormData(form);
     showLoading();
@@ -381,15 +386,11 @@ function submitFormInsertChapter(event) {
         contentType: false,
         success: function (result) {
             if (result.success) {
-                $("#insert_chapter_modal").modal('toggle')
-                const newManga = result.newManga;
-                const nchapter = $(form).find('li.chapter').length;
-                if (nchapter) {
-                    const newChapter = newManga.chapters.slice(-nchapter);
-                    const num = $('#chapter_list').find('li.chapter').length;
-                    for (var i = 0; i < nchapter; i++) {
-                        insertNewChapter(newChapter[i], num + i)
-                    }
+                const chapters = result.newManga.chapters;
+                const num = $('#chapter_list').find('li.chapter').length;
+                for (var i = result.start; i < result.end; i++) {
+                    console.log(i, chapters[i])
+                    insertNewChapter(index, before, chapters[i], num + i)
                 }
                 showToast('success', "Thành công", "Thêm chương mới thành công!")
             } else {
@@ -423,6 +424,7 @@ function submit_edit_info(event) {
             if (result.success) {
                 const newManga = result.newManga;
                 $('#preview_image').attr('defaultSrc', $('#preview_image').attr('src'));
+                showToast("success", "Cập nhật thành công", "Thông tin truyện đã được cập nhật!");
             } else {
                 showToast("error", "Không thành công", result.message);
             }
@@ -430,7 +432,7 @@ function submit_edit_info(event) {
 
         },
         error: function (e) {
-            showToast("error", "Không thành công", "Thông tin truyện đã được cập nhật!");
+            showToast("error", "Không thành công", "Có lỗi xảy ra trong quá trình cập nhật!");
             hideLoading();
         }
     })
@@ -692,7 +694,6 @@ function mouseMoveInsert(event) {
     var docHeight = screen.height * 0.5;
     var posX = event.clientX;
     var posY = event.clientY;
-
     $("#move").css("transform", "translate(0px, 0px)");
 
     if (posX > docWidth && posY > docHeight) {
@@ -701,7 +702,6 @@ function mouseMoveInsert(event) {
         yOffset = -yOffset;
     }
     else if (posX > docWidth) {
-        console.log("show pos")
         $("#move").css("transform", "translateX(-100%)");
         xOffset = -xOffset;
     }
@@ -726,4 +726,22 @@ function mouseMoveInsert(event) {
 
 function getImage() {
 
+}
+
+function insertChapterBefore(index, id) {
+    $("#insert_chapter_modal").find(".input_chapter_index").val(index);
+    $("#insert_chapter_modal").find(".input_chapter_before").val(id);
+}
+
+function insertLast(event) {
+    $("#insert_chapter_modal").find(".input_chapter_index").val(-1);
+    $("#insert_chapter_modal").find(".input_chapter_before").val("-1");
+}
+
+function hideSaveInfoButton() {
+    $("#btn_submit_edit_info").hide();
+}
+
+function showSaveInfoButton() {
+    $("#btn_submit_edit_info").fadeIn(500)
 }
