@@ -25,9 +25,10 @@ async function getUserProfile(req, res, next) {
 
 async function getUserLibrary(req, res, next) {
     try {
-        let userId = req.params.uid;
+        const tab = req.query.tab
+        const userId = req.params.uid;
 
-        let user = await User.findById(userId, 'name library -_id')
+        const user = await User.findById(userId, 'name library -_id')
             .populate('library.history.mangaCollect.manga',
                 'cover slug title views follower finished description -_id')
             .populate('library.collections.collect.mangaCollect.manga',
@@ -42,7 +43,30 @@ async function getUserLibrary(req, res, next) {
             title: `Library | Komic`,
             script: ['storage'],
             history: user.library.history.mangaCollect,
-            collection: user.library.collections.collect
+            collection: user.library.collections.collect,
+            userId: userId,
+            tab: tab
+        });
+    } catch (err) { console.log(err.message) }
+}
+
+async function getCollection(req, res, next) {
+    try {
+        let userId = req.params.uid;
+        let user = await User.findById(userId, 'name library -_id')
+            .populate('library.collections.collect.mangaCollect.manga',
+                'cover slug title views follower finished description -_id')
+            .lean()
+        let collectList = user.library.collections.collect
+        let collectQuery = req.query.title
+        let collect = collectList.find(collect => collect.title === collectQuery)
+        //console.log('title:',collect.title);
+        //res.send(collect)
+        res.render('collection', {
+            title: `Library | Komic`,
+            script: ['storage'],
+            collection: collect,
+            userId: userId
         });
     } catch (err) { console.log(err.message) }
 }
@@ -62,4 +86,4 @@ async function getUserLibrary(req, res, next) {
 
 function add(req, res) { }
 
-module.exports = { getUserProfile, getUserLibrary, add };
+module.exports = { getUserProfile, getUserLibrary, add, getCollection };

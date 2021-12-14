@@ -17,10 +17,16 @@ router.route('/:uid')
 router.route('/:uid/storage')
     .get(controller.getUserLibrary)
 
-router.route('/:uid/storage/history')
+router.route('/:uid/storage/deleteHistory/')
     //.put(controller.getUserLibrary)
 
 router.route('/:uid/storage/collection')
+    .get(controller.getCollection)
     //.put(controller.addCollection)
+
+router.route('/:uid/storage/editCollection/:cid')
+    //.put(controller.getCollection)
+router.route('/:uid/storage/deleteCollection/:cid')
+    //.put(controller.deleteCollection)
 
 module.exports = router;

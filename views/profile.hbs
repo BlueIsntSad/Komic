@@ -44,11 +44,11 @@
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2 mb-4">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Danh sách đã đọc</b></h4>
-                            <a href="/user/storage/{{user._id}}" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
+                            <a href="/user/{{user._id}}/storage?tab=history" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
                         </header>
                         <div class="reading-list">
                             <header class="list-heading">
-                                <a href="/user/storage/{{user._id}}">
+                                <a href="/user/{{user._id}}/storage?tab=history">
                                     <h5><b>Chi tiết</b><span><i class="fas fa-angle-right"></i></span></h5>
                                 </a>
                                 <p>Danh sách truyện - {{user.library.history.total}} bộ</p>
@@ -82,12 +82,12 @@
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Kho lưu trữ</b></h4>
-                            <a href="javascrip:void(0" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
+                            <a href="/user/{{user._id}}/storage?tab=collection" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
                         </header>
                         {{#each collections}}
                         <div class="reading-list mb-3">
                             <header class="list-heading">
-                                <a href="#">
+                                <a href="/user/{{../user._id}}/storage/collection?title={{title}}">
                                     <h5><b>{{title}}</b><span><i class="fas fa-angle-right"></i></span></h5>
                                 </a>
                                 <p>Danh sách truyện - {{total}} bộ</p>

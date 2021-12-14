@@ -7,11 +7,14 @@
             <div class="sub-nav px-4">
                 <ul class="nav nav-pills" role="tablist">
                     <li class="nav-item">
-                        <a href="#history" class="nav-link active" id="nav-history" data-bs-toggle="pill">Danh sách
-                            đọc</a>
+                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history" data-bs-toggle="pill">
+                            <i class="fas fa-history"></i>Danh sách đọc
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#collection" class="nav-link" id="nav-collection" data-bs-toggle="pill">Kho lưu trữ</a>
+                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection" data-bs-toggle="pill">
+                            <i class="fas fa-bookmark"></i>Kho lưu trữ
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -19,7 +22,7 @@
 
         <div class="row storage_body tab-content p-4">
             <!-- History pane -->
-            <div class="tab-pane fade show active" id="history">
+            <div class="tab-pane fade {{#eq tab 'history'}}show active{{/eq}}" id="history">
                 {{#if history}}
                 <div class="profile-library shadow rounded-3 p-4 mb-4">
                     <div class="row gap-3 py-4">
@@ -62,7 +65,7 @@
             </div>
 
             <!-- Collection pane -->
-            <div class="tab-pane fade" id="collection">
+            <div class="tab-pane fade {{#eq tab 'collection'}}show active{{/eq}}" id="collection">
                 <button class="btn mb-3" id="addCollect" data-bs-toggle="modal" data-bs-target="#addCollectModal">
                     Thêm bộ sưu tập mới<i class="fas fa-plus-circle"></i></button>
                 <div class="row">
@@ -73,14 +76,14 @@
                             <div class="library-body">
                                 <div class="reading-list">
                                     <div class="d-flex">
-                                        <a href="javascript:void(0)">
+                                        <a href="/user/{{../userId}}/storage/collection?title={{title}}">
                                             <div class="cover pe-4">
                                                 <img src="{{mangaCollect.0.manga.cover}}" class="rounded-2">
                                                 <div class="shadow rounded-2"></div>
                                             </div>
                                         </a>
                                         <div class='info w-100 d-flex flex-column'>
-                                            <a href="javascript:void(0)">
+                                            <a href="/user/{{../userId}}/storage/collection?title={{title}}">
                                                 <h5><b>{{title}}</b></h5>
                                             </a>
                                             <p>{{total}} truyện</p>
@@ -113,7 +116,7 @@
                             </div>
                             <div class="modal-body">
                                 <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
-                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$"
+                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
                                     placeholder="VD: jkhasjdhaksjhd" required>
                                 <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
                             </div>
