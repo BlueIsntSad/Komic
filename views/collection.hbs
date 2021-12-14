@@ -4,9 +4,21 @@
             <a href="/user/{{userId}}/storage?tab=collection">
                 <h2><i class="fas fa-chevron-left"></i>Kho lưu trữ của tôi</h2>
             </a>
-            <div class="collection shadow rounded-3 p-4 mt-4 d-inline-flex">
-                <h3>{{collection.title}}</h3>
-                <button class="edit btn"><i class="fas fa-edit"></i></button>
+            <div class="collection shadow rounded-3 px-4 py-3 mt-4 d-inline-flex">
+                <div id="title_show" class="d-inline-flex">
+                    <h3><i class="fas fa-bookmark"></i>{{collection.title}}</h3>
+                    <button class="edit btn" id="edit_collection"><i class="fas fa-edit"></i></button>
+                </div>
+                <form id="title_edit" onsubmit="editNameCollection(event,{{userId}},{{collection}})" enctype="text/plain">
+                    <h3><i class="fas fa-bookmark"></i></h3>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" id="_title" value="{{collection.title}}" defaultValue = "{{collection.title}}">
+                    </div>
+                    <div class="col-auto">
+                        <button class="edit btn edit_done" type="submit" id="save_collections">Lưu</button>
+                        <button class="del btn edit_done" type="button" id="del_collections">Xoá danh sách</button>
+                    </div>
+                </form>
             </div>
         </header>
         {{#if collection}}
@@ -45,7 +57,7 @@
             </div>
         </div>
         {{else}}
-        Nothing
+        <b><em>Danh sách trống</em></b>
         {{/if}}
     </div>
 </section>

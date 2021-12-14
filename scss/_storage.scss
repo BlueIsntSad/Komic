@@ -1,4 +1,32 @@
 .user_storage {
+    a {
+        text-decoration: none;
+        &:hover { text-decoration: under; }
+    }
+
+    .btn.submit {
+        color: #fff;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .del.btn {
+        color: #dc3545;
+        &:hover {
+            color: white;
+            background-color: #dc3545;
+        }
+    }
+
+    .edit.btn {
+        &:hover {
+            color: white;
+            background-color: $primary-color-hover;
+        }
+    }
+
     .storage_header {
         .sub-nav {
             .nav-item {
@@ -53,7 +81,8 @@
 
     .collection {
         background-color: #fff;
-        button { margin-left: 8px; }
+        h3 { i { margin-right: 10px } }
+        button { margin-left: 8px }
     }
 
     #addCollect {
@@ -64,31 +93,18 @@
         i { margin-left: 8px }
     }
 
-    a {
-        text-decoration: none;
-        &:hover { text-decoration: under; }
-    }
+    #title_edit { display: none !important }
 
-    .btn.submit {
-        color: #fff;
-        background-color: black;
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+    .edit_done {
+        &.del {
+            color: #fff;
+            background-color: $red-color;
         }
-    }
 
-    .del.btn {
-        color: #dc3545;
-        &:hover {
-            color: white;
-            background-color: #dc3545;
-        }
-    }
-
-    .edit.btn {
-        &:hover {
-            color: white;
-            background-color: $primary-color-hover;
+        &.edit {
+            color: black;
+            background-color: $primary-color;
+            &:hover { color: black}
         }
     }
 }

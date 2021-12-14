@@ -25,7 +25,8 @@ router.route('/:uid/storage/collection')
     //.put(controller.addCollection)
 
 router.route('/:uid/storage/editCollection/:cid')
-    //.put(controller.getCollection)
+    .put(controller.editCollection)
+
 router.route('/:uid/storage/deleteCollection/:cid')
     //.put(controller.deleteCollection)
 

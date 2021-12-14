@@ -1,6 +1,7 @@
 const { User, Admin, Comment } = require('../models/user');
 const Manga = require('../models/manga');
 const Chapter = require('../models/chapter');
+const ObjectId = require('mongodb').ObjectID;
 
 
 async function getUserProfile(req, res, next) {
@@ -25,7 +26,7 @@ async function getUserProfile(req, res, next) {
 
 async function getUserLibrary(req, res, next) {
     try {
-        const tab = req.query.tab
+        const tab = req.query.tab || 'history';
         const userId = req.params.uid;
 
         const user = await User.findById(userId, 'name library -_id')
@@ -52,7 +53,7 @@ async function getUserLibrary(req, res, next) {
 
 async function getCollection(req, res, next) {
     try {
-        let userId = req.params.uid;
+        const userId = req.params.uid;
         let user = await User.findById(userId, 'name library -_id')
             .populate('library.collections.collect.mangaCollect.manga',
                 'cover slug title views follower finished description -_id')
@@ -71,6 +72,28 @@ async function getCollection(req, res, next) {
     } catch (err) { console.log(err.message) }
 }
 
+async function editCollection(req, res, next) {
+    await User.findById(req.params.uid, function (err, result) {
+        if (!err) {
+            if (!result) {
+                res.status(404).send('User was not found');
+            }
+            else {
+                let collectQuery = req.params.cid;
+                result.library.collections.collect.id(collectQuery).title = req.body.title;
+                result.markModified('library.collections.collect');
+                result.save(function (saveerr, saveresult) {
+                    if (!saveerr) {
+                        res.status(200).send(saveresult);
+                    } else {
+                        res.status(400).send(saveerr.message);
+                    }
+                });
+            }
+        } else { res.status(404).send(err.message); }
+    })
+}
+
 /* async function getHistory(userId) {
     const histories = await User.findById(userId, 'name library -_id')
         .populate({
@@ -86,4 +109,4 @@ async function getCollection(req, res, next) {
 
 function add(req, res) { }
 
-module.exports = { getUserProfile, getUserLibrary, add, getCollection };
+module.exports = { getUserProfile, getUserLibrary, add, getCollection, editCollection };
