@@ -1,7 +1,6 @@
 const { User, Admin, Comment } = require('../models/user');
 const Manga = require('../models/manga');
 const Chapter = require('../models/chapter');
-const ObjectId = require('mongodb').ObjectID;
 
 
 async function getUserProfile(req, res, next) {
@@ -31,7 +30,7 @@ async function getUserLibrary(req, res, next) {
 
         const user = await User.findById(userId, 'name library -_id')
             .populate('library.history.mangaCollect.manga',
-                'cover slug title views follower finished description -_id')
+                'cover slug title views follower finished description')
             .populate('library.collections.collect.mangaCollect.manga',
                 'cover slug title views follower finished description -_id')
             .lean()
@@ -54,9 +53,9 @@ async function getUserLibrary(req, res, next) {
 async function getCollection(req, res, next) {
     try {
         const userId = req.params.uid;
-        let user = await User.findById(userId, 'name library -_id')
+        let user = await User.findById(userId, 'name library')
             .populate('library.collections.collect.mangaCollect.manga',
-                'cover slug title views follower finished description -_id')
+                'cover slug title views follower finished description')
             .lean()
         let collectList = user.library.collections.collect
         let collectQuery = req.query.title
@@ -72,26 +71,54 @@ async function getCollection(req, res, next) {
     } catch (err) { console.log(err.message) }
 }
 
-async function editCollection(req, res, next) {
-    await User.findById(req.params.uid, function (err, result) {
-        if (!err) {
-            if (!result) {
-                res.status(404).send('User was not found');
-            }
-            else {
-                let collectQuery = req.params.cid;
-                result.library.collections.collect.id(collectQuery).title = req.body.title;
-                result.markModified('library.collections.collect');
-                result.save(function (saveerr, saveresult) {
-                    if (!saveerr) {
-                        res.status(200).send(saveresult);
-                    } else {
-                        res.status(400).send(saveerr.message);
-                    }
-                });
-            }
-        } else { res.status(404).send(err.message); }
-    })
+async function editCollectionItem(req, res, next) {
+    const userId = req.params.uid
+    console.log(userId)
+    const collectId = req.params.cid
+    console.log(collectId)
+    const mangaId = req.params.mid
+    console.log(mangaId)
+
+    await User.updateOne({ _id: userId, 'library.collections.collect._id':collectId }, {
+        $pull: {
+            "library.collections.collect.mangaCollect": { manga: mangaId }
+        }
+    }).then(result => {
+        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+    }).catch(function (err) {
+        console.log(err.message)
+        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    });
+}
+
+async function deleteHistory(req, res, next) {
+    const userId = req.params.uid
+    const hisId = req.params.hid
+    await User.updateOne({ _id: userId }, {
+        $pull: {
+            "library.history.mangaCollect": { manga: hisId }
+        }
+    }).then(result => {
+        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+    }).catch(function (err) {
+        console.log(err.message)
+        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    });
+}
+
+async function deleteCollection(req, res, next) {
+    const userId = req.params.uid
+    const collectId = req.params.cid
+    await User.updateOne({ _id: userId }, {
+        $pull: {
+            "library.collections.collect": { _id: collectId }
+        }
+    }).then(result => {
+        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+    }).catch(function (err) {
+        console.log(err.message)
+        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    });
 }
 
 /* async function getHistory(userId) {
@@ -107,6 +134,8 @@ async function editCollection(req, res, next) {
     return histories.library.history.mangaCollect
 }*/
 
-function add(req, res) { }
-
-module.exports = { getUserProfile, getUserLibrary, add, getCollection, editCollection };
+module.exports = {
+    getUserProfile, getUserLibrary,
+    getCollection, editCollectionItem, deleteCollection,
+    deleteHistory
+};

@@ -45,7 +45,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-shrink-1 fuction">
-                                    <button class="del btn"><i class="fas fa-trash"></i></button>
+                                    <button class="del btn" onclick="editCollectionItem('{{../userId}}','{{../collection._id}}','{{manga._id}}')">
+                                        <i class="fas fa-trash"></i></button>
                                 </div>
                             </header>
                             <span>{{manga.description}}</span>

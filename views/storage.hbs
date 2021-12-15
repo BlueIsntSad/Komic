@@ -7,12 +7,14 @@
             <div class="sub-nav px-4">
                 <ul class="nav nav-pills" role="tablist">
                     <li class="nav-item">
-                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history" data-bs-toggle="pill">
+                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history"
+                            data-bs-toggle="pill">
                             <i class="fas fa-history"></i>Danh sách đọc
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection" data-bs-toggle="pill">
+                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection"
+                            data-bs-toggle="pill">
                             <i class="fas fa-bookmark"></i>Kho lưu trữ
                         </a>
                     </li>
@@ -27,7 +29,7 @@
                 <div class="profile-library shadow rounded-3 p-4 mb-4">
                     <div class="row gap-3 py-4">
                         {{#each history}}
-                        <div class="reading-list">
+                        <div class="reading-list" id="his_{{manga._id}}">
                             <div class="d-flex">
                                 <div class="cover pe-4">
                                     <a href="/manga/{{manga.slug}}"><img src="{{manga.cover}}" class="rounded-2"></a>
@@ -48,7 +50,9 @@
                                             </div>
                                         </div>
                                         <div class="flex-shrink-1 fuction">
-                                            <button class="del btn"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="del btn" {{!-- data-toggle="modal" data-target="#confirm-delete" --}}
+                                                onclick="deleteHistory('{{../userId}}','{{manga._id}}')">
+                                                <i class="fas fa-trash"></i></button>
                                         </div>
                                     </header>
                                     <span>{{manga.description}}</span>
@@ -59,6 +63,22 @@
                         {{/each}}
                     </div>
                 </div>
+                <!-- Delete message -->
+                {{!-- <div class="modal fade" id="confirm-delete" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            </div>
+                            <div class="modal-body">
+                                Hành động không thể hoàn tác. Bạn có chắc chắn muốn xoá mục này.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+                                <a class="btn btn-danger btn-ok">Xoá mục</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
                 {{else}}
                 <b><em>Chưa có truyện nào</em></b>
                 {{/if}}
@@ -88,8 +108,12 @@
                                             </a>
                                             <p>{{total}} truyện</p>
                                             <div class="d-flex justify-content-end mt-auto d-grid gap-2">
-                                                <button class="edit btn"><i class="fas fa-edit"></i></button>
-                                                <button class="del btn"><i class="fas fa-trash"></i></button>
+                                                <a class="edit btn"
+                                                    href="/user/{{../userId}}/storage/collection?title={{title}}"><i
+                                                        class="fas fa-external-link-alt"></i></a>
+                                                <button class="del btn"
+                                                    onclick="deleteCollection('{{../userId}}','{{_id}}')"><i
+                                                        class="fas fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -116,13 +140,14 @@
                             </div>
                             <div class="modal-body">
                                 <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
-                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
-                                    placeholder="VD: jkhasjdhaksjhd" required>
+                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$"
+                                    maxlength="100" placeholder="VD: jkhasjdhaksjhd" required>
                                 <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                                <button id="createCollect" type="submit" class="btn submit" data-bs-dismiss="modal">Tạo bộ sưu tập</button>
+                                <button id="createCollect" type="submit" class="btn submit" data-bs-dismiss="modal">Tạo
+                                    bộ sưu tập</button>
                             </div>
                         </form>
                     </div>

@@ -9,25 +9,26 @@ router.get('/', function (req, res) {
     res.redirect('/login');
 })
 
-router.get('/add', controller.add)
-
 router.route('/:uid')
     .get(controller.getUserProfile)
 
 router.route('/:uid/storage')
     .get(controller.getUserLibrary)
 
-router.route('/:uid/storage/deleteHistory/')
-    //.put(controller.getUserLibrary)
+router.route('/:uid/storage/deleteHistory/:hid')
+    .put(controller.deleteHistory)
 
 router.route('/:uid/storage/collection')
     .get(controller.getCollection)
     //.put(controller.addCollection)
 
-router.route('/:uid/storage/editCollection/:cid')
-    .put(controller.editCollection)
+/* router.route('/:uid/storage/editCollection/:cid')
+    .put(controller.editCollection) */
+
+router.route('/:uid/storage/editCollectionItem/:cid/:mid')
+    .put(controller.editCollectionItem)
 
 router.route('/:uid/storage/deleteCollection/:cid')
-    //.put(controller.deleteCollection)
+    .put(controller.deleteCollection)
 
 module.exports = router;

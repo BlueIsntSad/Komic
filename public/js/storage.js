@@ -19,24 +19,24 @@ $(document).ready(function () {
         window.location.href = window.location.href.split("?")[0] + `?tab=${this.getAttribute("id").split("-")[1]}`;
     });
 
-    /* $('#save_collections').on('click', function () {
-        var a = $('#_title').val();
-        alert(a)
-    }) */
+    /* // Bind click to OK button within popup
+    $('#confirm-delete').on('click', '.btn-ok', function (e) {
+        var $modalDiv = $(e.delegateTarget);
+        var id = $(this).data('recordId');
 
-    /* $('#createCollect').on('click', function () {
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })() */
+        $modalDiv.addClass('loading');
+        $.post('/api/record/' + id).then(function () {
+            $modalDiv.modal('hide').removeClass('loading');
+        });
+    });
+
+    // Bind to modal opening to set necessary data properties to be used to make request
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        var data = $(e.relatedTarget).data();
+        $('.title', this).text(data.recordTitle);
+        $('.btn-ok', this).data('recordId', data.recordId);
+    }); */
+
 })
 
 function editNameCollection(event, userId, collect) {
@@ -47,7 +47,7 @@ function editNameCollection(event, userId, collect) {
         method: "PUT",
         url: `/user/${userId}/storage/editCollection/${collect._id}`,
         cache: false,
-        timeout: 60000,
+        timeout: 5000,
         data: { title: data },
         dataType: 'json',
         processData: false,
@@ -64,6 +64,73 @@ function editNameCollection(event, userId, collect) {
         error: function (err) {
             console.log(err)
             showToast('error', "Không thành công", "Thêm truyện mới không thành công!");
+            hideLoading();
+        }
+    })
+}
+
+function deleteHistory(userId, historyId) {
+    $.ajax({
+        method: "PUT",
+        url: `/user/${userId}/storage/deleteHistory/${historyId}`,
+        timeout: 5000,
+        success: function (result) {
+            console.log(result);
+            if (result) {
+                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+                $(`#his_${historyId}`).remove();
+            } else {
+                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            }
+        },
+        error: function (err) {
+            console.log(err)
+            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+        }
+    })
+}
+
+function deleteCollection(userId, collectId) {
+    showLoading();
+    $.ajax({
+        method: "PUT",
+        url: `/user/${userId}/storage/deleteCollection/${collectId}`,
+        timeout: 5000,
+        success: function (result) {
+            console.log(result);
+            if (result) {
+                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+            } else {
+                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            }
+            hideLoading();
+        },
+        error: function (err) {
+            console.log(err)
+            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            hideLoading();
+        }
+    })
+}
+
+function editCollectionItem(userId, collectId, mangaId) {
+    showLoading();
+    $.ajax({
+        method: "PUT",
+        url: `/user/${userId}/storage/editCollectionItem/${collectId}/${mangaId}`,
+        timeout: 5000,
+        success: function (result) {
+            console.log(result);
+            if (result.success) {
+                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+            } else {
+                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            }
+            hideLoading();
+        },
+        error: function (err) {
+            console.log(err)
+            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
             hideLoading();
         }
     })
