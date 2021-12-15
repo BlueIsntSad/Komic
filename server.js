@@ -53,15 +53,6 @@ app.engine('hbs', expressHandlebars({
 }));
 app.set('view engine', 'hbs');
 
-/* app.use(sesion({
-    serect:'',
-    resave:false,
-    saveUninitialized:false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: { maxAge: 120*60*1000 }
-})); */
-// app.use(passport.initialize());
-// app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 // Express session
 app.use(
