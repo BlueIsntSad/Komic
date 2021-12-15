@@ -3,6 +3,7 @@ const Category = require('../models/category');
 const Chapter = require('../models/chapter');
 const category = require('../models/category');
 const { User, Comment } = require('../models/user');
+const manga = require('../models/manga');
 
 async function getTopView(req, res) {
     const param = req.params['id'];
@@ -38,9 +39,9 @@ async function getCategory(req, res) {
     maxPage = Math.ceil(maxPage / perPage);
 
     const topViews = await getMangaTopviews();
-    const newComment = await getMangaNewComment()
+    const newComment = await getMangaNewComment();
 
-    const products = await Manga.find({ "categories": category._id })
+    const mangas = await Manga.find({ "categories": category._id })
         .sort(sortQuery)
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -49,7 +50,7 @@ async function getCategory(req, res) {
         })
         .lean();
 
-    category.products = products;
+    category.mangas = mangas;
     category.sort = sort
     res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
 }
@@ -109,7 +110,7 @@ async function getMangaDetails(req, res) {
             res.render('manga-details', {
                 manga: manga,
                 title: `${manga.title} | Komic`,
-                script: ['manga-details','review'],
+                script: ['manga-details', 'review'],
                 comments: comments
             });
         })
@@ -186,12 +187,38 @@ async function readChapter(req, res) {
                         manga: manga,
                         comments: comments,
                         title: `${manga.title} - Chapter ${chapter.index} | Komic`,
-                        script: ['manga-reading','review']
+                        script: ['manga-reading', 'review']
                     })
                 })
         })
         .catch((err) => console.log(err));
 }
 
-module.exports = { getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment };
+async function getManga(req, res) {
+    const searchQuery = req.query.search ? { title: req.query.search } : {};
+    const page = req.query.page || 1;
+    const perPage = 12;
+    let maxPage = await Manga.countDocuments({ "categories": category._id })
+    maxPage = Math.ceil(maxPage / perPage);
+
+    const topViews = await getMangaTopviews();
+    const newComment = await getMangaNewComment();
+
+    const mangas = await Manga.find(searchQuery)
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .populate({
+            path: 'categories'
+        })
+        .lean();
+
+    const categories = {
+        name: "",
+        mangas: mangas
+    }
+    res.render("search", { categories: [categories], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
+
+}
+
+module.exports = { getMangaDetails, read, readChapter, getTopView, getCategory, getAllCategoryPage, getMangaTopviews, getMangaNewComment, getManga };
 

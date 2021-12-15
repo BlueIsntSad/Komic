@@ -54,7 +54,7 @@
     .collections {
         background-color:#fff;
         header.d-flex {
-            button {
+            a.btn {
                 &:hover { background-color: $primary-color-hover }
             }
         }

@@ -1,0 +1,110 @@
+.user_storage {
+    a {
+        text-decoration: none;
+        &:hover { text-decoration: under; }
+    }
+
+    .btn.submit {
+        color: #fff;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .del.btn {
+        color: #dc3545;
+        &:hover {
+            color: white;
+            background-color: #dc3545;
+        }
+    }
+
+    .edit.btn {
+        &:hover {
+            color: white;
+            background-color: $primary-color-hover;
+        }
+    }
+
+    .storage_header {
+        .sub-nav {
+            .nav-item {
+                .nav-link {
+                    font-family: $title-font;
+                    font-size: 25px;
+                    margin:5px;
+                    color: black !important;
+
+                    i { margin-right: 8px; }
+
+                    &.active {
+                        background-color: $primary-color-hover;
+                        &:hover { background-color: $primary-color}
+                    }
+
+                    &:hover {
+                        background-color: lightgray;
+                        font-weight: normal !important;
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .reading-list {
+        .cover img {
+            width: 100px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .info {
+            h5 {
+                margin-bottom: 6px;
+            }
+
+            span {
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 25px;
+                text-align: justify;
+                text-justify: inter-character;
+            }
+        }
+    }
+
+    .collection {
+        background-color: #fff;
+        h3 { i { margin-right: 10px } }
+        button { margin-left: 8px }
+    }
+
+    #addCollect {
+        border-radius: 20px;
+        font-style: italic;
+        color: #fff;
+        background-color: black;
+        i { margin-left: 8px }
+    }
+
+    #title_edit { display: none !important }
+
+    .edit_done {
+        &.del {
+            color: #fff;
+            background-color: $red-color;
+        }
+
+        &.edit {
+            color: black;
+            background-color: $primary-color;
+            &:hover { color: black}
+        }
+    }
+}

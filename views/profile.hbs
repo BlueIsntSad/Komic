@@ -44,11 +44,11 @@
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2 mb-4">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Danh sách đã đọc</b></h4>
-                            <button class="flex-shrink-1 btn"><i class="fas fa-edit"></i></button>
+                            <a href="/user/{{user._id}}/storage?tab=history" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
                         </header>
                         <div class="reading-list">
                             <header class="list-heading">
-                                <a href="#">
+                                <a href="/user/{{user._id}}/storage?tab=history">
                                     <h5><b>Chi tiết</b><span><i class="fas fa-angle-right"></i></span></h5>
                                 </a>
                                 <p>Danh sách truyện - {{user.library.history.total}} bộ</p>
@@ -68,10 +68,8 @@
                                             <a href="/manga/{{manga.slug}}"><b>{{manga.title}}</b></a>
                                             <div class="d-flex mt-2">
                                                 <div class="flex-fill"><i class="fas fa-eye"></i> {{addCommas manga.views}}</div>
-                                                <div class="flex-fill"><i class="fas fa-bookmark"></i>
-                                                    {{manga.follower}}</div>
-                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.finished}}
-                                                </div>
+                                                <div class="flex-fill"><i class="fas fa-bookmark"></i> {{manga.follower}}</div>
+                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.finished}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,12 +82,12 @@
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Kho lưu trữ</b></h4>
-                            <button class="flex-shrink-1 btn"><i class="fas fa-edit"></i></button>
+                            <a href="/user/{{user._id}}/storage?tab=collection" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
                         </header>
                         {{#each collections}}
                         <div class="reading-list mb-3">
                             <header class="list-heading">
-                                <a href="#">
+                                <a href="/user/{{../user._id}}/storage/collection?title={{title}}">
                                     <h5><b>{{title}}</b><span><i class="fas fa-angle-right"></i></span></h5>
                                 </a>
                                 <p>Danh sách truyện - {{total}} bộ</p>
