@@ -2,12 +2,12 @@
         <div class="container manga_catetegory my-5 shadow-lg py-3 rounded">
             <div class="row category_item mb-4">
                 <h4 class="col-lg-8 col-md-8 col-sm-12 section_title">
-                    <a href="/categories/{{this._id}}">
+                    <a href="/manga/categories/{{this.slug}}">
                         {{this.name}}
                     </a>
                 </h4>
                 <h5 class="col-lg-4 col-md-4 col-sm-12 section_link">
-                    <a href="/manga/categories/{{this._id}}">
+                    <a href="/manga/categories/{{this.slug}}">
                         view all
                     </a>
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -16,19 +16,43 @@
                     <h5 class="section_sort_title">
                         Order by:
                     </h5>
-                    <form action="/manga/categories/{{this._id}}" method="GET" id="submit_sort" class="section_sort_form">
+                    <form action="/manga/categories/{{this.slug}}" method="GET" id="submit_sort" class="section_sort_form">
                         <select name="sort" id="sort" class="section_sort_select">
-                            <option value="namea_z" class="sort_select_option">A-Z</option>
-                            <option value="must_views" class="sort_select_option must_views">Lượt xem  &#xf062;</option>
-                            <option value="namez_a" class="sort_select_option">Z-A</option>
-                            <option value="least_views" class="sort_select_option">Lượt xem  &#xf063;</option>
+                            <option 
+                                value="namea_z" 
+                                {{#selectedItem "namea_z" this.sort}}{{/selectedItem}} 
+                                class="sort_select_option"
+                            >
+                                A-Z
+                            </option>
+                            <option 
+                                value="namez_a" 
+                                {{#selectedItem "namez_a" this.sort}}{{/selectedItem}} c
+                                lass="sort_select_option"
+                            >
+                                Z-A
+                            </option>
+                            <option
+                                value="must_views" 
+                                {{#selectedItem "must_views" this.sort}}{{/selectedItem}} 
+                                class="sort_select_option must_views"
+                            >
+                                Views  &#xf062;
+                            </option>
+                            <option 
+                                value="least_views" 
+                                {{#selectedItem "least_views" this.sort}}{{/selectedItem}} 
+                                class="sort_select_option"
+                            >
+                                Views  &#xf063;
+                            </option>
                         </select>
                     </form>
                 </div>
                 
             </div>
             <div class="row">
-                {{#each this.products}}
+                {{#each this.mangas}}
                     <div class="col-lg-4 col-md-6 col-sm-6 col-6 mb-5 px-4">
                         <div class="manga_item">
                             <div class="manga_item_cover bg-cover shadow-lg rounded"  style="background-image: url({{this.cover}});">
@@ -42,12 +66,17 @@
                                     {{this.comments}}
                                 </div>
                                 <div class="manga_item_info">
-                                    <a  class="manga_title" href="manga/{{this.id}}">
+                                    <a  class="manga_title" href="/manga/{{this.slug}}">
                                         <b>{{this.title}}</b>
                                     </a>
                                     <div class="manga_categories">
                                         {{#each this.categories}}
-                                            <a href="manga/category/{{this._id}}" class="manga_category_item">
+                                            <a 
+                                                href="/manga/categories/{{this.slug}}" 
+                                                class="manga_category_item" 
+                                                style="background-color: {{this.color}}; color: {{this.text_color}}"
+
+                                            >
                                                 {{this.name}}
                                             </a>
                                         {{/each}} 
@@ -59,7 +88,7 @@
                             </div>
                             <div class="manga_item_text pt-1">
                                 <h5 class="name">
-                                    <a href="manga/{{this.id}}">
+                                    <a href="/manga/{{this.slug}}">
                                         {{this.title}}
                                     </a>
                                 </h5>      

@@ -1,0 +1,133 @@
+<section class="user_storage my-4">
+    <div class="container">
+        <div class="row storage_header">
+            <header class="p-4">
+                <h1><b>Thư viện</b></h1>
+            </header>
+            <div class="sub-nav px-4">
+                <ul class="nav nav-pills" role="tablist">
+                    <li class="nav-item">
+                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history" data-bs-toggle="pill">
+                            <i class="fas fa-history"></i>Danh sách đọc
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection" data-bs-toggle="pill">
+                            <i class="fas fa-bookmark"></i>Kho lưu trữ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row storage_body tab-content p-4">
+            <!-- History pane -->
+            <div class="tab-pane fade {{#eq tab 'history'}}show active{{/eq}}" id="history">
+                {{#if history}}
+                <div class="profile-library shadow rounded-3 p-4 mb-4">
+                    <div class="row gap-3 py-4">
+                        {{#each history}}
+                        <div class="reading-list">
+                            <div class="d-flex">
+                                <div class="cover pe-4">
+                                    <a href="/manga/{{manga.slug}}"><img src="{{manga.cover}}" class="rounded-2"></a>
+                                </div>
+                                <div class="info flex-grow-1">
+                                    <header class="collect-title d-flex">
+                                        <div class='w-100'>
+                                            <div class="d-flex">
+                                                <a href="/manga/{{manga.slug}}">
+                                                    <h5><b>{{manga.title}}</b></h5>
+                                                </a>
+                                                <div class="ms-3">{{moment lastRead format="DD/MM/YYYY"}}</div>
+                                            </div>
+                                            <div class="d-flex flex-row mt-2 d-grid gap-4">
+                                                <div><i class="fas fa-eye"></i> {{addCommas manga.views}}</div>
+                                                <div><i class="fas fa-bookmark"></i> {{manga.follower}}</div>
+                                                <div><i class="fas fa-list-ul"></i> {{manga.finished}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-1 fuction">
+                                            <button class="del btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </header>
+                                    <span>{{manga.description}}</span>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{else}}
+                <b><em>Chưa có truyện nào</em></b>
+                {{/if}}
+            </div>
+
+            <!-- Collection pane -->
+            <div class="tab-pane fade {{#eq tab 'collection'}}show active{{/eq}}" id="collection">
+                <button class="btn mb-3" id="addCollect" data-bs-toggle="modal" data-bs-target="#addCollectModal">
+                    Thêm bộ sưu tập mới<i class="fas fa-plus-circle"></i></button>
+                <div class="row">
+                    {{#if collection}}
+                    {{#each collection}}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="profile-library shadow rounded-3 p-4 mb-4">
+                            <div class="library-body">
+                                <div class="reading-list">
+                                    <div class="d-flex">
+                                        <a href="/user/{{../userId}}/storage/collection?title={{title}}">
+                                            <div class="cover pe-4">
+                                                <img src="{{mangaCollect.0.manga.cover}}" class="rounded-2">
+                                                <div class="shadow rounded-2"></div>
+                                            </div>
+                                        </a>
+                                        <div class='info w-100 d-flex flex-column'>
+                                            <a href="/user/{{../userId}}/storage/collection?title={{title}}">
+                                                <h5><b>{{title}}</b></h5>
+                                            </a>
+                                            <p>{{total}} truyện</p>
+                                            <div class="d-flex justify-content-end mt-auto d-grid gap-2">
+                                                <button class="edit btn"><i class="fas fa-edit"></i></button>
+                                                <button class="del btn"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <b><em>Chưa có bộ sưu tập nào</em></b>
+                    {{/if}}
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="addCollectModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form class="needs-validation" novalidate>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tạo bộ sưu tập mới</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
+                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
+                                    placeholder="VD: jkhasjdhaksjhd" required>
+                                <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                                <button id="createCollect" type="submit" class="btn submit" data-bs-dismiss="modal">Tạo bộ sưu tập</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

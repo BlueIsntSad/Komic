@@ -1,4 +1,4 @@
-<div class="wrap_conainer container-fluid" >
+<div class="wrap_conainer admin_page" >
     {{> admin-sidebar curentPage}}       
     <div class="main_content container-fluid">
         <div class="header_content row">
@@ -23,11 +23,19 @@
                 </div>
         </div>
         <div class="body_content row table-responsive">
-            <div class="content_header">
-                <h4 class="content_header_title">Danh sách truyện</h4>
-                <div class="add_button">
-                    <a href="/admin/manga/insert">Thêm truyện</a>
+            <div class="table_header_content">
+                <div class="d-flex flex-row table_header_left_content">
+                    <h4 class="left_content_title me-4">Danh sách truyện</h4>
+                    <div class="add_button">
+                        <a href="/admin/manga/insert">Thêm truyện</a>
+                    </div>
                 </div>
+
+
+                <form action="/admin/manga" class="table_header_right_content">
+                    <input class="form-control" type="text" name="search" placeholder="Tìm kiếm...">
+                    <button type="submit" class="icon_button search_icon_button mx-3"><i class="fas fa-search"></i></button>
+                </form>
             </div>
             <table class="manga_table table">
                 <thead class="manga_table_head ">
@@ -44,7 +52,7 @@
                 </thead>
                 <tbody class="manga_table_body">
                     {{#each this.mangas}}
-                        <tr>
+                        <tr id="manga_{{this._id}}">
                             <td class="text-center align-middle">
                                 <img class="cover" src="{{this.cover}}" alt="">
                             </td>
@@ -78,15 +86,15 @@
             <nav aria-label="...">
                 <ul class="pagination">
                     <li class="page-item {{disablePage page maxPage false}}">
-                        <a class="page-link" href="/admin/{{pre}}">Previous</a>
+                        <a class="page-link" href="/admin/manga?page={{pre}}">Previous</a>
                     </li>
                     {{#each pages}}
                         <li class="page-item {{activeItem this ../page}}" aria-current="page">
-                            <a class="page-link" href="/admin/{{this}}">{{this}}</a>
+                            <a class="page-link" href="/admin/manga?page={{this}}">{{this}}</a>
                         </li>                
                     {{/each}}
                     <li class="page-item {{disablePage page maxPage true}}">
-                        <a class="page-link" href="/admin/{{next}}">Next</a>
+                        <a class="page-link" href="/admin/manga?page={{next}}">Next</a>
                     </li>
                 </ul>
             </nav>

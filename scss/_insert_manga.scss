@@ -6,6 +6,12 @@
     height: calc(100% - 110px);
     .custom_tab {
       height: 100%;
+      .custom_nav_tabs {
+        button {
+          color: $black-gray !important;
+          font-family: $title-font;
+        }
+      }
       .custom_dropdown {
         button {
           background-color: transparent;
@@ -13,7 +19,7 @@
           width: 100%;
           text-align: left;
           padding-left: 0px;
-          color: #6c757d;
+          color: #6c757d !important;
         }
 
         li {
@@ -105,6 +111,13 @@
               margin-right: 10px;
             }
           }
+          .chapters {
+            list-style: none;
+            .chapter {
+              list-style: none;
+            }
+          }
+
         }
         .preview_section_image {
           width: 100%;
@@ -139,6 +152,19 @@
     margin-bottom: 10px;
     .section_care_title {
       margin-right: 10px;
+    }
+  }
+}
+
+.edit_manga_page {
+  .loading_modal {
+    background-color: transparent;
+    .modal-content {
+      background-color: transparent !important;
+      .spinner-border {
+        width: 3rem;
+        height: 3rem;
+      }
     }
   }
 }

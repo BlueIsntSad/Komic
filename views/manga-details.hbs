@@ -6,7 +6,7 @@
   <div class="container">
     <div class="manga_details_content my-5 shadow-lg rounded-3">
       <div class="row p-4 g-3">
-        <div class="col-lg-4 col-xl-3">
+        <div class="col-lg-4 col-xl-3 pe-3">
           <div class="anime_details_pic">
             <img src={{manga.cover}} class="img-fluid rounded-3" />
           </div>
@@ -25,19 +25,17 @@
                 <a href="#"><i class="fas fa-star-half-alt"></i></a>
                 <a href="#"><i class="far fa-star"></i></a>
               </div>
-              <span>{{manga.totalRate}} lượt đánh giá</span>
+              <span>{{addCommas manga.totalRate}} lượt đánh giá</span>
             </div>
           </div>
           <div class="categories mb-3">
             <ul class="list-inline">
-              <li class="list-inline-item"><a href="#" role="button"
-                  class="btn badge rounded-pill bg-primary">Action</a></li>
-              <li class="list-inline-item"><a href="#" role="button"
-                  class="btn badge rounded-pill bg-secondary">Adventure</a></li>
-              <li class="list-inline-item"><a href="#" role="button"
-                  class="btn badge rounded-pill bg-danger">Mystery</a></li>
-              <li class="list-inline-item"><a href="#" role="button"
-                  class="btn badge rounded-pill bg-warning">Supernatural</a></li>
+              {{#each manga.categories}}
+              <li class="list-inline-item">
+                <a href="/categories/{{slug}}" role="button" class="btn badge rounded-pill"
+                  style="background-color:{{color}}; color:{{text_color}};">{{name}}</a>
+              </li>
+              {{/each}}
             </ul>
           </div>
           <div class="manga_details_description mb-2">
@@ -69,10 +67,10 @@
                   <dd class="col-sm-7">{{moment manga.updatedAt lang="vi" fromNow=null}}</dd>
 
                   <dt class="col-sm-5">Đang theo dõi:</dt>
-                  <dd class="col-sm-7">{{manga.follower}}</dd>
+                  <dd class="col-sm-7">{{addCommas manga.follower}}</dd>
 
                   <dt class="col-sm-5">Lượt xem:</dt>
-                  <dd class="col-sm-7">{{manga.views}}</dd>
+                  <dd class="col-sm-7">{{addCommas manga.views}}</dd>
                 </dl>
               </div>
             </div>
@@ -94,92 +92,30 @@
             <i class="fas fa-sort-amount-up-alt"></i>
           </button>
         </div>
-        <div class="list-group m-3">
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 0</span>
-            <span class="fst-italic p-3 flex-grow-1">Quaerat, officiis?</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#1</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 1</span>
-            <span class="fst-italic p-3 flex-grow-1">Adipisicing elit</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#2</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 2</span>
-            <span class="fst-italic p-3 flex-grow-1">Nesciunt, eveniet</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#3</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 2.2</span>
-            <span class="fst-italic p-3 flex-grow-1">Dolor sit amet consectetur</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#4</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 3</span>
-            <span class="fst-italic p-3 flex-grow-1">Nemo porro odit mollitia earum</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#5</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 0</span>
-            <span class="fst-italic p-3 flex-grow-1">Quaerat, officiis?</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#1</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 1</span>
-            <span class="fst-italic p-3 flex-grow-1">Adipisicing elit</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#2</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 2</span>
-            <span class="fst-italic p-3 flex-grow-1">Nesciunt, eveniet</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#3</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 2.2</span>
-            <span class="fst-italic p-3 flex-grow-1">Dolor sit amet consectetur</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#4</span>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex">
-            <span class="fw-bold p-3">Chương 3</span>
-            <span class="fst-italic p-3 flex-grow-1">Nemo porro odit mollitia earum</span>
-            <span class="date p-3">30-2-2077</span>
-            <span class="bookmark p-3"><i class="fas fa-bookmark pe-2"></i>4,242</span>
-            <span class="p-3">#5</span>
-          </a>
+        <div class="list-group m-3" id="chapter-list">
+          {{#each manga.chapters}}
+          <div class="list-group-item list-group-item-action">
+            <a href="/manga/{{../manga.slug}}/chapter-{{index}}" class="d-flex">
+              <span class="fw-bold p-3">Chương {{index}}</span>
+              <span class="fst-italic p-3 flex-grow-1">{{name}}</span>
+              <span class="date p-3"><i class="fas fa-history"></i> {{moment updatedAt format="DD-MM-YYYY"}}</span>
+              <span class="bookmark p-3"><i class="fas fa-eye"></i> {{addCommas views}}</span>
+              <span class="p-3">#{{plus @index 1}}</span>
+            </a>
+          </div>
+          {{/each}}
         </div>
         <div class="paginate p-2">
           <nav class="d-flex justify-content-center">
-            <ul class="pagination">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">Prev</span>
+            <ul class="pagination" id="chapterPage">
+              <li class="page-item prev disabled">
+                <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
                 </a>
               </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">Next</span>
+              <li class="page-item next">
+                <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                  <span aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
                 </a>
               </li>
             </ul>

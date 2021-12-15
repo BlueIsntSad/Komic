@@ -1,4 +1,4 @@
-<div class="wrap_conainer container-fluid" >
+<div class="wrap_conainer category_mangage_page" >
     {{> admin-sidebar curentPage}}       
     <div class="main_content container-fluid">
         <div class="header_content row">
@@ -31,6 +31,7 @@
                     <tr >
                         <th class="text-center w-20">Tên thể loại</th>
                         <th class="text-center w-20">Mô tả</th>
+                        <th class="text-center">Màu nền/Màu chữ</th>
                         <th class="text-center w-10">Chỉnh sửa</th>
                     </tr>
                 </thead>
@@ -52,6 +53,7 @@
                                         id="category_name_{{this._id}}" 
                                         class="category_input_field form-control input_name"
                                         placeholder="Tên thể loại"
+                                        style="background-color: {{this.color}}; color:{{this.text_color}}"
                                         required
                                         disabled
                                     >  
@@ -68,6 +70,34 @@
                                         required
                                         disabled
                                     >         
+                                </td>
+                                <td class="px-5">
+                                    <div class="d-flex flex-row justify-content-around">
+                                        <div class="input_preview_color" style="background-color: {{this.color}};">
+                                            <input 
+                                                type="color"
+                                                value="{{this.color}}"
+                                                name="color"
+                                                id="category_color_{{this._id}}" 
+                                                class="category_input_field input_color"
+                                                onchange="changePreview(event)"
+                                                required
+                                                disabled
+                                            >
+                                        </div>  
+                                        <div class="input_preview_color" style="background-color: {{this.text_color}};">
+                                            <input 
+                                                type="color"
+                                                value="{{this.text_color}}"
+                                                name="text_color"
+                                                id="category_text_color_{{this._id}}" 
+                                                class="category_input_field input_color"
+                                                onchange="changePreview(event)"
+                                                required
+                                                disabled
+                                            >
+                                        </div>
+                                    </div>           
                                 </td>
                                 <td class="text-center align-middle edit">
                                     <button 
@@ -119,7 +149,7 @@
                                     value="" 
                                     name="name" 
                                     id="category_name_new" 
-                                    class="category_input_field form-control"
+                                    class="category_input_field form-control input_name"
                                     placeholder="Tên thể loại"
                                     required
                                 >  
@@ -133,6 +163,33 @@
                                     placeholder="Mô tả"
                                     required
                                 >         
+                            </td>
+
+                            <td class="px-5">
+                                <div class="d-flex flex-row justify-content-around">
+                                    <div class="input_preview_color" style="background-color: #ffffff;">
+                                        <input 
+                                            type="color"
+                                            value="#ffffff"
+                                            name="color"
+                                            id="category_color_new" 
+                                            class="category_input_field input_color"
+                                            onchange="changePreview(event)"
+                                            required
+                                        >
+                                    </div>  
+                                    <div class="input_preview_color" style="background-color: #000000;">
+                                        <input 
+                                            type="color"
+                                            value="#000000"
+                                            name="text_color"
+                                            id="category_text_color_new" 
+                                            class="category_input_field input_color"
+                                            onchange="changePreview(event)"
+                                            required                                   
+                                        >
+                                    </div>
+                                </div>           
                             </td>
                             <th class="text-center align-middle edit">
                                 <button  
@@ -185,6 +242,32 @@
                 disabled
             >         
         </td>
+        <td class="px-5">
+            <div class="d-flex flex-row justify-content-around">
+                <div class="input_preview_color background_color" style="background-color: #ffffff;">
+                    <input 
+                        type="color"
+                        value="#ffffff"
+                        name="color"
+                        id="category_color_new" 
+                        class="category_input_field input_color"
+                        onchange="changePreview(event)"
+                        required
+                    >
+                </div>  
+                <div class="input_preview_color text_color" style="background-color: #000000;">
+                    <input 
+                        type="color"
+                        value="#000000"
+                        name="text_color"
+                        id="category_text_color_new" 
+                        class="category_input_field input_color"
+                        onchange="changePreview(event)"
+                        required                                   
+                    >
+                </div>
+            </div>           
+        </td>
         <td class="text-center align-middle edit">
             <button 
                 type="button"
@@ -220,6 +303,7 @@
                 <i class="fas fa-check"></i>
             </button>
         </td>
+        
     </form>
 </tr>
 </table>

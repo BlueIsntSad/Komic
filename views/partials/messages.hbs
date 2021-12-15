@@ -1,0 +1,7 @@
+{{#if errors }}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{#each errors}}
+    <p>{{ this.msg }}</p>
+  {{/each}}
+  </div>
+{{/if}}

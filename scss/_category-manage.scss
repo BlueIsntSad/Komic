@@ -1,12 +1,36 @@
-.categories_table {
-  .categories_table_body {
-    .category_input_field {
-      text-align: center;
-      color: $black-color;
+.category_mangage_page {
+  .categories_table {
+    .categories_table_body {
+      .category_input_field {
+        text-align: center;
+        font-weight: 600;
+        &:disabled {
+          border: 0;
+          background-color: transparent;
+        }
+      }
 
-      &:disabled {
-        border: 0;
-        background-color: transparent;
+      .input_preview_color {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        outline: none;
+        border: none;
+      }
+
+      .input_color {
+        opacity: 0;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border: none;
+      }
+
+      .icon_button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
       }
     }
   }

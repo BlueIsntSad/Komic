@@ -1,84 +1,112 @@
-const { User, Admin } = require('../models/user');
+const { User, Admin, Comment } = require('../models/user');
 const Manga = require('../models/manga');
+const Chapter = require('../models/chapter');
+const ObjectId = require('mongodb').ObjectID;
 
-function index(req, res) {
-    res.render('profile', {
-        title: 'User guy | Komic',
-        user: '/img/avatar_default.png'
-    })
-}
 
-async function getUserProfile(req, res) {
-    var userId = req.params.uid;
+async function getUserProfile(req, res, next) {
+    let userId = req.params.uid;
     await User.findById(userId)
         .lean()
-        .populate('library.history.mangaCollect.manga')
-        .populate('library.collections.collect.mangaCollect.manga')
+        .populate('library.history.mangaCollect.manga',
+            'cover slug title views follower finished')
+        .populate('library.collections.collect.mangaCollect.manga',
+            'cover slug title views follower finished')
         .then(userDoc => {
             res.render('profile', {
                 user: userDoc,
                 title: `${userDoc.name} | Komic`,
-                script: 'profile',
-                history: userDoc.library.history.mangaCollect.slice(0, 3),
+                script: ['profile'],
+                history: userDoc.library.history.mangaCollect,
                 collections: userDoc.library.collections.collect
             });
         })
-        .catch(function (err) { console.log(err) });
+        .catch(function (err) { console.log(err.message) });
 }
 
-function add(req, res) {
-    addExUser()
-}
-
-async function addExUser() {
+async function getUserLibrary(req, res, next) {
     try {
-        await User.findOne({ name: 'My name Bob' }).deleteOne();
-        const user = await User.create({
-            name: 'My name Bob',
-            email: 'Bobbypr0Vjp@somthing.com',
-            password: '123456',
-            avatar: '/img/avatar_1.png',
-            about: 'Fusce sit amet ex in mi volutpat blandit. Sed imperdiet nulla et efficitur ultrices. Sed euismod lacus quis felis venenatis fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc congue massa id condimentum mollis. Nulla a elementum nunc.',
-            adress: 'Hue, Viet Nam',
-            library: {
-                history: {
-                    total: 4,
-                    mangaCollect: [
-                        { manga: '6198c572b8cf37785e4ffcb0' },
-                        { manga: '61a121dc891108d0c5ce0fcc' },
-                        { manga: '61a1232559d939f20bfa0886' },
-                        { manga: '6198c572b8cf37785e4ffcb0' },
-                    ]
-                },
-                collections: {
-                    total_collect: 2,
-                    collect: [
-                        {
-                            title: 'Collection 1',
-                            total: 2,
-                            mangaCollect: [
-                                { manga: '61a121dc891108d0c5ce0fcc' },
-                                { manga: '6198c572b8cf37785e4ffcb0' }
-                            ]
-                        },
-                        {
-                            title: 'Collection 2',
-                            total: 4,
-                            mangaCollect: [
-                                { manga: '6198c572b8cf37785e4ffcb0' },
-                                { manga: '61a121dc891108d0c5ce0fcc' },
-                                { manga: '61a1232559d939f20bfa0886' },
-                                { manga: '6198c572b8cf37785e4ffcb0' },
-                            ]
-                        }
-                    ]
-                }
-            }
+        const tab = req.query.tab || 'history';
+        const userId = req.params.uid;
+
+        const user = await User.findById(userId, 'name library -_id')
+            .populate('library.history.mangaCollect.manga',
+                'cover slug title views follower finished description -_id')
+            .populate('library.collections.collect.mangaCollect.manga',
+                'cover slug title views follower finished description -_id')
+            .lean()
+        user.library.history.mangaCollect.sort(function (a, b) {
+            return ((a.lastRead == b.lastRead) ? 0 : ((a.lastRead < b.lastRead) ? 1 : -1));
         })
-        console.log(user)
-    } catch (err) {
-        console.log(err.message)
-    }
+
+        //res.send(user.library.collections.collect)
+        res.render('storage', {
+            title: `Library | Komic`,
+            script: ['storage'],
+            history: user.library.history.mangaCollect,
+            collection: user.library.collections.collect,
+            userId: userId,
+            tab: tab
+        });
+    } catch (err) { console.log(err.message) }
 }
 
-module.exports = { index, getUserProfile, add };
+async function getCollection(req, res, next) {
+    try {
+        const userId = req.params.uid;
+        let user = await User.findById(userId, 'name library -_id')
+            .populate('library.collections.collect.mangaCollect.manga',
+                'cover slug title views follower finished description -_id')
+            .lean()
+        let collectList = user.library.collections.collect
+        let collectQuery = req.query.title
+        let collect = collectList.find(collect => collect.title === collectQuery)
+        //console.log('title:',collect.title);
+        //res.send(collect)
+        res.render('collection', {
+            title: `Library | Komic`,
+            script: ['storage'],
+            collection: collect,
+            userId: userId
+        });
+    } catch (err) { console.log(err.message) }
+}
+
+async function editCollection(req, res, next) {
+    await User.findById(req.params.uid, function (err, result) {
+        if (!err) {
+            if (!result) {
+                res.status(404).send('User was not found');
+            }
+            else {
+                let collectQuery = req.params.cid;
+                result.library.collections.collect.id(collectQuery).title = req.body.title;
+                result.markModified('library.collections.collect');
+                result.save(function (saveerr, saveresult) {
+                    if (!saveerr) {
+                        res.status(200).send(saveresult);
+                    } else {
+                        res.status(400).send(saveerr.message);
+                    }
+                });
+            }
+        } else { res.status(404).send(err.message); }
+    })
+}
+
+/* async function getHistory(userId) {
+    const histories = await User.findById(userId, 'name library -_id')
+        .populate({
+            path: 'library.history.mangaCollect.manga',
+            select: 'cover slug title views follower finished description -_id'
+        })
+        .lean()
+    histories.library.history.mangaCollect.sort(function (a, b) {
+        return ((a.lastRead == b.lastRead) ? 0 : ((a.lastRead < b.lastRead) ? 1 : -1));
+    })
+    return histories.library.history.mangaCollect
+}*/
+
+function add(req, res) { }
+
+module.exports = { getUserProfile, getUserLibrary, add, getCollection, editCollection };

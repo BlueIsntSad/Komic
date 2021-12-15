@@ -55,7 +55,7 @@
   .body_content {
     background-color: $white-color;
     padding: 0rem 1rem;
-    .content_header {
+    .table_header_content {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -63,19 +63,39 @@
       align-items: center;
       padding: 10px 0px;
       border-bottom: 1px solid $black-gray;
-      .content_header_title {
-        font-weight: 600;
-      }
-      .add_button {
-        a {
-          background-color: $black-gray;
-          text-decoration: none;
-          color: $white-color;
-          font-weight: 500;
-          padding: 7px 15px;
-          border-radius: 3px;
+      .table_header_left_content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        .left_content_title {
+          font-weight: 600;
+        }
+
+        .search_icon_button {
+          font-size: 1.2rem;
+        }
+
+        .add_button {
+          a {
+            background-color: $black-gray;
+            text-decoration: none;
+            color: $white-color;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 5px 15px;
+            border-radius: 3px;
+          }
         }
       }
+
+      .table_header_right_content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+     
     }
   }
   .manga_table {

@@ -1,19 +1,26 @@
 @import "variables";
 @import "base";
 
-//@import "home";
+@import "home";
 @import "manga-panel";
 @import "sidebar";
 @import "categories";
 @import "manga-details";
 @import "manga-reading";
 @import "profile";
+@import "_storage";
 @import "navbar";
 @import "admin";
 @import "insert_manga";
 @import "admin-sidebar";
 @import "category-manage";
 @import "breadcrumb";
+@import "all-category";
+@import "paginations";
+@import "toast";
+@import "dashboard";
+@import "navbar";
+@import "login";
 
 
 html,

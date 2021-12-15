@@ -11,14 +11,14 @@ const adminSchema = new Schema({
 
 const userSchema = new Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    account: { type: String, required: true },
+    email: { type: String, required: true},
     password: { type: String, required: true },
     avatar: { type: String, default: '/img/avatar_default.png' },
     cover: { type: String, default: '/img/avatar_default.png' },
+    following: { type: Number, default: 0},
     about: String,
     adress: String,
-    follower: { type: Number, default: 0, min: 0 },
-    views: { type: Number, default: 0, min: 0 },
     library: {
         history: {
             total: { type: Number, default: 0 },
@@ -26,7 +26,7 @@ const userSchema = new Schema({
                 {
                     manga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' },
                     lastRead: { type: Date, default: Date.now },
-                    _id : false
+                    _id: false
                 }
             ]
         },
@@ -37,7 +37,7 @@ const userSchema = new Schema({
                     title: { type: String, required: true, default: 'collection' },
                     total: { type: Number, default: 0 },
                     mangaCollect: [
-                        { manga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' }, _id : false }
+                        { manga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' }, _id: false }
                     ]
                 }
             ]
@@ -45,28 +45,32 @@ const userSchema = new Schema({
     }
 }, { timestamps: true });
 
-userSchema.index({ account: 1 }, { unique: true })
 
-userSchema.methods.getHistory = function() {
+userSchema.methods.getHistory = function () {
     const mangaCollect = this.library.history.mangaCollect.slice(0, 3);
     console.log(mangaCollect);
     return mangaCollect;
 }
 
-userSchema.pre('save', function(next) {
+/* userSchema.pre('save', function (next) {
     this.library.history.total = this.library.history.mangaCollect.length;
     this.library.collections.collect.forEach(collectList => {
         collectList.total = collectList.mangaCollect.length;
     })
+    let sum = 0;
+    for(let i=0; i<this.library.collections.total_collect; i++) {
+        sum += this.library.collections.collect[i].total;
+    }
+    this.following = sum;
     next()
-})
+}) */
 
 
 const commentSchema = new Schema({
-    body: { type: String, required: true },
+    content: { type: String, required: true },
     byUser: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'User' },
     onManga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' },
-    commentAt: { type: Date, default: Date.now }
+    onChapter: { type: mongoose.SchemaTypes.ObjectId, ref: 'Chapter', default: null},
 }, { timestamps: true })
 
 

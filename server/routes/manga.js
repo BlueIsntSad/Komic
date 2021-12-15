@@ -4,23 +4,26 @@ const router = express.Router();
 // Require controller
 const controller = require('../controllers/manga.js');
 
+// GET all category page
+router.route("/categories")
+    .get(controller.getAllCategoryPage)
+
+// GET manga of category page
 router.route("/categories/:id")
     .get(controller.getCategory)
 
-// GET manga details page
-router.get('/', controller.index)
+// Redirect manga details page to home page
+router.get('/', controller.getManga)
 
-// GET manga reading page
-router.get('/ep', controller.read)
-
-router.get('/add', controller.add)
-
-router.get('/:id', controller.getMangaDetails)
+// GET specific manga details page
+router.route('/:manga')
+    .get(controller.getMangaDetails)
 
 //GET top view 
 router.get("/top/:id", controller.getTopView)
 
-//GET category
-
+// GET specific chapter
+router.route('/:manga/:chapter')
+    .get(controller.readChapter)
 
 module.exports = router;
