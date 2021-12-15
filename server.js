@@ -24,6 +24,18 @@ const hbsHelper = require('./server/helpers/helpers')
 const app = express();
 const port = 3000;
 
+// Connect the database
+database = process.env.db_URI
+mongoose.connect(database, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then((result) => {
+    console.log("Database connection successfully!");
+  })
+  .catch((err) => console.log(err));
+
+
 // For parsing POST
 app.use(bodyParser.json());
 app.use(
@@ -35,21 +47,21 @@ app.use(
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', expressHandlebars({
-    extname: 'hbs',
-    defaultLayout: 'default',
-    layoutsDir: __dirname + '/views/layouts/',
-    helpers: {
-        ...helpers,
-        convertDateString: hbsHelper.convertDateString,
-        itemChecked: hbsHelper.itemChecked,
-        activeItem: hbsHelper.activeItem,
-        disablePage: hbsHelper.disablePage,
-        addManga: hbsHelper.addManga,
-        BreadCrumb: hbsHelper.BreadCrumb,
-        showToast: hbsHelper.showToast,
-        selectedItem: hbsHelper.selectedItem,
-        initScripData: hbsHelper.initScripData
-    }
+  extname: 'hbs',
+  defaultLayout: 'default',
+  layoutsDir: __dirname + '/views/layouts/',
+  helpers: {
+    ...helpers,
+    convertDateString: hbsHelper.convertDateString,
+    itemChecked: hbsHelper.itemChecked,
+    activeItem: hbsHelper.activeItem,
+    disablePage: hbsHelper.disablePage,
+    addManga: hbsHelper.addManga,
+    BreadCrumb: hbsHelper.BreadCrumb,
+    showToast: hbsHelper.showToast,
+    selectedItem: hbsHelper.selectedItem,
+    initScripData: hbsHelper.initScripData
+  }
 }));
 app.set('view engine', 'hbs');
 
@@ -71,18 +83,12 @@ app.use(passport.session());
 app.use(flash());
 
 // Global variables
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   next();
 });
-
-/* app.use(function(req, res, next) {
-    res.locals.login = req.isAuthenticated();
-    res.locals.session = req.session;
-    next();
-}) */
 
 // Page routing
 app.use('/', route)
@@ -91,18 +97,8 @@ app.use('/admin', adminRouter)
 app.use('/user', userRoute)
 // Log in/ Register
 app.use('/', authRoute);
-// Connect the database
-database = process.env.db_URI
-mongoose.connect(database, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then((result) => {
-        console.log("Database connection successfully!");
-    })
-    .catch((err) => console.log(err));
 
 // Listen request
 app.listen(process.env.PORT || port, function () {
-    console.log('Server is running on Port ' + port);
+  console.log('Server is running on Port ' + port);
 })
