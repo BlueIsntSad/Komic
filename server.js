@@ -5,12 +5,17 @@ const path = require('path')
 const expressHandlebars = require('express-handlebars')
 const helpers = require('handlebars-helpers')()
 const mongoose = require('mongoose')
-
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+require('./server/config/passport')(passport);
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
 const adminRouter = require('./server/routes/admin')
 const userRoute = require('./server/routes/user')
+const authRoute = require('./server/routes/auth')
 
 //Helper
 const hbsHelper = require('./server/helpers/helpers')
@@ -20,8 +25,12 @@ const app = express();
 const port = 3000;
 
 // For parsing POST
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +63,29 @@ app.set('view engine', 'hbs');
 // app.use(passport.initialize());
 // app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+// Express session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 /* app.use(function(req, res, next) {
     res.locals.login = req.isAuthenticated();
@@ -66,7 +98,8 @@ app.use('/', route)
 app.use('/manga', mangaRoute)
 app.use('/admin', adminRouter)
 app.use('/user', userRoute)
-
+// Log in/ Register
+app.use('/', authRoute);
 // Connect the database
 database = process.env.db_URI
 mongoose.connect(database, {
