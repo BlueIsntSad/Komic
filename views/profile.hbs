@@ -37,15 +37,19 @@
                         <h4 class="mb-3"><b>About</b></h4>
                         <p>{{user.about}}</p>
                         <p><i class="fas fa-map-marker-alt"></i>{{user.adress}}</p>
-                        <p><i class="fas fa-clock"></i>Tham gia vào {{moment user.createdAt format="DD [tháng] MM [năm] YYYY"}}</p>
+                        <p><i class="fas fa-clock"></i>Tham gia vào {{moment user.createdAt format="DD [tháng] MM [năm]
+                            YYYY"}}</p>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2 mb-4">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Danh sách đã đọc</b></h4>
-                            <a href="/user/{{user._id}}/storage?tab=history" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
+                            <a href="/user/{{user._id}}/storage?tab=history" class="flex-shrink-1 btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
                         </header>
+                        {{#if history}}
                         <div class="reading-list">
                             <header class="list-heading">
                                 <a href="/user/{{user._id}}/storage?tab=history">
@@ -60,16 +64,18 @@
                                     <div class="col-4 manga-item">
                                         <a href="/manga/{{manga.slug}}">
                                             <div class="pic ratio">
-                                                <img src={{manga.cover}}
-                                                    class="img-fluid w-100 rounded-3 mb-2">
+                                                <img src={{manga.cover}} class="img-fluid w-100 rounded-3 mb-2">
                                             </div>
                                         </a>
                                         <div class="content">
                                             <a href="/manga/{{manga.slug}}"><b>{{manga.title}}</b></a>
                                             <div class="d-flex mt-2">
-                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{addCommas manga.views}}</div>
-                                                <div class="flex-fill"><i class="fas fa-bookmark"></i> {{manga.follower}}</div>
-                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.finished}}</div>
+                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{addCommas
+                                                    manga.views}}</div>
+                                                <div class="flex-fill"><i class="fas fa-bookmark"></i>
+                                                    {{manga.follower}}</div>
+                                                <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.finished}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -78,12 +84,17 @@
                                 </div>
                             </div>
                         </div>
+                        {{else}}
+                        <b class="text-center"><em>Chưa có truyện nào</em></b>
+                        {{/if}}
                     </div>
                     <div class="collections shadow rounded-3 p-4 d-flex flex-column gap-2">
                         <header class="d-flex mb-2">
                             <h4 class="flex-fill"><b>Kho lưu trữ</b></h4>
-                            <a href="/user/{{user._id}}/storage?tab=collection" class="flex-shrink-1 btn"><i class="fas fa-edit"></i></a>
+                            <a href="/user/{{user._id}}/storage?tab=collection" class="flex-shrink-1 btn"><i
+                                    class="fas fa-edit"></i></a>
                         </header>
+                        {{#if collections}}
                         {{#each collections}}
                         <div class="reading-list mb-3">
                             <header class="list-heading">
@@ -99,14 +110,14 @@
                                     <div class="col-4 manga-item">
                                         <a href="/manga/{{manga.slug}}">
                                             <div class="pic ratio">
-                                                <img src={{manga.cover}}
-                                                    class="img-fluid w-100 rounded-3 mb-2">
+                                                <img src={{manga.cover}} class="img-fluid w-100 rounded-3 mb-2">
                                             </div>
                                         </a>
                                         <div class="content">
                                             <a href="/manga/{{manga.slug}}"><b>{{manga.title}}</b></a>
                                             <div class="d-flex mt-2">
-                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{addCommas manga.views}}</div>
+                                                <div class="flex-fill"><i class="fas fa-eye"></i> {{addCommas
+                                                    manga.views}}</div>
                                                 <div class="flex-fill"><i class="fas fa-bookmark"></i>
                                                     {{manga.follower}}</div>
                                                 <div class="flex-fill"><i class="fas fa-list-ul"></i> {{manga.finished}}
@@ -120,6 +131,16 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <b class="text-center mb-3"><em>Chưa có bộ sưu tập nào</em></b>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn mb-3" id="addCollect" data-bs-toggle="modal"
+                                data-bs-target="#addCollectModal">
+                                Thêm bộ sưu tập mới<i class="fas fa-plus-circle"></i>
+                            </button>
+                        </div>
+                        {{>modal}}
+                        {{/if}}
                     </div>
                 </div>
             </div>
