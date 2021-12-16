@@ -38,11 +38,7 @@ mongoose.connect(database, {
 
 // For parsing POST
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
@@ -68,7 +64,7 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 // Express session
 app.use(session({
-  secret: 'secret',
+  secret: 'M1lWSBrRLRLONrwzpVM9jA7dpTCCzgh9dPxcEI8',
   resave: true,
   saveUninitialized: true
 }));
