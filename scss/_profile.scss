@@ -103,6 +103,14 @@
             background-color: black;
             i { margin-left: 8px }
         }
+
+        .btn.submit {
+            color: #fff;
+            background-color: black;
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+        }
     }
 }
 

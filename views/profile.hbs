@@ -105,6 +105,7 @@
                             </header>
                             <div class="list-body">
                                 <div class="row">
+                                    {{#if mangaCollect}}
                                     {{#mangaCollect}}
                                     {{#lt @index 3}}
                                     <div class="col-4 manga-item">
@@ -127,6 +128,9 @@
                                     </div>
                                     {{/lt}}
                                     {{/mangaCollect}}
+                                    {{else}}
+                                    <b class="text-center mb-3"><em>Danh sách trống</em></b>
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>

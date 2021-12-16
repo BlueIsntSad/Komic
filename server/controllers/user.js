@@ -1,8 +1,31 @@
 const { User, Admin, Comment } = require('../models/user');
 const Manga = require('../models/manga');
 const Chapter = require('../models/chapter');
+const cloudinary = require('cloudinary').v2;
+const formidable = require('formidable');
+const { ObjectId } = require('mongodb')
+require('dotenv').config();
 
+// Config cloundinary
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_KEY,
+    api_secret: process.env.CLOUD_SECRET,
+    secure: true
+});
 
+// Upload image to cloudinary
+async function uploadImage(path) {
+    const result = cloudinary.uploader.upload(path, { resource_type: "image" })
+        .then(result => { return result })
+        .catch(error => {
+            console.log('cloudinary', error);
+            return { error: true, data: error };
+        })
+    return result;
+}
+
+// User profile page
 async function getUserProfile(req, res, next) {
     let userId = req.params.uid;
     await User.findById(userId)
@@ -23,6 +46,7 @@ async function getUserProfile(req, res, next) {
         .catch(function (err) { console.log(err.message) });
 }
 
+// User storage page
 async function getUserLibrary(req, res, next) {
     try {
         const tab = req.query.tab || 'history';
@@ -50,47 +74,7 @@ async function getUserLibrary(req, res, next) {
     } catch (err) { console.log(err.message) }
 }
 
-async function getCollection(req, res, next) {
-    try {
-        const userId = req.params.uid;
-        let user = await User.findById(userId, 'name library')
-            .populate('library.collections.collect.mangaCollect.manga',
-                'cover slug title views follower finished description')
-            .lean()
-        let collectList = user.library.collections.collect
-        let collectQuery = req.query.title
-        let collect = collectList.find(collect => collect.title === collectQuery)
-        //console.log('title:',collect.title);
-        //res.send(collect)
-        res.render('collection', {
-            title: `Library | Komic`,
-            script: ['storage'],
-            collection: collect,
-            userId: userId
-        });
-    } catch (err) { console.log(err.message) }
-}
-
-async function editCollectionItem(req, res, next) {
-    const userId = req.params.uid
-    console.log(userId)
-    const collectId = req.params.cid
-    console.log(collectId)
-    const mangaId = req.params.mid
-    console.log(mangaId)
-
-    await User.updateOne({ _id: userId, 'library.collections.collect._id':collectId }, {
-        $pull: {
-            "library.collections.collect.mangaCollect": { manga: mangaId }
-        }
-    }).then(result => {
-        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-    }).catch(function (err) {
-        console.log(err.message)
-        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
-    });
-}
-
+// History API
 async function deleteHistory(req, res, next) {
     const userId = req.params.uid
     const hisId = req.params.hid
@@ -104,6 +88,76 @@ async function deleteHistory(req, res, next) {
         console.log(err.message)
         res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
     });
+}
+
+// Collection API
+async function getCollection(req, res, next) {
+    try {
+        const userId = req.params.uid;
+        const collectId = req.query.cid;
+        const user = await User.findById(userId, 'name library')
+            .populate('library.collections.collect.mangaCollect.manga',
+                'cover slug title views follower finished description')
+        const collect = user.library.collections.collect.id(collectId)
+        res.render('collection', {
+            title: `Library | Komic`,
+            script: ['storage'],
+            collection: JSON.parse(JSON.stringify(collect)),
+            userId: userId
+        });
+    } catch (err) { console.log(err.message) }
+}
+
+async function addCollection(req, res, next) {
+    const userId = req.params.uid
+    const newCollection = {
+        title: req.body.title,
+        total: 0,
+        mangaCollect: []
+    }
+    //res.send('connect')
+    try {
+        const user = await User.findById(userId)
+        user.library.collections.collect.push(newCollection)
+        const newCollect = user.library.collections.collect[0]
+        console.log(newCollect)
+        user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+            } else {
+                console.log('Success!');
+                res.send({ isSuccess: true, newCollection: newCollect }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+            }
+        });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    }
+}
+
+async function editCollection(req, res, next) {
+    const userId = req.params.uid
+    const collectId = req.body.cid
+    console.log(collectId)
+    //res.send('connect')
+    try {
+        const user = await User.findById(userId)
+        user.library.collections.collect.id(collectId).title = req.body.title
+        console.log(user.library.collections.collect.id(collectId))
+        user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.status(400).send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+            } else {
+                console.log('Success!');
+                res.status(200).send({ isSuccess: true }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+            }
+        });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    }
 }
 
 async function deleteCollection(req, res, next) {
@@ -121,21 +175,27 @@ async function deleteCollection(req, res, next) {
     });
 }
 
-/* async function getHistory(userId) {
-    const histories = await User.findById(userId, 'name library -_id')
-        .populate({
-            path: 'library.history.mangaCollect.manga',
-            select: 'cover slug title views follower finished description -_id'
-        })
-        .lean()
-    histories.library.history.mangaCollect.sort(function (a, b) {
-        return ((a.lastRead == b.lastRead) ? 0 : ((a.lastRead < b.lastRead) ? 1 : -1));
-    })
-    return histories.library.history.mangaCollect
-}*/
+async function deleteCollectionItem(req, res, next) {
+    const userId = req.params.uid
+    console.log(userId)
+    const collectId = req.params.cid
+    console.log(collectId)
+    const mangaId = req.params.mid
+    console.log(mangaId)
+
+    await User.updateOne({ _id: userId, 'library.collections.collect._id': collectId }, {
+        $pull: {
+            "library.collections.collect.mangaCollect": { manga: mangaId }
+        }
+    }).then(result => {
+        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+    }).catch(function (err) {
+        console.log(err.message)
+        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    });
+}
 
 module.exports = {
-    getUserProfile, getUserLibrary,
-    getCollection, editCollectionItem, deleteCollection,
-    deleteHistory
+    getUserProfile, getUserLibrary, deleteHistory,
+    getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection
 };

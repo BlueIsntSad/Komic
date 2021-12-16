@@ -9,13 +9,14 @@
                 <div class="modal-body">
                     <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
                     <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
-                        placeholder="VD: jkhasjdhaksjhd" required>
+                        placeholder="VD: Drama tổng hợp " required/>
                     <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                    <button id="createCollect" type="submit" class="btn submit" data-bs-dismiss="modal">Tạo
-                        bộ sưu tập</button>
+                    <button id="createCollect" type="submit" class="btn submit"
+                        onclick="addCollection(event,'{{userId}}')">Tạo bộ sưu tập
+                    </button>
                 </div>
             </form>
         </div>
