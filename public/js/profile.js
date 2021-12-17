@@ -3,17 +3,76 @@ $(function () {
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)
     })
-    
-    var forms = document.querySelectorAll('.needs-validation')
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-            form.classList.add('was-validated')
-        }, false)
+    $("#user_name .edit_name").on('click', function (event) {
+        $('#user_name').attr('style', 'display:none !important');
+        $('#user_name_form').attr('style', 'display:flex !important');
+        event.preventDefault();
     })
+
+    /* $(".edit_done").on('click', function () {
+        $('#title_show').attr('style', 'display:flex !important');
+        $('#title_edit').attr('style', 'display:none !important');
+    }) */
 })
+
+/* $(document).click(function(event) { 
+    var $target = $(event.target);
+    if(!$target.closest('#user_name_form').length && 
+    $('#user_name_form').is(":visible")) {
+      $('#user_name_form').hide();
+    }        
+  }); */
+
+function previewImg(event, id) {
+    const input = event.target;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(`#${id}`).attr('src', e.target.result);
+            $(`#${id}`).hide();
+            $(`#${id}`).fadeIn(300);
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        $($(`#${id}`)).attr('src', $($(`#${id}`)).attr('defaultSrc'));
+    }
+}
+
+function updateProfile(event, userId) {
+    event.preventDefault();
+    //Loading
+    $('#savingEdit').prop("disabled", true);
+    $('.spinner-border').removeClass('d-none')
+    // Form
+    var form = $("#editInfoForm")[0];
+    var data = new FormData(form);
+    $.ajax({
+        method: "PUT",
+        url: `/user/${userId}`,
+        timeout: 60000,
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            if (result.isSuccess) {
+                const updateUser = result.user;
+                $('.background-profile img').atr('src', updateUser.cover)
+                showToast("success", "Cập nhật thành công", "Thông tin truyện đã được cập nhật!");
+            } else {
+                showToast("error", "Không thành công", result.msg);
+                console.log(result.msg)
+            }
+            $('#savingEdit').prop("disabled", false);
+            $('.spinner-border').addClass('d-none')
+            $('modal').modal('toggle');
+        },
+        error: function (e) {
+            showToast("error", "Không thành công", "Có lỗi xảy ra trong quá trình cập nhật!");
+            console.log(e.msg)
+            $('#savingEdit').prop("disabled", false);
+            $('.spinner-border').addClass('d-none')
+            $('modal').modal('toggle');
+        }
+    })
+}

@@ -6,38 +6,65 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="background-profile rounded-3">
-                    <img class="img-fluid w-100" src="https://picsum.photos/id/1008/1000/400" alt="cover img">
-                </div>
-                <div class="avatar-profile d-flex justify-content-center pb-3">
-                    <div class="wrap ratio ratio-1x1">
-                        <img class="position-absolute" src={{user.avatar}} alt="avatar">
+                <form id="editInfoForm" enctype="multipart/form-data">
+                    <div class="background-profile rounded-3" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Đổi hình nền">
+                        <label for="bg_image_upload" class="position-absolute"></label>
+                        <img id="bg_preview" class="img-fluid w-100" alt="cover img" src={{user.cover}}
+                            defaultSrc={{user.avatar}}>
+                        <input id="bg_image_upload" name="bg_preview" type="file" multiple="false"
+                            accept=".png, .jpg, .jpeg" onchange="previewImg(event,'bg_preview')" class="d-none">
                     </div>
-                </div>
-                <div class="overview-profile">
-                    <h2 class="text-center mb-5"><b>{{user.name}}</b></h2>
-                    <form>
+
+                    <div class="avatar-profile d-flex justify-content-center pb-3" data-bs-toggle="popover"
+                        data-bs-trigger="hover focus" data-bs-content="Đổi ảnh đại diện">
+                        <div class="wrap ratio ratio-1x1">
+                            <img id="avatar_preview" class="position-absolute" alt="avatar" src={{user.avatar}}
+                                defaultSrc={{user.avatar}}>
+                            <label for="avatar_image_upload"></label>
+                            <input id="avatar_image_upload" name="avatar_preview" type="file" multiple="false"
+                                accept=".png, .jpg, .jpeg" onchange="previewImg(event,'avatar_preview')" class="d-none">
+                        </div>
+                    </div>
+
+                    <div class="overview-profile">
+                        <div class="mb-5 row">
+                            <div id="user_name">
+                                <button class="edit_name btn position-absolute end-0 pe-5"><i
+                                        class="fas fa-edit"></i></button>
+                                <h2 class="text-center"><b>{{user.name}}</b></h2>
+                            </div>
+                            <div class="col-5 mx-auto" id="user_name_form" hidden>
+                                <input name="user_name" type="text" class="form-control form-control-lg"
+                                    id="user_name_edit" size="10" value="{{user.name}}" defaultValue="{{user.name}}">
+                            </div>
+                        </div>
+
                         <div class="mb-3 form-floating">
-                            <textarea class="form-control" id="bio" style="height: 150px">{{user.about}}</textarea>
+                            <textarea class="form-control" id="bio" name="bio"
+                                style="height: 150px">{{#if user.about}}{{user.about}}{{/if}}</textarea>
                             <label for="bio">Giới thiệu</label>
                         </div>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" id="location" placeholder="Hà Nội, Việt Nam" value="{{user.adress}}">
+                            <input type="text" class="form-control" id="location" name="address"
+                                value="{{#if user.address}}{{user.address}}{{/if}}">
                             <label for="location"><i class="fas fa-map-marker-alt"></i>Địa chỉ</label>
                         </div>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" id="link">
+                            <input type="text" class="form-control" id="link" name="link"
+                                value="{{#if user.link}}{{user.link}}{{/if}}">
                             <label for="link"><i class="fas fa-link"></i>Liên kết</label>
                         </div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
-                <button type="submit" class="btn submit">Lưu thông tin</button>
+                <button type="submit" id="savingEdit" class="btn submit" form="editInfoForm" onclick="updateProfile(event,'{{user._id}}')">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    Lưu thông tin
+                </button>
             </div>
         </div>
     </div>

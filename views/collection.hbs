@@ -30,7 +30,7 @@
             <div class="row gap-3">
                 {{#if collection.mangaCollect}}
                 {{#each collection.mangaCollect}}
-                <div class="reading-list">
+                <div class="reading-list" id="manga_{{manga._id}}">
                     <div class="d-flex">
                         <div class="cover pe-4">
                             <a href="javascript:void(0)"><img src="{{manga.cover}}" class="rounded-2"></a>
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="flex-shrink-1 fuction">
                                     <button class="del btn"
-                                        onclick="editCollectionItem('{{../userId}}','{{../collection._id}}','{{manga._id}}')">
+                                        onclick="deleteCollectionItem('{{../userId}}','{{../collection._id}}','{{manga._id}}')">
                                         <i class="fas fa-trash"></i></button>
                                 </div>
                             </header>

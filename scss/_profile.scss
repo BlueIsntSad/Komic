@@ -146,7 +146,11 @@
         img {
             object-fit: cover;
             object-position: center;
-            height: 200px;
+            height: 240px;
+        }
+        label {
+            width: 95%;
+            height: 240px;
         }
     }
 
@@ -174,6 +178,8 @@
             }
         }
     }
+
+    #use_name button { width:100px !important }
 
     .btn.submit {
         color: #fff;

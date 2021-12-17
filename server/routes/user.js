@@ -11,6 +11,7 @@ router.get('/', function (req, res, next) {
 
 router.route('/:uid')
     .get(controller.getUserProfile)
+    .put(controller.editUserProfile)
 
 router.route('/:uid/storage')
     .get(controller.getUserLibrary)
@@ -23,9 +24,6 @@ router.route('/:uid/storage/deleteHistory/:hid')
 router.route('/:uid/storage/collection')
     .get(controller.getCollection)
     .put(controller.editCollection)
-
-/* router.route('/:uid/storage/editCollection/:cid')
-    .put(controller.editCollection) */
 
 router.route('/:uid/storage/deleteCollectionItem/:cid/:mid')
     .put(controller.deleteCollectionItem)

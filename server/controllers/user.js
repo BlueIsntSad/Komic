@@ -1,9 +1,9 @@
-const { User, Admin, Comment } = require('../models/user');
+const { User } = require('../models/user');
 const Manga = require('../models/manga');
 const Chapter = require('../models/chapter');
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
-const { ObjectId } = require('mongodb')
+
 require('dotenv').config();
 
 // Config cloundinary
@@ -68,8 +68,6 @@ async function getUserLibrary(req, res, next) {
             script: ['storage'],
             history: user.library.history.mangaCollect,
             collection: user.library.collections.collect,
-            total: user.library.collections.total_collect,
-            follow: user.following,
             userId: userId,
             tab: tab
         });
@@ -81,16 +79,23 @@ async function deleteHistory(req, res, next) {
     const userId = req.params.uid
     const hisId = req.params.hid
 
-    var query = { _id: userId }
-    var update = { $pull: { "library.history.mangaCollect": { manga: hisId } } }
-    var option = { upsert: true, setDefaultsOnInsert: true, new: true }
-    await User.updateOne(query, update, option)
-        .then(result => {
-            res.json({ isSuccess: true }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-        }).catch(function (err) {
-            console.log(err.message)
-            res.json({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    try {
+        const user = await User.findById(userId)
+        user.library.history.mangaCollect.pull({ manga: hisId })
+
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá bộ sưu tập không thành công!"}
+            } else {
+                console.log('Success! Delete collection', hisId);
+                res.send({ isSuccess: true }) //{ success: true, message: "Cập nhật bộ sưu tập thành công!", newManga: result }
+            }
         });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá bộ sưu tập không thành công!"}
+    }
 }
 
 // User collection detail page
@@ -123,9 +128,10 @@ async function addCollection(req, res, next) {
     try {
         const user = await User.findById(userId)
         user.library.collections.collect.push(newCollection)
-        const newCollect = user.library.collections.collect[0]
+        lastPos = user.library.collections.collect.length - 1
+        const newCollect = user.library.collections.collect[lastPos]
         console.log(newCollect)
-        user.save(function (err) {
+        await user.save(function (err) {
             if (err) {
                 console.log(err.message)
                 res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
@@ -149,7 +155,7 @@ async function editCollection(req, res, next) {
         const user = await User.findById(userId)
         user.library.collections.collect.id(collectId).title = req.body.title
         console.log(user.library.collections.collect.id(collectId))
-        user.save(function (err) {
+        await user.save(function (err) {
             if (err) {
                 console.log(err.message)
                 res.status(400).send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
@@ -168,22 +174,23 @@ async function deleteCollection(req, res, next) {
     const userId = req.params.uid
     const collectId = req.params.cid
 
-    var query = { _id: userId }
-    var update = {
-        $pull: { "library.collections.collect": { _id: collectId } },
-        $inc: {
-            "library.collections.total_collect": -1,
-            /* "following": { "library.collections.collect.$.total": { _id: collectId } } */
-        }
-    }
-    var option = { upsert: true, setDefaultsOnInsert: true, new: true }
-    await User.updateOne(query, update, option)
-        .then(result => {
-            res.json({ isSuccess: true }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-        }).catch(function (err) {
-            console.log(err.message)
-            res.json({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    try {
+        const user = await User.findById(userId)
+        user.library.collections.collect.pull({ _id: collectId })
+
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá bộ sưu tập không thành công!"}
+            } else {
+                console.log('Success! Delete collection', collectId);
+                res.send({ isSuccess: true }) //{ success: true, message: "Cập nhật bộ sưu tập thành công!", newManga: result }
+            }
         });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá bộ sưu tập không thành công!"}
+    }
 }
 
 async function deleteCollectionItem(req, res, next) {
@@ -191,19 +198,106 @@ async function deleteCollectionItem(req, res, next) {
     const collectId = req.params.cid
     const mangaId = req.params.mid
 
-    var query = { _id: userId, 'library.collections.collect._id': collectId }
-    var update = { $pull: { "library.collections.collect.mangaCollect": { manga: mangaId } } }
-    var option = { upsert: true, setDefaultsOnInsert: true }
-    await User.updateOne(query, update, option)
-        .then(result => {
-            res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-        }).catch(function (err) {
-            console.log(err.message)
-            res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+    try {
+        const user = await User.findById(userId)
+            .populate('library.collections.collect.mangaCollect')
+        user.library.collections.collect.id(collectId).mangaCollect.pull({ manga: { _id: mangaId } })
+        console.log(user.library.collections.collect.id(collectId))
+
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+            } else {
+                console.log('Success!');
+                res.send({ isSuccess: true }) //{ success: true, message: "Xoá item thành công!"}
+            }
         });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+    }
+}
+
+async function bookmark(req, res, next) {
+    const userId = req.params.uid
+    const collectId = req.params.cid
+    const mangaId = req.params.mid
+
+    /* try {
+        const user = await User.findById(userId)
+            .populate('library.collections.collect.mangaCollect')
+        user.library.collections.collect.id(collectId).mangaCollect.pull({ manga: { _id: mangaId } })
+        console.log(user.library.collections.collect.id(collectId))
+
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+            } else {
+                console.log('Success!');
+                res.send({ isSuccess: true }) //{ success: true, message: "Xoá item thành công!"}
+            }
+        });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+    } */
+}
+
+async function editUserProfile(req, res, next) {
+    console.log('server get req')
+    const userId = req.params.uid;
+    const form = formidable({ multiples: true });
+    console.log(form)
+    try {
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.log(err.msg)
+                return res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+            }
+
+            const newInfo = {
+                name: fields.user_name,
+                about: fields.bio,
+                address: fields.address,
+                link: fields.link,
+                updatedAt: new Date(),
+            }
+
+            console.log('Upload user background')
+            // Upload background profile to img server
+            if (files.bg_preview.size) {
+                const result = await uploadImage(files.bg_preview.filepath);
+                if (!result.error) { newInfo.cover = result.url; }
+            }
+
+            console.log('Upload user avatar')
+            // Upload avatar to img server
+            if (files.avatar_preview.size) {
+                const result = await uploadImage(files.avatar_preview.filepath);
+                if (!result.error) { newInfo.avatar = result.url; }
+            }
+
+            User.findByIdAndUpdate(userId, newInfo, { new: true }, function (err, docs) {
+                if (err) {
+                    console.log(err.message)
+                    res.json({ isSuccess: false, message: "Cập nhật không thành công!" })
+                }
+                else {
+                    console.log("Updated User ", docs._id);
+                    res.json({ isSuccess: true, message: "Cập nhật thông tin thành công!", user: docs })
+                }
+            })
+        });
+    }
+    catch (err) {
+        console.log(err.msg);
+        res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+    }
 }
 
 module.exports = {
-    getUserProfile, getUserLibrary, deleteHistory,
+    getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
     getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection
 };
