@@ -39,6 +39,9 @@ new Promise((resolve) => {
             'https://res.cloudinary.com/hehohe/image/upload/v1638284109/user/background%20cover/sunset-pathway-anime-girl-original_nkeuev.jpg'
         ];
         var users = [];
+        var mangas = [];
+        results[0].forEach(manga => { mangas.push(manga._id) })
+
         for (i = 0; i < 10; i++) {
             // histories
             var histories = [];
@@ -55,9 +58,11 @@ new Promise((resolve) => {
             for (j = 0; j < total_col; j++) {
                 collect = [];
                 var num = faker.datatype.number({ 'min': 1, 'max': 10 });
-                for (k = 0; k < num; k++) {
+                var collect_ = mangas.sort(() => Math.random() - 0.5).slice(-num)
+                collect_.forEach(c => { collect.push({ manga: c }) })
+                /* for (k = 0; k < num; k++) {
                     collect.push({ manga: faker.random.arrayElement(results[0])._id });
-                }
+                } */
                 collections.push({
                     title: faker.name.title(),
                     total: num,

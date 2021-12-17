@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 var database = process.env.db_URI
 new Promise((resolve) => {
     console.log('Seeding manga .....');
-    mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true});
+    mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true });
     async.parallel([
         (callback) => {
             Category.find({}, '_id')
@@ -55,14 +55,15 @@ new Promise((resolve) => {
             '来末 風来末。長久',
             'ピーのポンポ'
         ];
-        var status = ['Đã hoàn thành','Đang tiến hành','Drop','Sắp ra mắt'];
+        var status = ['Đã hoàn thành', 'Đang tiến hành', 'Drop', 'Sắp ra mắt'];
         var mangas = [];
+        var categories_ = [];
+        results[0].forEach(cate => { categories_.push(cate._id) })
+
         for (i = 0; i < 20; i++) {
             // categories
-            var categories = [];
-            for (j = 0; j < faker.datatype.number({ 'min': 2, 'max': 5 }); j++) {
-                categories.push(faker.random.arrayElement(results[0])._id)
-            }
+            var categories = categories_.sort(() => Math.random() - 0.5).slice(-faker.datatype.number({ 'min': 2, 'max': 5 }))
+
             // chapters
             var chapters = [];
             var totalChap = faker.datatype.number(40);
@@ -71,22 +72,22 @@ new Promise((resolve) => {
             }
             var title = faker.name.title();
             mangas.push({
-                    cover: faker.random.arrayElement(covers),
-                    title: title,
-                    title_org: faker.random.arrayElement(japan_titles),
-                    slug: slugify(title, {lower: true, strict: true}),
-                    description: faker.lorem.paragraphs(),
-                    author: faker.name.findName(),
-                    translator: faker.name.findName(),
-                    status: faker.random.arrayElement(status),
-                    releaseDay: faker.random.arrayElement([faker.date.past(),faker.date.future()]),
-                    views: faker.datatype.number(),
-                    categories: categories,
-                    chapters: chapters,
-                    total: totalChap,
-                    finished: totalChap + faker.datatype.number(20),
-                    rate: faker.datatype.number(5),
-                    totalRate: faker.datatype.number()
+                cover: faker.random.arrayElement(covers),
+                title: title,
+                title_org: faker.random.arrayElement(japan_titles),
+                slug: slugify(title, { lower: true, strict: true }),
+                description: faker.lorem.paragraphs(),
+                author: faker.name.findName(),
+                translator: faker.name.findName(),
+                status: faker.random.arrayElement(status),
+                releaseDay: faker.random.arrayElement([faker.date.past(), faker.date.future()]),
+                views: faker.datatype.number(),
+                categories: categories,
+                chapters: chapters,
+                total: totalChap,
+                finished: totalChap + faker.datatype.number(20),
+                rate: faker.datatype.number(5),
+                totalRate: faker.datatype.number()
             })
         }
         resolve(mangas);
