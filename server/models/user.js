@@ -15,10 +15,10 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     avatar: { type: String, default: '/img/avatar_default.png' },
-    cover: { type: String, default: '/img/avatar_default.png' },
+    cover: { type: String, default: '/img/cover_default.png' },
     following: { type: Number, default: 0 },
     about: String,
-    adress: String,
+    address: String,
     link: String,
     library: {
         history: {
@@ -54,31 +54,20 @@ userSchema.methods.getHistory = function () {
 }
 
 userSchema.pre('save', function (next) {
+    var history = this.library.history
+    history.total = this.library.history.mangaCollect.length
+
     var collections = this.library.collections
     collections.total_collect = collections.collect.length
 
     var follows = 0
-    collections.collect.forEach(collect_ => { follows += collect_.total })
+    collections.collect.forEach(collect_ => {
+        collect_.total = collect_.mangaCollect.length
+        follows += collect_.total
+    })
     this.following = follows
 
     next()
-})
-
-userSchema.post('updateOne', { document: true, query: false }, function (result) {
-    //const data = this._update
-    console.log(result)
-
-    /* //data.library.history.total = data.library.history.mangaCollect.length;
-    data.library.collections.collect.forEach(collectList => {
-        collectList.total = collectList.mangaCollect.length;
-    })
-    let sum = 0;
-    for (let i = 0; i < data.library.collections.total_collect; i++) {
-        sum += data.library.collections.collect[i].total;
-    }
-    data.following = sum; */
-
-    //this.update({}, data).exec()
 })
 
 

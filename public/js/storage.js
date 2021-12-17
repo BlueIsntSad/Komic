@@ -64,7 +64,7 @@ function editNameCollection(event, userId, collectId) {
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Thêm truyện mới không thành công!");
+            showToast('error', "Không thành công", "Cập nhật tên bộ sưu tập không thành công!");
         }
     })
 }
@@ -88,13 +88,13 @@ function addCollection(event, userId) {
                     insertCollect(result.newCollection, userId);
                     console.log(result.newCollection);
                 } else {
-                    showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
+                    showToast('error', "Không thành công", "Thêm bộ sưu tập không thành công!");
                     console.log(result.msg);
                 }
             },
             error: function (err) {
                 console.log(err.msg);
-                showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
+                showToast('error', "Không thành công", "Thêm bộ sưu tập không thành công!");
             }
         })
         event.preventDefault()
@@ -103,7 +103,7 @@ function addCollection(event, userId) {
 }
 
 function insertCollect(collect, userId) {
-    let href = `/user/${userId}/storage/collection?title=${collect.title}`
+    let href = `/user/${userId}/storage/collection?cid=${collect._id}`
     let insertCollect = `<div class="col-md-6 col-lg-4" id="collect_${collect._id}"><div class="profile-library shadow rounded-3 p-4 mb-4"><div class="library-body"><div class="reading-list"><div class="d-flex"><a href="${href}"><div class="cover pe-4"><img src="/img/cover_default.png" class="rounded-2"><div class="shadow rounded-2"></div></div></a><div class='info w-100 d-flex flex-column'><a href="${href}"><h5><b>${collect.title}</b></h5></a><p>${collect.total} truyện</p><div class="d-flex justify-content-end mt-auto d-grid gap-2"><a class="edit btn" href="${href}"><i class="fas fa-external-link-alt"></i></a><button class="del btn" onclick="deleteCollection('${userId}','${collect._id}')"><i class="fas fa-trash"></i></button></div></div></div></div></div></div></div>`
     $('#collections_list').append(insertCollect)
 }
@@ -131,8 +131,8 @@ function deleteHistory(userId, historyId) {
     })
 }
 
-function deleteCollection_redirect(userId, collectId, href) {
-    deleteCollection(userId, collectId);
+function deleteCollection_redirect(userId, hisId, href) {
+    deleteCollection(userId, hisId);
     window.location.href = href;
 }
 
@@ -144,15 +144,15 @@ function deleteCollection(userId, collectId) {
         success: function (result) {
             console.log(result);
             if (result.isSuccess) {
-                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+                showToast('success', "Thành công", "Xoá bộ sưu tập thành công!");
                 $(`#collect_${collectId}`).remove();
             } else {
-                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+                showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
             }
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
         }
     })
 }
@@ -164,15 +164,17 @@ function deleteCollectionItem(userId, collectId, mangaId) {
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result.success) {
-                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+            if (result.isSuccess) {
+                showToast('success', "Thành công", "Bỏ truyện thành công!");
+                $(`#manga_${mangaId}`).remove();
+                $('.reading-list:last-child hr').remove();
             } else {
-                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+                showToast('error', "Không thành công", "Bỏ truyện không thành công!");
             }
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+            showToast('error', "Không thành công", "Bỏ truyện không thành công!");
         }
     })
 }
