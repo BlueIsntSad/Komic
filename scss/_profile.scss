@@ -117,3 +117,61 @@
 .profile-library {
     background-color:#fff;
 }
+
+#editInfo {
+    //position: absolute;
+    //bottom: 0;
+    top: 415px;
+}
+
+#editInfoModal {
+    .modal-header, .modal-footer {
+        border: 1px solid #fff;
+    }
+
+    label {
+        i { margin-right: 8px }
+    }
+
+    .background-profile {
+        overflow: hidden;
+        img {
+            object-fit: cover;
+            object-position: center;
+            height: 200px;
+        }
+    }
+
+    .avatar-profile {
+        overflow: hidden;
+        margin-bottom:80px;
+
+        .wrap {
+            border: 5px solid white;
+            width: 162px;
+            height: 162px;
+            margin-top:-80px;
+            overflow: hidden;
+            border-radius:50%;
+            position: absolute;
+            background-color: #fff;
+
+            img {
+                width: 160px;
+                height: 160px;
+                object-fit: cover;
+                top:50%;
+                left:50%;
+                transform: translate(-50%,-50%)
+            }
+        }
+    }
+
+    .btn.submit {
+        color: #fff;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    }
+}

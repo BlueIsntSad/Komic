@@ -52,7 +52,7 @@ async function getUserLibrary(req, res, next) {
         const tab = req.query.tab || 'history';
         const userId = req.params.uid;
 
-        const user = await User.findById(userId, 'name library -_id')
+        const user = await User.findById(userId, 'name library -_id following')
             .populate('library.history.mangaCollect.manga',
                 'cover slug title views follower finished description')
             .populate('library.collections.collect.mangaCollect.manga',
@@ -68,6 +68,8 @@ async function getUserLibrary(req, res, next) {
             script: ['storage'],
             history: user.library.history.mangaCollect,
             collection: user.library.collections.collect,
+            total: user.library.collections.total_collect,
+            follow: user.following,
             userId: userId,
             tab: tab
         });
@@ -78,19 +80,20 @@ async function getUserLibrary(req, res, next) {
 async function deleteHistory(req, res, next) {
     const userId = req.params.uid
     const hisId = req.params.hid
-    await User.updateOne({ _id: userId }, {
-        $pull: {
-            "library.history.mangaCollect": { manga: hisId }
-        }
-    }).then(result => {
-        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-    }).catch(function (err) {
-        console.log(err.message)
-        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
-    });
+
+    var query = { _id: userId }
+    var update = { $pull: { "library.history.mangaCollect": { manga: hisId } } }
+    var option = { upsert: true, setDefaultsOnInsert: true, new: true }
+    await User.updateOne(query, update, option)
+        .then(result => {
+            res.json({ isSuccess: true }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+        }).catch(function (err) {
+            console.log(err.message)
+            res.json({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+        });
 }
 
-// Collection API
+// User collection detail page
 async function getCollection(req, res, next) {
     try {
         const userId = req.params.uid;
@@ -108,6 +111,7 @@ async function getCollection(req, res, next) {
     } catch (err) { console.log(err.message) }
 }
 
+// Collection API
 async function addCollection(req, res, next) {
     const userId = req.params.uid
     const newCollection = {
@@ -163,36 +167,40 @@ async function editCollection(req, res, next) {
 async function deleteCollection(req, res, next) {
     const userId = req.params.uid
     const collectId = req.params.cid
-    await User.updateOne({ _id: userId }, {
-        $pull: {
-            "library.collections.collect": { _id: collectId }
+
+    var query = { _id: userId }
+    var update = {
+        $pull: { "library.collections.collect": { _id: collectId } },
+        $inc: {
+            "library.collections.total_collect": -1,
+            /* "following": { "library.collections.collect.$.total": { _id: collectId } } */
         }
-    }).then(result => {
-        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-    }).catch(function (err) {
-        console.log(err.message)
-        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
-    });
+    }
+    var option = { upsert: true, setDefaultsOnInsert: true, new: true }
+    await User.updateOne(query, update, option)
+        .then(result => {
+            res.json({ isSuccess: true }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+        }).catch(function (err) {
+            console.log(err.message)
+            res.json({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
+        });
 }
 
 async function deleteCollectionItem(req, res, next) {
     const userId = req.params.uid
-    console.log(userId)
     const collectId = req.params.cid
-    console.log(collectId)
     const mangaId = req.params.mid
-    console.log(mangaId)
 
-    await User.updateOne({ _id: userId, 'library.collections.collect._id': collectId }, {
-        $pull: {
-            "library.collections.collect.mangaCollect": { manga: mangaId }
-        }
-    }).then(result => {
-        res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
-    }).catch(function (err) {
-        console.log(err.message)
-        res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
-    });
+    var query = { _id: userId, 'library.collections.collect._id': collectId }
+    var update = { $pull: { "library.collections.collect.mangaCollect": { manga: mangaId } } }
+    var option = { upsert: true, setDefaultsOnInsert: true }
+    await User.updateOne(query, update, option)
+        .then(result => {
+            res.json(result) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
+        }).catch(function (err) {
+            console.log(err.message)
+            res.json(result) //{ success: false, message: "Xoá lịch sử không thành công!"}
+        });
 }
 
 module.exports = {

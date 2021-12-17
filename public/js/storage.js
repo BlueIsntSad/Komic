@@ -115,10 +115,12 @@ function deleteHistory(userId, historyId) {
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result) {
+            if (result.isSuccess) {
                 showToast('success', "Thành công", "Xoá lịch sử thành công!");
                 $(`#his_${historyId}`).remove();
+                $('.reading-list:last-child hr').remove();
             } else {
+                console.log(result.msg)
                 showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
             }
         },
@@ -141,7 +143,7 @@ function deleteCollection(userId, collectId) {
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result) {
+            if (result.isSuccess) {
                 showToast('success', "Thành công", "Xoá lịch sử thành công!");
                 $(`#collect_${collectId}`).remove();
             } else {

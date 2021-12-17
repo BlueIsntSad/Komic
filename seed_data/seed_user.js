@@ -51,11 +51,10 @@ new Promise((resolve) => {
             }
             // collections
             var collections = [];
-            var total_col = 0;
-            for (j = 0; j < faker.datatype.number(5); j++) {
+            var total_col = faker.datatype.number(8);
+            for (j = 0; j < total_col; j++) {
                 collect = [];
                 var num = faker.datatype.number({ 'min': 1, 'max': 10 });
-                total_col = total_col + num;
                 for (k = 0; k < num; k++) {
                     collect.push({ manga: faker.random.arrayElement(results[0])._id });
                 }
@@ -75,6 +74,7 @@ new Promise((resolve) => {
                     avatar: `https://picsum.photos/id/${faker.datatype.number(1000)}/300/300`,//avatars[i],
                     cover: faker.random.arrayElement(bg_covers),
                     about: faker.lorem.sentences(),
+                    link: faker.internet.url(),
                     adress: `${faker.address.cityName()}, ${faker.address.country()}`,
                     library: {
                         history: {

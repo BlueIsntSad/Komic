@@ -1,7 +1,7 @@
 <section class="user_profile my-4">
     <div class="container">
         <div class="profile-header shadow rounded-3 p-3 mb-4">
-            <div class="col">
+            <div class="col position-relative">
                 <div class="background-profile rounded-3">
                     <img class="img-fluid w-100" src="https://picsum.photos/id/1008/1000/400" alt="cover img">
                 </div>
@@ -28,6 +28,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="position-absolute bottom-0 end-0" id="editInfo">
+                    <div data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Chỉnh sửa trang cá nhân">
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#editInfoModal"><i class="fas fa-user-edit"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="profile-body mb-4">
@@ -35,10 +42,11 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="info shadow rounded-3 p-4 mb-4 d-flex flex-column gap-1">
                         <h4 class="mb-3"><b>About</b></h4>
-                        <p>{{user.about}}</p>
-                        <p><i class="fas fa-map-marker-alt"></i>{{user.adress}}</p>
-                        <p><i class="fas fa-clock"></i>Tham gia vào {{moment user.createdAt format="DD [tháng] MM [năm]
-                            YYYY"}}</p>
+                        {{#if user.about}}<p>{{user.about}}</p>{{/if}}
+                        {{#if user.link}}<p><i class="fas fa-link"></i>{{user.link}}</p>{{/if}}
+                        {{#if user.adress}}<p><i class="fas fa-map-marker-alt"></i>{{user.adress}}</p>{{/if}}
+                        <p><i class="fas fa-clock"></i>
+                            Tham gia vào {{moment user.createdAt format="DD [tháng] MM [năm] YYYY"}}</p>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12">
@@ -149,5 +157,6 @@
                 </div>
             </div>
         </div>
+        {{> edit-profile }}
     </div>
 </section>

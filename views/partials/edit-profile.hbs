@@ -1,0 +1,44 @@
+<div class="modal fade" id="editInfoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật thông tin</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="background-profile rounded-3">
+                    <img class="img-fluid w-100" src="https://picsum.photos/id/1008/1000/400" alt="cover img">
+                </div>
+                <div class="avatar-profile d-flex justify-content-center pb-3">
+                    <div class="wrap ratio ratio-1x1">
+                        <img class="position-absolute" src={{user.avatar}} alt="avatar">
+                    </div>
+                </div>
+                <div class="overview-profile">
+                    <h2 class="text-center mb-5"><b>{{user.name}}</b></h2>
+                    <form>
+                        <div class="mb-3 form-floating">
+                            <textarea class="form-control" id="bio" style="height: 150px">{{user.about}}</textarea>
+                            <label for="bio">Giới thiệu</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" id="location" placeholder="Hà Nội, Việt Nam" value="{{user.adress}}">
+                            <label for="location"><i class="fas fa-map-marker-alt"></i>Địa chỉ</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" id="link">
+                            <label for="link"><i class="fas fa-link"></i>Liên kết</label>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
+                <button type="submit" class="btn submit">Lưu thông tin</button>
+            </div>
+        </div>
+    </div>
+</div>
