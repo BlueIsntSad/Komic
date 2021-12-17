@@ -25,7 +25,7 @@
                 <a href="#"><i class="fas fa-star-half-alt"></i></a>
                 <a href="#"><i class="far fa-star"></i></a>
               </div>
-              <span>{{addCommas manga.totalRate}} lượt đánh giá</span>
+              <span>{{addCommas manga.totalRate}} đánh giá</span>
             </div>
           </div>
           <div class="categories mb-3">
@@ -128,39 +128,7 @@
         {{>reviews}}
       </div>
       <div class="col-lg-4 col-md-12">
-        {{> sidebar topViews = topViews newComment = newComment}}
-        <div class="manga_details_other shadow-lg rounded-3 p-4">
-          <div class="col">
-            <div class="section-title my-3">
-              <h5>Bạn có thể thích...</h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-          </div>
-        </div>
+        {{> sidebar topViews = topViews}}
       </div>
     </div>
   </div>

@@ -94,6 +94,7 @@ async function getAllCategoryPage(req, res) {
 
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
+    var topViews = await getMangaTopviews();
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
@@ -111,7 +112,8 @@ async function getMangaDetails(req, res) {
                 manga: manga,
                 title: `${manga.title} | Komic`,
                 script: ['manga-details', 'review'],
-                comments: comments
+                comments: comments,
+                topViews: topViews
             });
         })
         .catch(function (err) { console.log(err.message) });

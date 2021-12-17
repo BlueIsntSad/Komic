@@ -106,6 +106,12 @@
 	.manga_details_other {
 		background: #fff;
 	}
+
+	.manga_details_description {
+		text-align: justify;
+        text-justify: inter-character;
+		padding-right: 25px;
+	}
 }
 
 .manga_review {
