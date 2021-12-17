@@ -75,7 +75,7 @@ new Promise((resolve) => {
                     cover: faker.random.arrayElement(bg_covers),
                     about: faker.lorem.sentences(),
                     link: faker.internet.url(),
-                    adress: `${faker.address.cityName()}, ${faker.address.country()}`,
+                    address: `${faker.address.cityName()}, ${faker.address.country()}`,
                     library: {
                         history: {
                             total: total_his,
