@@ -1,5 +1,5 @@
 <!--Breadcrumb section-->
-{{> breadcrumb }}
+{{> breadcrumb manga=manga.title manga-slug=manga.slug chapter=chapter.index}}
 
 <!--Anime section-->
 <section class="manga_reading pb-3">
@@ -8,7 +8,6 @@
       <div class="row p-4 g-3">
         <div class="col text-center">
           <div class="title chapter">
-            <h1>{{chapter._id}}</h1>
             <h2 class='mb-3'><b>Chapter {{chapter.index}} - {{chapter.name}}</b></h2>
             <p><i>[Cập nhật lúc: {{moment chapter.updatedAt format="HH:mm DD/MM/YYYY"}}]</i></p>
           </div>
