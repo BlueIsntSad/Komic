@@ -33,7 +33,7 @@ router.route('/:uid/storage/deleteCollection/:cid')
 
 router.route('/:uid/:mid')
     .post(controller.ratingManga)
-    .put(controller.rerateManga)
-    .delete(controller.unrateManga)
+    //.put(controller.rerateManga)
+    //.delete(controller.unrateManga)
 
 module.exports = router;

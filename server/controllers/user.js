@@ -246,35 +246,32 @@ async function bookmark(req, res, next) {
 
 async function ratingManga(req, res, next) {
     const userId = req.params.uid
-    const collectId = req.params.cid
     const mangaId = req.params.mid
-    /* ratingSchema.aggregate([{
-        $group: {
-            "_id": "$voteFor",
-            "count": { $sum: 1 }
-        }
-    }], function (err, result) {
-        console.log("number of ratings list : \n", result);
-    }); */
-    /* try {
-        const user = await User.findById(userId)
-            .populate('library.collections.collect.mangaCollect')
-        user.library.collections.collect.id(collectId).mangaCollect.pull({ manga: { _id: mangaId } })
-        console.log(user.library.collections.collect.id(collectId))
+    const score = req.query.score;
 
-        await user.save(function (err) {
-            if (err) {
-                console.log(err.message)
-                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
-            } else {
-                console.log('Success!');
-                res.send({ isSuccess: true }) //{ success: true, message: "Xoá item thành công!"}
-            }
-        });
-    } catch (err) {
-        console.log(err.message)
-        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
-    } */
+    const rating = new Rating({
+        score: score,
+        voteFor: mangaId,
+        voteBy: userId
+    })
+
+    var user = await Rating.findOne({ voteBy: userId })
+    if (!user) {
+        try {
+            await rating.save();
+            res.send({ isSuccess: true })
+            console.log('rate success')
+        } catch (err) {
+            console.log(err.message)
+            res.send({ isSuccess: false, msg: err.message })
+        }
+    } else {
+        const updateRate = await Rating.findOne({ voteBy: userId });
+        updateRate.score = score;
+        await updateRate.save();
+    }
+
+
 }
 
 async function unrateManga(req, res, next) {
@@ -342,5 +339,5 @@ async function editUserProfile(req, res, next) {
 module.exports = {
     getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
     getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
-    ratingManga, unrateManga, rerateManga
+    ratingManga
 };

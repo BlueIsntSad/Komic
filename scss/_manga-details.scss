@@ -19,43 +19,61 @@
 		.manga_sidebar_newcomment {
 			display: none;
 		}
-
 	}
 
 	.manga_details_content {
 		background: #fff;
 		.categories {
 			a {
-				&:hover, &:focus {
+				&:hover,
+				&:focus {
 					box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-					color:#fff;
+					color: #fff;
 				}
 			}
 		}
 	}
-	
+
 	.manga_details_rating {
-		.rating {
-			i {
-				font-size: 21px;
-				color: #e89f12;
-				display: inline-block;
+
+		.stars-rating {
+			.rating-group { display: inline-flex }
+
+			.rating__input {
+				position: absolute !important;
+				left: -9999px !important;
 			}
+
+			.rating__input--none { display: none }
+
+			.rating__label {
+				cursor: pointer;
+				padding: 0 0.1em;
+				font-size: 1.5rem;
+			}
+
+			.rating__icon--star { color: $primary-color }
+
+			.rating__input:checked ~ .rating__label .rating__icon--star { color: #ddd }
+
+			.rating-group:hover .rating__label .rating__icon--star { color: $primary-color }
+
+			.rating__input:hover ~ .rating__label .rating__icon--star { color: #ddd }
 		}
-	
+
 		span {
 			display: block;
 			font-size: 18px;
 		}
 	}
-	
+
 	.manga_details_btn a {
 		font-family: $title-font;
 		font-weight: 700;
 		letter-spacing: 3px;
 		border-radius: 4px;
 	}
-	
+
 	.manga_chapter_table {
 		background: #fff;
 
@@ -64,8 +82,9 @@
 				color: black;
 				text-decoration: none;
 			}
-			.date, .bookmark {
-				color: lightgray
+			.date,
+			.bookmark {
+				color: lightgray;
 			}
 		}
 
@@ -102,24 +121,24 @@
 			}
 		}
 	}
-		
+
 	.manga_details_other {
 		background: #fff;
 	}
 
 	.manga_details_description {
 		text-align: justify;
-        text-justify: inter-character;
+		text-justify: inter-character;
 		padding-right: 25px;
 	}
 }
 
 .manga_review {
 	background: #fff;
-	
+
 	.review-item {
 		overflow: hidden;
-		
+
 		.avatar {
 			float: left;
 			position: relative;
@@ -137,7 +156,7 @@
 				content: "";
 				transform: rotate(45deg);
 			}
-			
+
 			img {
 				height: 50px;
 				width: 50px;
@@ -153,7 +172,7 @@
 			h6 {
 				color: black;
 				margin-bottom: 10px;
-		
+
 				span {
 					color: gray;
 				}
@@ -171,10 +190,12 @@
 	}
 
 	.review-showmore {
-		.showmore a{
+		.showmore a {
 			color: black;
 			text-decoration: none;
-			&:hover { text-decoration: underline; }
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 }
@@ -191,7 +212,7 @@
 		}
 
 		button {
-			color:white;
+			color: white;
 			letter-spacing: 2px;
 		}
 	}

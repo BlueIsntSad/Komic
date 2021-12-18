@@ -99,15 +99,27 @@ $(document).ready(function () {
         }
     })
 
-    /* $(".list-group-item").css("border-radius", "0px");
-    $(".list-group-item:visible").each(function (index) {
-        if (index == 0) {
-            $(this).css("border-top-left-radius", "10px");
-            $(this).css("border-top-right-radius", "10px");
-        }
-        if (index == $(".list-group-item:visible").length - 1) {
-            $(this).css("border-bottom-left-radius", "10px");
-            $(this).css("border-bottom-right-radius", "10px");
-        }
-    }); */
+    //
+    //$(".rating-group input:checked").on("click", ratingManga())
 });
+
+
+function ratingManga(userId, mangaId) {
+    var rateScore = $(".rating-group input:checked").val()
+    alert(rateScore)
+    $.ajax({
+        type: "POST",
+        url: `/user/${userId}/${mangaId}?score=${rateScore}`,
+        timeout: 10000,
+        success: function (result) {
+            if (result.isSuccess) {
+                showToast('success', "Thành công!", "Đánh giá thành công!");
+            } else {
+                showToast('error', "Không thành công!", result.message);
+            }
+        },
+        error: function (e) {
+            showToast('error', "Không thành công!", "Có lỗi xảy ra!");
+        }
+    })
+}

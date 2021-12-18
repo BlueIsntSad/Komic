@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 const mangaSchema = new Schema({
@@ -104,5 +105,26 @@ const ratingSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Manga', mangaSchema, "mangas");
-module.exports = mongoose.model('Rating', ratingSchema);
+ratingSchema.post('save', async rate => {
+    var mangaId = rate.voteFor
+    const data = await ratingS.aggregate([
+        { $match: { 'voteFor': ObjectId(mangaId) } },
+        {
+            $group: {
+                "_id": "$voteFor",
+                "totalRate": { "$sum": 1 },
+                "avgRate": { $avg: "$score" }
+            }
+        }
+    ])
+    console.log(data[0])
+    await mangaS.updateOne(
+        { _id: mangaId },
+        { rate: data[0].avgRate, totalRate: data[0].totalRate }
+    )
+})
+
+const mangaS = mongoose.model('Manga', mangaSchema);
+const ratingS = mongoose.model('Rating', ratingSchema);
+
+module.exports = { Manga: mangaS, Rating: ratingS };
