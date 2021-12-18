@@ -1,6 +1,5 @@
 const { User } = require('../models/user');
-const Manga = require('../models/manga');
-const Chapter = require('../models/chapter');
+const { Manga, Rating } = require('../models/manga');
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
 
@@ -245,6 +244,49 @@ async function bookmark(req, res, next) {
     } */
 }
 
+async function ratingManga(req, res, next) {
+    const userId = req.params.uid
+    const collectId = req.params.cid
+    const mangaId = req.params.mid
+    /* ratingSchema.aggregate([{
+        $group: {
+            "_id": "$voteFor",
+            "count": { $sum: 1 }
+        }
+    }], function (err, result) {
+        console.log("number of ratings list : \n", result);
+    }); */
+    /* try {
+        const user = await User.findById(userId)
+            .populate('library.collections.collect.mangaCollect')
+        user.library.collections.collect.id(collectId).mangaCollect.pull({ manga: { _id: mangaId } })
+        console.log(user.library.collections.collect.id(collectId))
+
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+            } else {
+                console.log('Success!');
+                res.send({ isSuccess: true }) //{ success: true, message: "Xoá item thành công!"}
+            }
+        });
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá item không thành công!"}
+    } */
+}
+
+async function unrateManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+}
+
+async function rerateManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+}
+
 async function editUserProfile(req, res, next) {
     console.log('server get req')
     const userId = req.params.uid;
@@ -299,5 +341,6 @@ async function editUserProfile(req, res, next) {
 
 module.exports = {
     getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
-    getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection
+    getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
+    ratingManga, unrateManga, rerateManga
 };

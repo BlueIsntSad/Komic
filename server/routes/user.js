@@ -31,4 +31,9 @@ router.route('/:uid/storage/deleteCollectionItem/:cid/:mid')
 router.route('/:uid/storage/deleteCollection/:cid')
     .put(controller.deleteCollection)
 
+router.route('/:uid/:mid')
+    .post(controller.ratingManga)
+    .put(controller.rerateManga)
+    .delete(controller.unrateManga)
+
 module.exports = router;

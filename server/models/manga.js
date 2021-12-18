@@ -17,7 +17,7 @@ const mangaSchema = new Schema({
         default: 'No Name'
     },
     title_org: {
-        type: String,  
+        type: String,
         default: 'Unknown'
     },
     slug: {
@@ -92,5 +92,17 @@ const mangaSchema = new Schema({
 
 }, { timestamps: true });
 
+const ratingSchema = new Schema({
+    score: Number,
+    voteFor: {
+        type: Schema.Types.ObjectId,
+        ref: 'Manga'
+    },
+    voteBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
+})
 
 module.exports = mongoose.model('Manga', mangaSchema, "mangas");
+module.exports = mongoose.model('Rating', ratingSchema);

@@ -1,9 +1,9 @@
-const Manga = require('../models/manga');
+const { Manga } = require('../models/manga');
 const Category = require('../models/category');
 const Chapter = require('../models/chapter');
 const category = require('../models/category');
 const { User, Comment } = require('../models/user');
-const manga = require('../models/manga');
+const { manga } = require('../models/manga');
 
 async function getTopView(req, res) {
     const param = req.params['id'];

@@ -1,5 +1,5 @@
 const Category = require("../models/category");
-const Manga = require("../models/manga");
+const { Manga } = require("../models/manga");
 const Section = require('../models/section');
 const Chapter = require('../models/chapter');
 const { Mongoose } = require("mongoose");

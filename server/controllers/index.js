@@ -1,5 +1,5 @@
 const Category = require("../models/category");
-const Manga = require("../models/manga");
+const { Manga } = require("../models/manga");
 const mangaController = require("./manga")
 // const Comment = require("../models/")
 
