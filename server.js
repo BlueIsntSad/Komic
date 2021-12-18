@@ -5,10 +5,10 @@ const path = require('path')
 const expressHandlebars = require('express-handlebars')
 const helpers = require('handlebars-helpers')()
 const mongoose = require('mongoose')
-const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 require('./server/config/passport')(passport);
 // Router
 const route = require('./server/routes/index')
@@ -89,7 +89,6 @@ app.use('/', route)
 app.use('/manga', mangaRoute)
 app.use('/admin', adminRouter)
 app.use('/user', userRoute)
-// Log in/ Register
 app.use('/', authRoute);
 
 app.use((req, res, next) => { res.status(404).render('error', { layout: false }) });
