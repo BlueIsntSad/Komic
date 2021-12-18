@@ -56,7 +56,7 @@ new Promise((resolve) => {
             var collections = [];
             var total_col = faker.datatype.number(8);
             for (j = 0; j < total_col; j++) {
-                collect = [];
+                var collect = [];
                 var num = faker.datatype.number({ 'min': 1, 'max': 10 });
                 var collect_ = mangas.sort(() => Math.random() - 0.5).slice(-num)
                 collect_.forEach(c => { collect.push({ manga: c }) })
@@ -76,7 +76,7 @@ new Promise((resolve) => {
                     account: faker.internet.userName(),
                     email: faker.internet.email(),
                     password: faker.internet.password(),
-                    avatar: `https://picsum.photos/id/${faker.datatype.number(1000)}/300/300`,//avatars[i],
+                    avatar: `https://picsum.photos/300`,//avatars[i],
                     cover: faker.random.arrayElement(bg_covers),
                     about: faker.lorem.sentences(),
                     link: faker.internet.url(),
