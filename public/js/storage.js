@@ -37,36 +37,75 @@ $(document).ready(function () {
         $('.btn-ok', this).data('recordId', data.recordId);
     }); */
 
+    $('.btn-close').on('click', function () {
+        $('#title').removeClass('is-invalid')
+    })
+
 })
 
-function editNameCollection(event, userId, collect) {
-    var data = $('#_title').val();
-    alert(data)
-    showLoading();
+function editNameCollection(event, userId, collectId) {
+    const data = $('#_title').val();
+    event.preventDefault()
     $.ajax({
         method: "PUT",
-        url: `/user/${userId}/storage/editCollection/${collect._id}`,
-        cache: false,
+        url: `/user/${userId}/storage/collection`,
         timeout: 5000,
-        data: { title: data },
-        dataType: 'json',
-        processData: false,
-        contentType: false,
+        data: { title: data, cid: collectId },
         success: function (result) {
-            console.log(result);
-            if (result.success) {
+            if (result.isSuccess) {
                 showToast('success', "Thành công", "Cập nhật tên bộ sưu tập thành công!");
+                $('#title_show h3 span').html(data);
+                $('#title_edit input').attr('value', data)
+                $('#title_edit input').attr('defaultvalue', data)
+                window.location.href = window.location.href.split("?")[0] + `?cid=${collectId}`;
             } else {
                 showToast('error', "Không thành công", "Cập nhật không thành công!");
             }
-            hideLoading();
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Thêm truyện mới không thành công!");
-            hideLoading();
+            showToast('error', "Không thành công", "Cập nhật tên bộ sưu tập không thành công!");
         }
     })
+}
+
+function addCollection(event, userId) {
+    var title = $('#title').val()
+    if (!title) {
+        $('#title').addClass('is-invalid')
+        event.preventDefault()
+        event.stopPropagation()
+    }
+    else {
+        $.ajax({
+            method: "PUT",
+            url: `/user/${userId}/storage`,
+            data: { title: title },
+            timeout: 5000,
+            success: function (result) {
+                if (result.isSuccess) {
+                    showToast('success', "Thành công", "Thêm bộ sưu tập thành công!");
+                    insertCollect(result.newCollection, userId);
+                    console.log(result.newCollection);
+                } else {
+                    showToast('error', "Không thành công", "Thêm bộ sưu tập không thành công!");
+                    console.log(result.msg);
+                }
+            },
+            error: function (err) {
+                console.log(err.msg);
+                showToast('error', "Không thành công", "Thêm bộ sưu tập không thành công!");
+            }
+        })
+        event.preventDefault()
+        $('#addCollectModal').modal('hide')
+    }
+}
+
+function insertCollect(collect, userId) {
+    let href = `/user/${userId}/storage/collection?cid=${collect._id}`
+    let insertCollect = `<div class="col-md-6 col-lg-4" id="collect_${collect._id}"><div class="profile-library shadow rounded-3 p-4 mb-4"><div class="library-body"><div class="reading-list"><div class="d-flex"><a href="${href}"><div class="cover pe-4"><img src="/img/cover_default.png" class="rounded-2"><div class="shadow rounded-2"></div></div></a><div class='info w-100 d-flex flex-column'><a href="${href}"><h5><b>${collect.title}</b></h5></a><p>${collect.total} truyện</p><div class="d-flex justify-content-end mt-auto d-grid gap-2"><a class="edit btn" href="${href}"><i class="fas fa-external-link-alt"></i></a><button class="del btn" onclick="deleteCollection('${userId}','${collect._id}')"><i class="fas fa-trash"></i></button></div></div></div></div></div></div></div>`
+    $('#collections_list').append(insertCollect)
 }
 
 function deleteHistory(userId, historyId) {
@@ -76,10 +115,12 @@ function deleteHistory(userId, historyId) {
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result) {
+            if (result.isSuccess) {
                 showToast('success', "Thành công", "Xoá lịch sử thành công!");
                 $(`#his_${historyId}`).remove();
+                $('.reading-list:last-child hr').remove();
             } else {
+                console.log(result.msg)
                 showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
             }
         },
@@ -90,48 +131,50 @@ function deleteHistory(userId, historyId) {
     })
 }
 
+function deleteCollection_redirect(userId, hisId, href) {
+    deleteCollection(userId, hisId);
+    window.location.href = href;
+}
+
 function deleteCollection(userId, collectId) {
-    showLoading();
     $.ajax({
         method: "PUT",
         url: `/user/${userId}/storage/deleteCollection/${collectId}`,
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result) {
-                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+            if (result.isSuccess) {
+                showToast('success', "Thành công", "Xoá bộ sưu tập thành công!");
+                $(`#collect_${collectId}`).remove();
             } else {
-                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+                showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
             }
-            hideLoading();
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
-            hideLoading();
+            showToast('error', "Không thành công", "Xoá bộ sưu tập không thành công!");
         }
     })
 }
 
-function editCollectionItem(userId, collectId, mangaId) {
-    showLoading();
+function deleteCollectionItem(userId, collectId, mangaId) {
     $.ajax({
         method: "PUT",
-        url: `/user/${userId}/storage/editCollectionItem/${collectId}/${mangaId}`,
+        url: `/user/${userId}/storage/deleteCollectionItem/${collectId}/${mangaId}`,
         timeout: 5000,
         success: function (result) {
             console.log(result);
-            if (result.success) {
-                showToast('success', "Thành công", "Xoá lịch sử thành công!");
+            if (result.isSuccess) {
+                showToast('success', "Thành công", "Bỏ truyện thành công!");
+                $(`#manga_${mangaId}`).remove();
+                $('.reading-list:last-child hr').remove();
             } else {
-                showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
+                showToast('error', "Không thành công", "Bỏ truyện không thành công!");
             }
-            hideLoading();
         },
         error: function (err) {
             console.log(err)
-            showToast('error', "Không thành công", "Xoá lịch sử không thành công!");
-            hideLoading();
+            showToast('error', "Không thành công", "Bỏ truyện không thành công!");
         }
     })
 }

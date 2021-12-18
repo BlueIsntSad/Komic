@@ -1,0 +1,24 @@
+<div class="modal fade" id="addCollectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="needs-validation" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tạo bộ sưu tập mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
+                    <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
+                        placeholder="VD: Drama tổng hợp " required/>
+                    <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                    <button id="createCollect" type="submit" class="btn submit"
+                        onclick="addCollection(event,'{{userId}}')">Tạo bộ sưu tập
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

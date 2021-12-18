@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('.manga_sidebar_topviews').removeClass('mt-4').removeClass('my-5')
+    $('.manga_sidebar').removeClass('my-5')
 
     /* ---------- Chapter table pagination ---------- */
     var limitPerPage = 10;

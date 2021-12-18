@@ -39,6 +39,9 @@ new Promise((resolve) => {
             'https://res.cloudinary.com/hehohe/image/upload/v1638284109/user/background%20cover/sunset-pathway-anime-girl-original_nkeuev.jpg'
         ];
         var users = [];
+        var mangas = [];
+        results[0].forEach(manga => { mangas.push(manga._id) })
+
         for (i = 0; i < 10; i++) {
             // histories
             var histories = [];
@@ -51,14 +54,15 @@ new Promise((resolve) => {
             }
             // collections
             var collections = [];
-            var total_col = 0;
-            for (j = 0; j < faker.datatype.number(5); j++) {
+            var total_col = faker.datatype.number(8);
+            for (j = 0; j < total_col; j++) {
                 collect = [];
                 var num = faker.datatype.number({ 'min': 1, 'max': 10 });
-                total_col = total_col + num;
-                for (k = 0; k < num; k++) {
+                var collect_ = mangas.sort(() => Math.random() - 0.5).slice(-num)
+                collect_.forEach(c => { collect.push({ manga: c }) })
+                /* for (k = 0; k < num; k++) {
                     collect.push({ manga: faker.random.arrayElement(results[0])._id });
-                }
+                } */
                 collections.push({
                     title: faker.name.title(),
                     total: num,
@@ -75,7 +79,8 @@ new Promise((resolve) => {
                     avatar: `https://picsum.photos/id/${faker.datatype.number(1000)}/300/300`,//avatars[i],
                     cover: faker.random.arrayElement(bg_covers),
                     about: faker.lorem.sentences(),
-                    adress: `${faker.address.cityName()}, ${faker.address.country()}`,
+                    link: faker.internet.url(),
+                    address: `${faker.address.cityName()}, ${faker.address.country()}`,
                     library: {
                         history: {
                             total: total_his,

@@ -6,12 +6,12 @@
   <div class="container">
     <div class="manga_details_content my-5 shadow-lg rounded-3">
       <div class="row p-4 g-3">
-        <div class="col-lg-4 col-xl-3 pe-3">
+        <div class="col-md-12 col-lg-4 col-xl-3 pe-3">
           <div class="anime_details_pic">
             <img src={{manga.cover}} class="img-fluid rounded-3" />
           </div>
         </div>
-        <div class="col-lg-8 col-xl-9">
+        <div class="col-md-12 col-lg-8 col-xl-9">
           <div class="row mb-3">
             <div class="col-lg-12 col-xl-9 manga_details_title text-wrap">
               <h3 class="mb-2"><b>{{manga.title}}</b></h3>
@@ -25,7 +25,7 @@
                 <a href="#"><i class="fas fa-star-half-alt"></i></a>
                 <a href="#"><i class="far fa-star"></i></a>
               </div>
-              <span>{{addCommas manga.totalRate}} lượt đánh giá</span>
+              <span>{{addCommas manga.totalRate}} đánh giá</span>
             </div>
           </div>
           <div class="categories mb-3">
@@ -128,39 +128,7 @@
         {{>reviews}}
       </div>
       <div class="col-lg-4 col-md-12">
-        {{> sidebar topViews = topViews newComment = newComment}}
-        <div class="manga_details_other shadow-lg rounded-3 p-4">
-          <div class="col">
-            <div class="section-title my-3">
-              <h5>Bạn có thể thích...</h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-            <div class="sidebar_item set-bg" data-setbg='/img/cover.png'>
-              <div class="ep">12 / 20</div>
-              <div class="view">9566</div>
-              <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-            </div>
-          </div>
-        </div>
+        {{> sidebar topViews = topViews}}
       </div>
     </div>
   </div>
