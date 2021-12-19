@@ -27,7 +27,6 @@ $(document).ready(function () {
     $('button.prev').on('click', function () {
         var prevChapter = $('select option:selected').prev('option').val();
         if (prevChapter.length > 0) {
-            alert(prevChapter)
             window.location.href = prevChapter
         }
     })
