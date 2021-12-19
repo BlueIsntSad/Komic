@@ -52,7 +52,7 @@ async function getCategory(req, res) {
 
     category.mangas = mangas;
     category.sort = sort
-    res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
+    res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page, cateList: res.locals.categoryList })
 }
 
 function initSortQuery(sortOption) {
@@ -89,7 +89,7 @@ async function getAllCategoryPage(req, res) {
             category.count = count - 8;
     }
     const toast = { type: "error", title: "Thất bại", message: "Tải thông tin truyện thất bại" }
-    res.render('all-category', { categories })
+    res.render('all-category', { categories, cateList: res.locals.categoryList })
 }
 
 async function getMangaDetails(req, res) {
@@ -113,7 +113,8 @@ async function getMangaDetails(req, res) {
                 title: `${manga.title} | Komic`,
                 script: ['manga-details', 'review'],
                 comments: comments,
-                topViews: topViews
+                topViews: topViews,
+                newCommentcateList: res.locals.categoryList
             });
         })
         .catch(function (err) { console.log(err.message) });
@@ -122,7 +123,8 @@ async function getMangaDetails(req, res) {
 function read(req, res) {
     res.render('manga-reading', {
         title: 'Lorem ipsum dolor - Chapter 1 | Komic',
-        script: 'manga-reading.js'
+        script: 'manga-reading.js',
+        cateList: res.locals.categoryList
     })
 }
 
@@ -191,7 +193,8 @@ async function readChapter(req, res) {
                         comments: comments,
                         topViews: topViews,
                         title: `${manga.title} - Chapter ${chapter.index} | Komic`,
-                        script: ['manga-reading', 'review']
+                        script: ['manga-reading', 'review'],
+                        cateList: res.locals.categoryList
                     })
                 })
         })
@@ -220,7 +223,7 @@ async function getManga(req, res) {
         name: "",
         mangas: mangas
     }
-    res.render("search", { categories: [categories], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
+    res.render("search", { categories: [categories], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page, cateList: res.locals.categoryList })
 
 }
 

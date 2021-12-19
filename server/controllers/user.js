@@ -39,7 +39,8 @@ async function getUserProfile(req, res, next) {
                 title: `${userDoc.name} | Komic`,
                 script: ['profile'],
                 history: userDoc.library.history.mangaCollect,
-                collections: userDoc.library.collections.collect
+                collections: userDoc.library.collections.collect,
+                cateList: res.locals.categoryList
             });
         })
         .catch(function (err) { console.log(err.message) });
@@ -68,7 +69,8 @@ async function getUserLibrary(req, res, next) {
             history: user.library.history.mangaCollect,
             collection: user.library.collections.collect,
             userId: userId,
-            tab: tab
+            tab: tab,
+            cateList: res.locals.categoryList
         });
     } catch (err) { console.log(err.message) }
 }
@@ -110,7 +112,8 @@ async function getCollection(req, res, next) {
             title: `Library | Komic`,
             script: ['storage'],
             collection: JSON.parse(JSON.stringify(collect)),
-            userId: userId
+            userId: userId,
+            cateList: res.locals.categoryList
         });
     } catch (err) { console.log(err.message) }
 }

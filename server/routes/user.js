@@ -5,7 +5,7 @@ const router = express.Router();
 const controller = require('../controllers/user');
 
 // GET user profile page
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.redirect('/login');
 })
 

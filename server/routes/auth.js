@@ -3,14 +3,14 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
-const {User, Admin} = require('../models/user');
+const { User, Admin } = require('../models/user');
 const { forwardAuthenticated } = require('../config/auth');
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
+router.get('/login', forwardAuthenticated, (req, res) => res.render('login', { cateList: res.locals.categoryList }));
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
+router.get('/register', forwardAuthenticated, (req, res) => res.render('register', { cateList: res.locals.categoryList }));
 
 // Register
 router.post('/register', (req, res) => {
@@ -36,7 +36,8 @@ router.post('/register', (req, res) => {
       account,
       email,
       password,
-      password2
+      password2,
+      cateList: res.locals.categoryList
     });
   } else {
     User.findOne({ email: email }).then(user => {
@@ -47,7 +48,8 @@ router.post('/register', (req, res) => {
           account,
           email,
           password,
-          password2
+          password2,
+          cateList: res.locals.categoryList
         });
       } else {
         const newUser = new User({

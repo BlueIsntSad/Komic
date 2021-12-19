@@ -26,7 +26,7 @@ async function index(req, res, next) {
 
     const topViews = await mangaController.getMangaTopviews();
     const newComment = await mangaController.getMangaNewComment();
-    res.render('home', { categories: categories, topViews: topViews, newComment: newComment, news: manga })
+    res.render('home', { categories: categories, topViews: topViews, newComment: newComment, news: manga, cateList: res.locals.categoryList })
 }
 
 module.exports.index = index;
