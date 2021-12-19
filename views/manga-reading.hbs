@@ -13,8 +13,8 @@
           </div>
           <div class="chapter_control pb-4">
             <div class="d-flex justify-content-center">
-              <button type="button prev" class="btn btn-dark mx-2">Prev</button>
-              <select class="selectpicker mx-2 height-fix">
+              <button type="button" class="btn prev btn-dark mx-2">Prev</button>
+              <select class="top selectpicker mx-2 height-fix">
                 {{#each manga.chapters}}
                 {{#eq index ../chapter.index}}
                 <option selected value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
@@ -23,18 +23,18 @@
                 {{/eq}}
                 {{/each}}
               </select>
-              <button type="button next" class="btn btn-warning mx-2">Next</button>
+              <button type="button" class="btn next btn-warning mx-2">Next</button>
             </div>
           </div>
           <div class="chapter_content pb-4">
             {{#each chapter.sections}}
-            <img src="{{url}}" alt="page {{plus @index 1}}" class="img-fluid">
+            <img src="{{url}}" alt="page {{plus @index 1}}" class="img-fluid w-75">
             {{/each}}
           </div>
           <div class="chapter_control pb-4">
             <div class="d-flex justify-content-center">
-              <button type="button prev" class="btn btn-dark mx-2">Prev</button>
-              <select class="selectpicker mx-2 height-fix">
+              <button type="button" class="btn prev btn-dark mx-2">Prev</button>
+              <select class="bot selectpicker mx-2 height-fix">
                 {{#each manga.chapters}}
                 {{#eq index ../chapter.index}}
                 <option selected value="/manga/{{../manga.slug}}/chapter-{{index}}">Chapter {{index}}</option>
@@ -43,7 +43,7 @@
                 {{/eq}}
                 {{/each}}
               </select>
-              <button type="button next" class="btn btn-warning mx-2">Next</button>
+              <button type="button" class="btn next btn-warning mx-2">Next</button>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
         {{>reviews}}
       </div>
       <div class="col-lg-4 col-md-12">
-        <div class="manga_details_other shadow-lg rounded-3 p-4 mb-4">
+        {{!-- <div class="manga_details_other shadow-lg rounded-3 p-4 mb-4">
           <div class="section-title my-3">
             <h5>Trending...</h5>
           </div>
@@ -73,7 +73,8 @@
             <div class="view">9566</div>
             <h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
           </div>
-        </div>
+        </div> --}}
+        {{> sidebar topViews = topViews}}
       </div>
     </div>
   </div>

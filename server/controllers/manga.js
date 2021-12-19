@@ -94,7 +94,7 @@ async function getAllCategoryPage(req, res) {
 
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
-    var topViews = await getMangaTopviews();
+    var topViews = await getMangaTopviews(5);
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
@@ -127,10 +127,10 @@ function read(req, res) {
 }
 
 
-async function getMangaTopviews() {
+async function getMangaTopviews(limit_ = 6) {
     const topViews = await Manga.find()
         .sort({ 'views': -1 })
-        .limit(6)
+        .limit(limit_)
         .populate({
             path: 'categories'
         })
@@ -168,6 +168,7 @@ async function getMangaNewComment() {
 async function readChapter(req, res) {
     var mangaSlug = req.params.manga;
     var chapterIndex = req.params.chapter.slice(8);
+    var topViews = await getMangaTopviews(3);
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('chapters', '_id index')
@@ -188,6 +189,7 @@ async function readChapter(req, res) {
                         chapter: chapter,
                         manga: manga,
                         comments: comments,
+                        topViews: topViews,
                         title: `${manga.title} - Chapter ${chapter.index} | Komic`,
                         script: ['manga-reading', 'review']
                     })
