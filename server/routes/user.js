@@ -5,7 +5,7 @@ const router = express.Router();
 const controller = require('../controllers/user');
 
 // GET user profile page
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     res.redirect('/login');
 })
 
@@ -30,5 +30,10 @@ router.route('/:uid/storage/deleteCollectionItem/:cid/:mid')
 
 router.route('/:uid/storage/deleteCollection/:cid')
     .put(controller.deleteCollection)
+
+router.route('/:uid/:mid')
+    .post(controller.ratingManga)
+    //.put(controller.rerateManga)
+    //.delete(controller.unrateManga)
 
 module.exports = router;

@@ -10,12 +10,14 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 require('./server/config/passport')(passport);
+
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
 const adminRouter = require('./server/routes/admin')
 const userRoute = require('./server/routes/user')
 const authRoute = require('./server/routes/auth')
+const navMW = require('./server/middleware/navbar');
 
 //Helper
 const hbsHelper = require('./server/helpers/helpers')
@@ -62,6 +64,7 @@ app.engine('hbs', expressHandlebars({
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Express session
 app.use(session({
   secret: 'M1lWSBrRLRLONrwzpVM9jA7dpTCCzgh9dPxcEI8',
@@ -81,17 +84,19 @@ app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.session = req.session;
   next();
 });
 
 // Page routing
+app.get('*', navMW.getCategories)
 app.use('/', route)
 app.use('/manga', mangaRoute)
 app.use('/admin', adminRouter)
 app.use('/user', userRoute)
 app.use('/', authRoute);
 
-app.use((req, res, next) => { res.status(404).render('error', { layout: false }) });
+app.use((req, res) => { res.status(404).render('error', { layout: false }) });
 
 // Listen request
 app.listen(process.env.PORT || port, function () {

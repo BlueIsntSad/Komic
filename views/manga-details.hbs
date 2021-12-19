@@ -18,14 +18,34 @@
               <span>{{manga.title_org}}</span>
             </div>
             <div class="col-lg-12 col-xl-3 manga_details_rating">
-              <div class="rating list-inline my-2">
-                <a href="#"><i class="fas fa-star"></i></a>
-                <a href="#"><i class="fas fa-star"></i></a>
-                <a href="#"><i class="fas fa-star"></i></a>
-                <a href="#"><i class="fas fa-star-half-alt"></i></a>
-                <a href="#"><i class="far fa-star"></i></a>
+              <div class="stars-rating">
+                <form onchange="ratingManga('61bd6ea51757e7c776043275','{{manga._id}}')">
+                  <div class="rating-group" data-default={{rate}}>
+                    <label aria-label="1 star" class="rating__label" for="star-1">
+                      <i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="star" id="star-1" value="1" type="radio">
+                    <label aria-label="2 stars" class="rating__label" for="star-2">
+                      <i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="star" id="star-2" value="2" type="radio">
+                    <label aria-label="3 stars" class="rating__label" for="star-3">
+                      <i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="star" id="star-3" value="3" type="radio">
+                    <label aria-label="4 stars" class="rating__label" for="star-4">
+                      <i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="star" id="star-4" value="4" type="radio" checked>
+                    <label aria-label="5 stars" class="rating__label" for="star-5">
+                      <i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="star" id="star-5" value="5" type="radio">
+                  </div>
+                </form>
               </div>
-              <span>{{addCommas manga.totalRate}} đánh giá</span>
+              <div class="ms-3">
+                {{#eq manga.totalRate 0}}
+                <span>Chưa có đánh giá</span>
+                {{else}}
+                <span>{{addCommas manga.totalRate}} đánh giá</span>
+                {{/eq}}
+              </div>
             </div>
           </div>
           <div class="categories mb-3">
@@ -99,7 +119,8 @@
               <span class="fw-bold p-3">Chương {{index}}</span>
               <span class="fst-italic p-3 flex-grow-1">{{name}}</span>
               <span class="date p-3"><i class="fas fa-history"></i> {{moment updatedAt format="DD-MM-YYYY"}}</span>
-              <span class="bookmark p-3"><i class="fas fa-eye"></i> {{#if views}}{{addCommas views}}{{else}}0{{/if}}</span>
+              <span class="bookmark p-3"><i class="fas fa-eye"></i> {{#if views}}{{addCommas
+                views}}{{else}}0{{/if}}</span>
               <span class="p-3">#{{plus @index 1}}</span>
             </a>
           </div>

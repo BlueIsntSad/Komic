@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Manga = require('../server/models/manga');
+const { Manga } = require('../server/models/manga');
 const Chapter = require('../server/models/chapter');
 const Category = require('../server/models/category');
 const faker = require('faker');

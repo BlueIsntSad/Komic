@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { User, Comment } = require('../server/models/user');
-const Manga = require('../server/models/manga');
+const { Manga } = require('../server/models/manga');
 const Chapter = require('../server/models/chapter');
 const faker = require('faker');
 const async = require('async');

@@ -1,5 +1,5 @@
 const Category = require("../models/category");
-const Manga = require("../models/manga");
+const { Manga } = require("../models/manga");
 const Section = require('../models/section');
 const Chapter = require('../models/chapter');
 const { Mongoose } = require("mongoose");
@@ -40,7 +40,8 @@ async function getAdminPage(req, res) {
         maxPage: maxPage,
         pages: pages,
         pre: parseInt(page) - 1,
-        next: parseInt(page) + 1
+        next: parseInt(page) + 1,
+        cateList: res.locals.categoryList
     })
 }
 
@@ -49,7 +50,8 @@ async function getInsertPage(req, res) {
     const categories = await Category.find().lean();
     res.render('insert-manga', {
         categories: categories,
-        curentPage: "manga"
+        curentPage: "manga",
+        cateList: res.locals.categoryList
     })
 }
 
@@ -170,7 +172,8 @@ async function getEditPage(req, res, next) {
     res.render('edit-manga', {
         categories: categories,
         manga: manga,
-        curentPage: "manga"
+        curentPage: "manga",
+        cateList: res.locals.categoryList
     })
 }
 
@@ -359,7 +362,8 @@ async function getCategoryPage(req, res) {
         const categories = await Category.find().lean().exec()
         res.render('category-manage', {
             categories: categories,
-            curentPage: "category"
+            curentPage: "category",
+            cateList: res.locals.categoryList
         })
     } catch (error) {
         console.log(error)
@@ -517,7 +521,7 @@ async function dasboard(req, res) {
         }
 
         const dashboardJSONData = JSON.stringify(dashboardData);
-        res.render('dashboard', { dashboardData: dashboardData, curentPage: "dashboard" })
+        res.render('dashboard', { dashboardData: dashboardData, curentPage: "dashboard", cateList: res.locals.categoryList })
 
     } catch (error) {
         console.log(error);

@@ -1,6 +1,5 @@
 const { User } = require('../models/user');
-const Manga = require('../models/manga');
-const Chapter = require('../models/chapter');
+const { Manga, Rating } = require('../models/manga');
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
 
@@ -40,7 +39,8 @@ async function getUserProfile(req, res, next) {
                 title: `${userDoc.name} | Komic`,
                 script: ['profile'],
                 history: userDoc.library.history.mangaCollect,
-                collections: userDoc.library.collections.collect
+                collections: userDoc.library.collections.collect,
+                cateList: res.locals.categoryList
             });
         })
         .catch(function (err) { console.log(err.message) });
@@ -69,7 +69,8 @@ async function getUserLibrary(req, res, next) {
             history: user.library.history.mangaCollect,
             collection: user.library.collections.collect,
             userId: userId,
-            tab: tab
+            tab: tab,
+            cateList: res.locals.categoryList
         });
     } catch (err) { console.log(err.message) }
 }
@@ -111,7 +112,8 @@ async function getCollection(req, res, next) {
             title: `Library | Komic`,
             script: ['storage'],
             collection: JSON.parse(JSON.stringify(collect)),
-            userId: userId
+            userId: userId,
+            cateList: res.locals.categoryList
         });
     } catch (err) { console.log(err.message) }
 }
@@ -245,6 +247,46 @@ async function bookmark(req, res, next) {
     } */
 }
 
+async function ratingManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+    const score = req.query.score;
+
+    const rating = new Rating({
+        score: score,
+        voteFor: mangaId,
+        voteBy: userId
+    })
+
+    var user = await Rating.findOne({ voteBy: userId })
+    if (!user) {
+        try {
+            await rating.save();
+            res.send({ isSuccess: true })
+            console.log('rate success')
+        } catch (err) {
+            console.log(err.message)
+            res.send({ isSuccess: false, msg: err.message })
+        }
+    } else {
+        const updateRate = await Rating.findOne({ voteBy: userId });
+        updateRate.score = score;
+        await updateRate.save();
+    }
+
+
+}
+
+async function unrateManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+}
+
+async function rerateManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+}
+
 async function editUserProfile(req, res, next) {
     console.log('server get req')
     const userId = req.params.uid;
@@ -299,5 +341,6 @@ async function editUserProfile(req, res, next) {
 
 module.exports = {
     getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
-    getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection
+    getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
+    ratingManga
 };
