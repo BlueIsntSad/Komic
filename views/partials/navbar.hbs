@@ -18,29 +18,30 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="/">Trang chủ</a>
           </li>
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Thể loại
+                </a>
+                <ul id="#cateList" class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  {{#each cateList}}
+                  <li><a class="dropdown-item" href="/manga/categories/{{slug}}">{{name}}</a></li>
+                  {{/each}}
+                </ul>
+              </li>
+            </ul>
+          </div>
           <li class="nav-item">
-            <a class="nav-link" href="#">Our Blogs</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Categories
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">Liên hệ</a>
           </li>
         </ul>
       </div>
       <ul class="navbar-btn d-none d-sm-inline-block">
-        <button type="button" class="btn btn-outline-light">Sign in</button>
-        <button type="button" class="btn btn-secondary">Register</button>
+        <button onclick="location.href = '/login';" type="button" class="btn btn-outline-light">Đăng nhập</button>
+        <button onclick="location.href = '/register';" type="button" class="btn btn-secondary">Đăng ký</button>
       </ul>
     </nav>
   </div>

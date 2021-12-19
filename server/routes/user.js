@@ -9,25 +9,31 @@ router.get('/', function (req, res) {
     res.redirect('/login');
 })
 
-router.get('/add', controller.add)
-
 router.route('/:uid')
     .get(controller.getUserProfile)
+    .put(controller.editUserProfile)
 
 router.route('/:uid/storage')
     .get(controller.getUserLibrary)
+    .put(controller.addCollection)
 
-router.route('/:uid/storage/deleteHistory/')
-    //.put(controller.getUserLibrary)
+// User API
+router.route('/:uid/storage/deleteHistory/:hid')
+    .put(controller.deleteHistory)
 
 router.route('/:uid/storage/collection')
     .get(controller.getCollection)
-    //.put(controller.addCollection)
-
-router.route('/:uid/storage/editCollection/:cid')
     .put(controller.editCollection)
 
+router.route('/:uid/storage/deleteCollectionItem/:cid/:mid')
+    .put(controller.deleteCollectionItem)
+
 router.route('/:uid/storage/deleteCollection/:cid')
-    //.put(controller.deleteCollection)
+    .put(controller.deleteCollection)
+
+router.route('/:uid/:mid')
+    .post(controller.ratingManga)
+    //.put(controller.rerateManga)
+    //.delete(controller.unrateManga)
 
 module.exports = router;

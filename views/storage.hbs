@@ -7,12 +7,14 @@
             <div class="sub-nav px-4">
                 <ul class="nav nav-pills" role="tablist">
                     <li class="nav-item">
-                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history" data-bs-toggle="pill">
+                        <a href="#history" class="nav-link {{#eq tab 'history'}}active{{/eq}}" id="nav-history"
+                            data-bs-toggle="pill">
                             <i class="fas fa-history"></i>Danh sách đọc
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection" data-bs-toggle="pill">
+                        <a href="#collection" class="nav-link {{#eq tab 'collection'}}active{{/eq}}" id="nav-collection"
+                            data-bs-toggle="pill">
                             <i class="fas fa-bookmark"></i>Kho lưu trữ
                         </a>
                     </li>
@@ -27,7 +29,7 @@
                 <div class="profile-library shadow rounded-3 p-4 mb-4">
                     <div class="row gap-3 py-4">
                         {{#each history}}
-                        <div class="reading-list">
+                        <div class="reading-list" id="his_{{manga._id}}">
                             <div class="d-flex">
                                 <div class="cover pe-4">
                                     <a href="/manga/{{manga.slug}}"><img src="{{manga.cover}}" class="rounded-2"></a>
@@ -48,7 +50,10 @@
                                             </div>
                                         </div>
                                         <div class="flex-shrink-1 fuction">
-                                            <button class="del btn"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="del btn" {{!-- data-toggle="modal"
+                                                data-target="#confirm-delete" --}}
+                                                onclick="deleteHistory('{{../userId}}','{{manga._id}}')">
+                                                <i class="fas fa-trash"></i></button>
                                         </div>
                                     </header>
                                     <span>{{manga.description}}</span>
@@ -59,6 +64,22 @@
                         {{/each}}
                     </div>
                 </div>
+                <!-- Delete message -->
+                {{!-- <div class="modal fade" id="confirm-delete" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            </div>
+                            <div class="modal-body">
+                                Hành động không thể hoàn tác. Bạn có chắc chắn muốn xoá mục này.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+                                <a class="btn btn-danger btn-ok">Xoá mục</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
                 {{else}}
                 <b><em>Chưa có truyện nào</em></b>
                 {{/if}}
@@ -68,28 +89,32 @@
             <div class="tab-pane fade {{#eq tab 'collection'}}show active{{/eq}}" id="collection">
                 <button class="btn mb-3" id="addCollect" data-bs-toggle="modal" data-bs-target="#addCollectModal">
                     Thêm bộ sưu tập mới<i class="fas fa-plus-circle"></i></button>
-                <div class="row">
+                <div class="row" id="collections_list">
                     {{#if collection}}
                     {{#each collection}}
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4" id="collect_{{_id}}">
                         <div class="profile-library shadow rounded-3 p-4 mb-4">
                             <div class="library-body">
                                 <div class="reading-list">
                                     <div class="d-flex">
-                                        <a href="/user/{{../userId}}/storage/collection?title={{title}}">
+                                        <a href="/user/{{../userId}}/storage/collection?cid={{_id}}">
                                             <div class="cover pe-4">
-                                                <img src="{{mangaCollect.0.manga.cover}}" class="rounded-2">
+                                                <img src="{{#if mangaCollect.0.manga.cover}}{{mangaCollect.0.manga.cover}}{{else}}/img/cover_default.png{{/if}}" class="rounded-2">
                                                 <div class="shadow rounded-2"></div>
                                             </div>
                                         </a>
                                         <div class='info w-100 d-flex flex-column'>
-                                            <a href="/user/{{../userId}}/storage/collection?title={{title}}">
+                                            <a href="/user/{{../userId}}/storage/collection?cid={{_id}}">
                                                 <h5><b>{{title}}</b></h5>
                                             </a>
                                             <p>{{total}} truyện</p>
                                             <div class="d-flex justify-content-end mt-auto d-grid gap-2">
-                                                <button class="edit btn"><i class="fas fa-edit"></i></button>
-                                                <button class="del btn"><i class="fas fa-trash"></i></button>
+                                                <a class="edit btn"
+                                                    href="/user/{{../userId}}/storage/collection?cid={{_id}}"><i
+                                                        class="fas fa-external-link-alt"></i></a>
+                                                <button class="del btn"
+                                                    onclick="deleteCollection('{{../userId}}','{{_id}}')"><i
+                                                        class="fas fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -106,28 +131,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="addCollectModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form class="needs-validation" novalidate>
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tạo bộ sưu tập mới</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="title" class="form-label">Đặt tên cho Bộ sưu tập của bạn.</label>
-                                <input class="form-control" type="text" id="title" pattern="^[a-zA-Z0-9_.-]*$" maxlength="100"
-                                    placeholder="VD: jkhasjdhaksjhd" required>
-                                <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                                <button id="createCollect" type="submit" class="btn submit" data-bs-dismiss="modal">Tạo bộ sưu tập</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {{> modal this }}
         </div>
     </div>
 </section>

@@ -1,4 +1,4 @@
-{{>breadcrumb}}
+{{>breadcrumb isSearch=true}}
 <section class="category_page manga_pannel">
     <div class="container">
         <div class="row">
@@ -8,19 +8,19 @@
                 </ol>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
-                    {{> sidebar topViews = topViews newComment = newComment}}
+                {{> sidebar topViews = topViews newComment = newComment}}
             </div>
         </div>
-    </div>   
-    
+    </div>
 </section>
+
 <script src="/js/pagination.js"></script>
 {{#if currentPage }}
-    <script>
-        pagination({{currentPage}}, {{pages}});
-    </script>    
+<script>
+    pagination({{ currentPage }}, {{ pages }});
+</script>
 {{else}}
-    <script>
-        pagination(1, {{pages}});
-    </script> 
+<script>
+    pagination(1, {{ pages }});
+</script>
 {{/if}}

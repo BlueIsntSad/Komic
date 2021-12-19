@@ -1,9 +1,9 @@
-const Manga = require('../models/manga');
+const { Manga } = require('../models/manga');
 const Category = require('../models/category');
 const Chapter = require('../models/chapter');
 const category = require('../models/category');
 const { User, Comment } = require('../models/user');
-const manga = require('../models/manga');
+const { manga } = require('../models/manga');
 
 async function getTopView(req, res) {
     const param = req.params['id'];
@@ -52,7 +52,7 @@ async function getCategory(req, res) {
 
     category.mangas = mangas;
     category.sort = sort
-    res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
+    res.render('categories', { categories: [category], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page, cateList: res.locals.categoryList })
 }
 
 function initSortQuery(sortOption) {
@@ -89,11 +89,12 @@ async function getAllCategoryPage(req, res) {
             category.count = count - 8;
     }
     const toast = { type: "error", title: "Thất bại", message: "Tải thông tin truyện thất bại" }
-    res.render('all-category', { categories })
+    res.render('all-category', { categories, cateList: res.locals.categoryList })
 }
 
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
+    var topViews = await getMangaTopviews(5);
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
@@ -111,7 +112,9 @@ async function getMangaDetails(req, res) {
                 manga: manga,
                 title: `${manga.title} | Komic`,
                 script: ['manga-details', 'review'],
-                comments: comments
+                comments: comments,
+                topViews: topViews,
+                newCommentcateList: res.locals.categoryList
             });
         })
         .catch(function (err) { console.log(err.message) });
@@ -120,15 +123,16 @@ async function getMangaDetails(req, res) {
 function read(req, res) {
     res.render('manga-reading', {
         title: 'Lorem ipsum dolor - Chapter 1 | Komic',
-        script: 'manga-reading.js'
+        script: 'manga-reading.js',
+        cateList: res.locals.categoryList
     })
 }
 
 
-async function getMangaTopviews() {
+async function getMangaTopviews(limit_ = 6) {
     const topViews = await Manga.find()
         .sort({ 'views': -1 })
-        .limit(6)
+        .limit(limit_)
         .populate({
             path: 'categories'
         })
@@ -166,6 +170,7 @@ async function getMangaNewComment() {
 async function readChapter(req, res) {
     var mangaSlug = req.params.manga;
     var chapterIndex = req.params.chapter.slice(8);
+    var topViews = await getMangaTopviews(3);
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('chapters', '_id index')
@@ -186,8 +191,10 @@ async function readChapter(req, res) {
                         chapter: chapter,
                         manga: manga,
                         comments: comments,
+                        topViews: topViews,
                         title: `${manga.title} - Chapter ${chapter.index} | Komic`,
-                        script: ['manga-reading', 'review']
+                        script: ['manga-reading', 'review'],
+                        cateList: res.locals.categoryList
                     })
                 })
         })
@@ -216,7 +223,7 @@ async function getManga(req, res) {
         name: "",
         mangas: mangas
     }
-    res.render("search", { categories: [categories], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page })
+    res.render("search", { categories: [categories], topViews: topViews, newComment: newComment, pages: maxPage, currentPage: page, cateList: res.locals.categoryList })
 
 }
 

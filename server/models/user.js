@@ -12,13 +12,14 @@ const adminSchema = new Schema({
 const userSchema = new Schema({
     name: { type: String, required: true },
     account: { type: String, required: true },
-    email: { type: String, required: true},
+    email: { type: String, required: true },
     password: { type: String, required: true },
     avatar: { type: String, default: '/img/avatar_default.png' },
-    cover: { type: String, default: '/img/avatar_default.png' },
-    following: { type: Number, default: 0},
+    cover: { type: String, default: '/img/cover_default.png' },
+    following: { type: Number, default: 0 },
     about: String,
-    adress: String,
+    address: String,
+    link: String,
     library: {
         history: {
             total: { type: Number, default: 0 },
@@ -52,25 +53,29 @@ userSchema.methods.getHistory = function () {
     return mangaCollect;
 }
 
-/* userSchema.pre('save', function (next) {
-    this.library.history.total = this.library.history.mangaCollect.length;
-    this.library.collections.collect.forEach(collectList => {
-        collectList.total = collectList.mangaCollect.length;
+userSchema.pre('save', function (next) {
+    var history = this.library.history
+    history.total = this.library.history.mangaCollect.length
+
+    var collections = this.library.collections
+    collections.total_collect = collections.collect.length
+
+    var follows = 0
+    collections.collect.forEach(collect_ => {
+        collect_.total = collect_.mangaCollect.length
+        follows += collect_.total
     })
-    let sum = 0;
-    for(let i=0; i<this.library.collections.total_collect; i++) {
-        sum += this.library.collections.collect[i].total;
-    }
-    this.following = sum;
+    this.following = follows
+
     next()
-}) */
+})
 
 
 const commentSchema = new Schema({
     content: { type: String, required: true },
     byUser: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'User' },
     onManga: { type: mongoose.SchemaTypes.ObjectId, required: true, ref: 'Manga' },
-    onChapter: { type: mongoose.SchemaTypes.ObjectId, ref: 'Chapter', default: null},
+    onChapter: { type: mongoose.SchemaTypes.ObjectId, ref: 'Chapter', default: null },
 }, { timestamps: true })
 
 

@@ -48,6 +48,10 @@
     position: relative;
     animation: fadeIn 0.5s ease-out;
     transform-origin: center top;
+    h5.name {
+      color: #fff !important;
+      text-shadow: #000 1px 0 15px;
+    }
     .manga_topviews_item_cover {
       height: 190px;
       position: relative;

@@ -1,5 +1,5 @@
 const Category = require("../models/category");
-const Manga = require("../models/manga");
+const { Manga } = require("../models/manga");
 const mangaController = require("./manga")
 // const Comment = require("../models/")
 
@@ -26,7 +26,7 @@ async function index(req, res, next) {
 
     const topViews = await mangaController.getMangaTopviews();
     const newComment = await mangaController.getMangaNewComment();
-    res.render('home', { categories: categories, topViews: topViews, newComment: newComment, news: manga })
+    res.render('home', { categories: categories, topViews: topViews, newComment: newComment, news: manga, cateList: res.locals.categoryList })
 }
 
 module.exports.index = index;

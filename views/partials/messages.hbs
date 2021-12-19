@@ -1,7 +1,19 @@
 {{#if errors }}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{#each errors}}
-    <p>{{ this.msg }}</p>
-  {{/each}}
+    {{#each errors}}
+      <p>{{ this.msg }}</p>
+    {{/each}}
+  </div>
+{{/if}}
+
+{{#if success_msg}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <p>{{ this.success_msg }}</p>
+  </div>
+{{/if}}
+
+{{#if error_msg}}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <p>{{ this.error_msg }}</p>
   </div>
 {{/if}}

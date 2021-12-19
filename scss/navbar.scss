@@ -26,7 +26,7 @@
     margin-left: 20px;
   }
   .nav-link {
-    font-family: "Poppins";
+    font-family: $title-font;
     font-size: 16px;
     margin:5px;
     color: $white-color !important;
@@ -73,5 +73,11 @@
     font-family: "Poppins";
     font-size: 16px;
     margin: 6px 5px 0px 2px;
+  }
+}
+.header .dropdown-menu {
+  background-color:#ffffff;
+  a{
+    color: #000000 !important;
   }
 }

@@ -6,26 +6,31 @@
             </a>
             <div class="collection shadow rounded-3 px-4 py-3 mt-4 d-inline-flex">
                 <div id="title_show" class="d-inline-flex">
-                    <h3><i class="fas fa-bookmark"></i>{{collection.title}}</h3>
+                    <h3><i class="fas fa-bookmark"></i><span>{{collection.title}}</span></h3>
                     <button class="edit btn" id="edit_collection"><i class="fas fa-edit"></i></button>
                 </div>
-                <form id="title_edit" onsubmit="editNameCollection(event,{{userId}},{{collection}})" enctype="text/plain">
+                <form id="title_edit" onsubmit="editNameCollection(event,{{userId}},{{collection}})"
+                    enctype="text/plain">
                     <h3><i class="fas fa-bookmark"></i></h3>
                     <div class="col-auto">
-                        <input type="text" class="form-control" id="_title" value="{{collection.title}}" defaultValue = "{{collection.title}}">
+                        <input type="text" class="form-control" id="_title" value="{{collection.title}}"
+                            defaultValue="{{collection.title}}">
                     </div>
                     <div class="col-auto">
-                        <button class="edit btn edit_done" type="submit" id="save_collections">Lưu</button>
-                        <button class="del btn edit_done" type="button" id="del_collections">Xoá danh sách</button>
+                        <button class="edit btn edit_done" type="submit" id="save_collections"
+                            onclick="editNameCollection(event,'{{userId}}','{{collection._id}}')">Lưu</button>
+                        <button class="del btn edit_done" type="button" id="del_collections"
+                            onclick="deleteCollection_redirect('{{userId}}','{{collection._id}}','/user/{{userId}}/storage?tab=collection')">
+                            Xoá danh sách</button>
                     </div>
                 </form>
             </div>
         </header>
-        {{#if collection}}
         <div class="profile-library shadow rounded-3 p-4 my-4">
             <div class="row gap-3">
+                {{#if collection.mangaCollect}}
                 {{#each collection.mangaCollect}}
-                <div class="reading-list">
+                <div class="reading-list" id="manga_{{manga._id}}">
                     <div class="d-flex">
                         <div class="cover pe-4">
                             <a href="javascript:void(0)"><img src="{{manga.cover}}" class="rounded-2"></a>
@@ -45,7 +50,9 @@
                                     </div>
                                 </div>
                                 <div class="flex-shrink-1 fuction">
-                                    <button class="del btn"><i class="fas fa-trash"></i></button>
+                                    <button class="del btn"
+                                        onclick="deleteCollectionItem('{{../userId}}','{{../collection._id}}','{{manga._id}}')">
+                                        <i class="fas fa-trash"></i></button>
                                 </div>
                             </header>
                             <span>{{manga.description}}</span>
@@ -54,10 +61,10 @@
                     <hr>
                 </div>
                 {{/each}}
+                {{else}}
+                <b class="text-center"><em>Danh sách trống</em></b>
+                {{/if}}
             </div>
         </div>
-        {{else}}
-        <b><em>Danh sách trống</em></b>
-        {{/if}}
     </div>
 </section>
