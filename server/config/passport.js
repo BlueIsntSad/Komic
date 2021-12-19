@@ -27,13 +27,17 @@ module.exports = function(passport) {
       });
     })
   );
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  passport.serializeUser((user, done) => {
+      done(null, user._id);
   });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
+  passport.deserializeUser((_id, done) => {
+    User.findById( _id, (err, user) => {
+      if(err){
+          done(null, false, {error:err});
+      } else {
+          done(null, user);
+      }
     });
   });
 };
