@@ -106,7 +106,7 @@ $(document).ready(function () {
 
 function ratingManga(userId, mangaId) {
     var rateScore = $(".rating-group input:checked").val()
-    alert(rateScore)
+    //alert(rateScore)
     $.ajax({
         type: "POST",
         url: `/user/${userId}/${mangaId}?score=${rateScore}`,
