@@ -12,7 +12,7 @@ module.exports = function(passport) {
         email: email
       }).then(user => {
         if (!user) {
-          return done(null, false, { message: 'That email is not registered' });
+          return done(null, false, { error_msg: 'Email chưa được đăng ký' });
         }
 
         // Match password
@@ -21,23 +21,18 @@ module.exports = function(passport) {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: 'Password incorrect' });
+            return done(null, false, { error_msg: 'Mật khẩu sai' });
           }
         });
       });
     })
   );
-  passport.serializeUser((user, done) => {
-      done(null, user._id);
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
   });
-
-  passport.deserializeUser((_id, done) => {
-    User.findById( _id, (err, user) => {
-      if(err){
-          done(null, false, {error:err});
-      } else {
-          done(null, user);
-      }
+  passport.deserializeUser((id, done) => {
+    User.findById( id, (err, user) => {
+      done(err,user);
     });
   });
 };

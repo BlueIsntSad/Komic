@@ -3,9 +3,9 @@ const router = express.Router();
 
 // Require controller
 const controller = require('../controllers/user');
-
+const { forwardAuthenticated} = require('../config/auth');
 // GET user profile page
-router.get('/', function (req, res) {
+router.get('/', forwardAuthenticated,function (req, res) {
     res.redirect('/login');
 })
 
