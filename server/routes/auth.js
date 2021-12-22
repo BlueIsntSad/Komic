@@ -4,11 +4,11 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const { User, Admin } = require('../models/user');
-const { forwardAuthenticated } = require('../config/auth');
+const { forwardAuthenticated} = require('../config/auth');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login', { cateList: res.locals.categoryList }));
-
+router.get('/admin/login', forwardAuthenticated, (req, res) => res.render('login', { cateList: res.locals.categoryList }));
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register', { cateList: res.locals.categoryList }));
 
@@ -16,7 +16,6 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 router.post('/register', (req, res) => {
   const { account, email, password, password2 } = req.body;
   let errors = [];
-  console.log(req.body);
 
   if (!account || !email || !password || !password2) {
     errors.push({ msg: 'Hãy điền đầy đủ thông tin' });
@@ -81,20 +80,32 @@ router.post('/register', (req, res) => {
 });
 
 // Login
-router.post('/login', (req, res, next) => {
-  console.log(req.body);
+/*router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
+    successFlash: 'You are logged in',
     failureRedirect: '/login',
     failureFlash: true
-  })(req, res, next);
+  })(req, res, next)
+});*/
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true
+  }),
+  (req,res) => {
+     console.log(req.user.id)
+     res.redirect("/user/" + req.user.id);
 });
 
 // Logout
-/*router.get('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/login');
-});*/
-
+  req.session.destroy(function (err) {
+    res.redirect('/login');
+  });
+});
 module.exports = router;

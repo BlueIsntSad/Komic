@@ -33,7 +33,11 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
     </head>
     <body>
-        {{> navbar }}
+        {{#if isAuthenticated}}
+            {{> navbar_logged }}
+        {{else}}
+            {{> navbar}}
+        {{/if}}
         {{{ body }}}
         {{> toast toast=toast}}
         {{> footer}}
