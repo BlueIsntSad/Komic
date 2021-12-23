@@ -19,7 +19,7 @@ router.get('/', controller.getManga)
 router.route('/:manga')
     .get(controller.getMangaDetails)
 
-//GET top view 
+// GET top view 
 router.get("/top/:id", controller.getTopView)
 
 // GET specific chapter
