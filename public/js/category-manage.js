@@ -17,6 +17,7 @@ function cancelEditRow(id) {
 }
 
 function saveEditCategory(event) {
+  console.log(event);
   event.preventDefault();
   showLoading();
   var form = $(event.target);
@@ -111,6 +112,55 @@ function insertCategory(event) {
   });
 }
 
+function saveCategory(event) {
+  const row = $(event.target).closest("tr");
+  const id = row.attr("categoryId");
+  const name = row.find("input[name='name']").val();
+  const description = row.find("input[name='description']").val();
+  const color = row.find("input[name='color']").val();
+  const text_color = row.find("input[name='text_color']").val();
+  const data = {
+    name: name,
+    description: description,
+    color: color,
+    text_color: text_color,
+  };
+  event.preventDefault();
+  showLoading();
+  $.ajax({
+    type: "PUT",
+    url: `/admin/category/${id}`,
+    timeout: 30000,
+    data: data,
+    success: function (result) {
+      if (result.success) {
+        cancelEditRow(id);
+        showToast(
+          "success",
+          "Thành công!",
+          "Chỉnh sửa thông tin thể loại thành công!"
+        );
+        hideLoading();
+      } else {
+        showToast(
+          "error",
+          "Không thành công!",
+          "Chỉnh sửa thông tin thể loại không thành công!"
+        );
+        hideLoading();
+      }
+    },
+    error: function (e) {
+      showToast(
+        "error",
+        "Không thành công!",
+        "Chỉnh sửa thông tin thể loại không thành công!"
+      );
+      hideLoading();
+    },
+  });
+}
+
 function addRow(category) {
   var row = $("#template_row").clone().removeAttr("id");
   console.log(row);
@@ -135,7 +185,6 @@ function addRow(category) {
     .find("button.cancel_button")
     .attr("onclick", `cancelEditRow('${category._id}')`);
   const last = $("#row_insert_category");
-  console.log(row.find("input.input_name"));
   row.insertBefore(last);
 }
 
