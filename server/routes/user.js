@@ -4,15 +4,10 @@ const router = express.Router();
 console.log(uid);*/
 // Require controller
 const controller = require('../controllers/user');
-const { forwardUser} = require('../config/auth');
+const { forwardUser, forwardStorage} = require('../config/auth');
 // GET user profile page
-router.get('/', forwardUser,function (req, res) {
-    res.redirect('/login');
-})
-router.get('/', forwardUser,function (req, res) {
-    res.redirect('/login');
-})
-
+router.get('/', forwardUser,function (req, res) {})
+router.get('/storage', forwardStorage,function (req, res) {})
 router.route('/:uid')
     .get(controller.getUserProfile)
     .put(controller.editUserProfile)
