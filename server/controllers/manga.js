@@ -103,6 +103,7 @@ async function getAllCategoryPage(req, res) {
 async function getMangaDetails(req, res) {
 
     var mangaSlug = req.params.manga;
+    var mangaSlug = req.params.manga;
     var topViews = await getMangaTopviews(5);
 
     await Manga.findOne({ slug: mangaSlug })

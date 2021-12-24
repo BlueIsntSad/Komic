@@ -1,14 +1,22 @@
+const { User ,Admin } = require('../models/user');
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
+
       if (req.isAuthenticated()) {
         return next();
       }
       req.flash('error_msg', 'Đăng nhập để tiếp tục');
+      /*req.session.returnTo = req.originalUrl; 
+      console.log(req.session.returnTo);*/
       res.redirect('/login');
     },
-    checkUser: function(req, res, next) {
+    checkAdmin: function(req, res, next) {
       if (req.isAuthenticated()) {
-        return next();
+        if (req.user.name = 'admin_test'){
+          console.log(req.user.name);
+          return next();
+        }
+        return res.redirect('/');
         /*if ( req.params.uid === req.user.id) {return next();}
         else res.redirect('/user')*/
       }
@@ -17,6 +25,10 @@ module.exports = {
     },
     forwardUser: function(req, res, next) {
       if (req.isAuthenticated()) {
+        if (req.user.name == 'admin_test'){
+          console.log(req.user.name);
+          return res.redirect('/admin');
+        }
         return res.redirect('/user/' + req.user.id);
         /*if ( req.params.uid === req.user.id) {return next();}
         else res.redirect('/user')*/
