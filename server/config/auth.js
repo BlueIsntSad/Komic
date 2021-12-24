@@ -8,8 +8,6 @@ module.exports = {
     },
     checkUser: function(req, res, next) {
       if (req.isAuthenticated()) {
-        console.log(req.query);
-        console.log(req.user.id);
         return next();
         /*if ( req.params.uid === req.user.id) {return next();}
         else res.redirect('/user')*/
