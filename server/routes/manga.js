@@ -16,8 +16,8 @@ router.get("/", controller.getManga);
 // GET specific manga details page
 router.route("/:manga").get(controller.getMangaDetails);
 
-//GET top view
-router.get("/top/:id", controller.getTopView);
+// GET top view 
+router.get("/top/:id", controller.getTopView)
 
 // GET specific chapter
 router.route("/:manga/:chapter").get(controller.readChapter);

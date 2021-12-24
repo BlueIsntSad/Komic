@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const { User, Admin } = require('../models/user');
-const { forwardAuthenticated} = require('../config/auth');
+const { forwardAuthenticated } = require('../config/auth');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login', { cateList: res.locals.categoryList }));
@@ -162,6 +162,7 @@ router.post(
   (req,res) => {
      res.redirect("/");
 });
+
 router.post(
   "/admin/login",
   passport.authenticate("admin", {
@@ -171,8 +172,10 @@ router.post(
   (req,res) => {
      res.redirect("/admin");
 });
+
 // Logout
 router.get('/logout', (req, res) => {
+  console.log('User', req.user.id, 'logout')
   req.logout();
   req.flash('success_msg', 'You are logged out');
   req.session.destroy(function (err) {

@@ -101,11 +101,11 @@ async function getAllCategoryPage(req, res) {
 }
 
 async function getMangaDetails(req, res) {
-  var mangaSlug = req.params.manga;
-  var topViews = await getMangaTopviews(5);
-  // var user = req.user.id;
-  // res.send(user);
-  /*await Manga.findOne({ slug: mangaSlug })
+
+    var mangaSlug = req.params.manga;
+    var topViews = await getMangaTopviews(5);
+
+    await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
         .populate({
@@ -119,6 +119,7 @@ async function getMangaDetails(req, res) {
                 return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
             })
             res.render('manga-details', {
+                userId: (req.isAuthenticated()) ? req.user.id : null,
                 manga: manga,
                 title: `${manga.title} | Komic`,
                 script: ['manga-details', 'review'],
@@ -127,7 +128,7 @@ async function getMangaDetails(req, res) {
                 newCommentcateList: res.locals.categoryList
             });
         })
-        .catch(function (err) { console.log(err.message) });*/
+        .catch(function (err) { console.log(err.message) });
 }
 
 function read(req, res) {
