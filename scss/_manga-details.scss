@@ -35,16 +35,19 @@
 	}
 
 	.manga_details_rating {
-
 		.stars-rating {
-			.rating-group { display: inline-flex }
+			.rating-group {
+				display: inline-flex;
+			}
 
 			.rating__input {
 				position: absolute !important;
 				left: -9999px !important;
 			}
 
-			.rating__input--none { display: none }
+			.rating__input--none {
+				display: none;
+			}
 
 			.rating__label {
 				cursor: pointer;
@@ -52,13 +55,21 @@
 				font-size: 1.5rem;
 			}
 
-			.rating__icon--star { color: $primary-color }
+			.rating__icon--star {
+				color: $primary-color;
+			}
 
-			.rating__input:checked ~ .rating__label .rating__icon--star { color: #ddd }
+			.rating__input:checked ~ .rating__label .rating__icon--star {
+				color: #ddd;
+			}
 
-			.rating-group:hover .rating__label .rating__icon--star { color: $primary-color }
+			.rating-group:hover .rating__label .rating__icon--star {
+				color: $primary-color;
+			}
 
-			.rating__input:hover ~ .rating__label .rating__icon--star { color: #ddd }
+			.rating__input:hover ~ .rating__label .rating__icon--star {
+				color: #ddd;
+			}
 		}
 
 		span {
@@ -222,7 +233,7 @@
 	.modal-header {
 		border-bottom: 0 none;
 	}
-	
+
 	.modal-footer {
 		border-top: 0 none;
 	}
@@ -234,4 +245,40 @@
 			background-color: rgba(0, 0, 0, 0.8);
 		}
 	}
+}
+
+#followManga {
+	.modal-header {
+		border-bottom: 0 none;
+	}
+
+	.modal-footer {
+		border-top: 0 none;
+	}
+
+	#addFollowing {
+		background-color: #000;
+		color: #fff;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	}
+
+	.height-fix li a {
+		height: 35px;
+	}
+
+	#addCollect {
+		&:hover { text-decoration: underline }
+        i { margin-left: 8px }
+    }
+
+	#selectCollect {
+		display: none;
+		color: #000;
+        background-color: $primary-color;
+        i { margin-left: 0px }
+    }
+
+	#collectionNew { display: none }
 }

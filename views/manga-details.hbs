@@ -104,7 +104,7 @@
           </div>
           <div class="manga_details_btn my-2">
             <a class="btn btn-warning py-2 mx-1" id="follow-btn"
-              onclick="loginCheck(event,'{{ manga._id }}',followManga)" href="#" role="button">
+              onclick="loginCheck(event,'{{ manga._id }}',followMangaForm)" href="#" role="button">
               <i class="far fa-bookmark me-2"></i><b>Theo dõi</b></a>
             <a href="{{#if manga.chapters}}/manga/{{manga.slug}}/chapter-{{manga.chapters.0.index}}{{else}}#{{/if}}"
               class="btn btn-dark py-2 mx-1" id="firstC-btn" role="button">Đọc từ đầu</a>

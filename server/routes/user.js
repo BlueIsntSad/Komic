@@ -19,6 +19,9 @@ router.route('/:uid/storage')
     .put(controller.addCollection)
 
 // User API
+router.route('/:uid/collectionJSON')
+    .get(controller.getCollectionsJSON)
+
 router.route('/:uid/storage/deleteHistory/:hid')
     .put(controller.deleteHistory)
 
