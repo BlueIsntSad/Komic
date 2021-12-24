@@ -24,14 +24,6 @@ async function getCategory(req, res) {
   let sort = req.query.sort || "must_views";
   let sortQuery = initSortQuery(sort);
 
-  const newManga = await Manga.find()
-    .sort({ createdAt: -1 })
-    .limit(5)
-    .populate({
-      path: "categories",
-    })
-    .lean();
-
   const category = await Category.findOne({ slug: id }).lean();
   if (!category) return res.redirect("/manga/categories");
   let maxPage = await Manga.countDocuments({ categories: category._id });
@@ -52,6 +44,7 @@ async function getCategory(req, res) {
   category.mangas = mangas;
   category.sort = sort;
   res.render("categories", {
+    title: `${category.name} - Truyện ${category.name} | Komic`,
     categories: [category],
     topViews: topViews,
     newComment: newComment,
@@ -100,7 +93,11 @@ async function getAllCategoryPage(req, res) {
     title: "Thất bại",
     message: "Tải thông tin truyện thất bại",
   };
-  res.render("all-category", { categories, cateList: res.locals.categoryList });
+  res.render("all-category", {
+    title: `Thể loại | Komic`,
+    categories,
+    cateList: res.locals.categoryList,
+  });
 }
 
 async function getMangaDetails(req, res) {
@@ -248,6 +245,7 @@ async function getManga(req, res) {
     mangas: mangas,
   };
   res.render("search", {
+    title: `Kết quả tìm kiếm cho ${searchString} | Komic`,
     categories: [categories],
     topViews: topViews,
     newComment: newComment,
