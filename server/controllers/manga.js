@@ -103,7 +103,6 @@ async function getAllCategoryPage(req, res) {
 async function getMangaDetails(req, res) {
 
     var mangaSlug = req.params.manga;
-    var chapterIndex = req.params.chapter.slice(8);
     var mangaSlug = req.params.manga;
     var topViews = await getMangaTopviews(5);
 
