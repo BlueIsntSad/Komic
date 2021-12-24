@@ -1,4 +1,8 @@
 .manga_info_page {
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 142.5px);
+    max-height: calc(100vh - 142.5px);
+  }
   .wraper {
     position: relative;
     max-height: 100%;

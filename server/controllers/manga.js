@@ -103,8 +103,8 @@ async function getAllCategoryPage(req, res) {
 async function getMangaDetails(req, res) {
   var mangaSlug = req.params.manga;
   var topViews = await getMangaTopviews(5);
-  var user = req.user.id;
-  res.send(user);
+  // var user = req.user.id;
+  // res.send(user);
   /*await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
