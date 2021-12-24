@@ -95,6 +95,13 @@ async function getAllCategoryPage(req, res) {
 async function getMangaDetails(req, res) {
     var mangaSlug = req.params.manga;
     var topViews = await getMangaTopviews(5);
+    var isAuth = req.isAuthenticated()
+    /* if (isAuth) {
+        console.log('User is visit')
+    } else {
+        console.log('Guest is visit')
+    } */
+
     await Manga.findOne({ slug: mangaSlug })
         .lean()
         .populate('categories')
@@ -109,6 +116,7 @@ async function getMangaDetails(req, res) {
                 return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
             })
             res.render('manga-details', {
+                userId: (req.isAuthenticated()) ? req.user.id : null,
                 manga: manga,
                 title: `${manga.title} | Komic`,
                 script: ['manga-details', 'review'],

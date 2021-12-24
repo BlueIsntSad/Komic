@@ -217,3 +217,21 @@
 		}
 	}
 }
+
+#askLoginModal {
+	.modal-header {
+		border-bottom: 0 none;
+	}
+	
+	.modal-footer {
+		border-top: 0 none;
+	}
+
+	#toLogin {
+		background-color: #000;
+		color: #fff;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	}
+}

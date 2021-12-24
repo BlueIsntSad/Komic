@@ -97,7 +97,7 @@ router.post(
   }),
   (req, res) => {
     console.log('User', req.user.id, 'login')
-    res.redirect("/user/" + req.user.id);
+    res.redirect("/");
   });
 
 // Logout
