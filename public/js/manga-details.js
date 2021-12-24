@@ -7,13 +7,21 @@ $(document).ready(function () {
     $("#chapter-list .list-group-item:gt(" + (limitPerPage - 1) + ")").hide();
 
     var numberOfChapters = $("#chapter-list .list-group-item").length;
-    var totalPages = Math.round(numberOfChapters / limitPerPage);
+    var totalPages = Math.ceil(numberOfChapters / limitPerPage);
     $("#chapterPage .page-item.prev").after("<li class='page-item number active'><a class='page-link' href='javascript:void(0)'>" + 1 + "</a></li>")
     for (var i = 2; i <= totalPages; i++) {
         $("#chapterPage .page-item.next").before("<li class='page-item number'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>")
     }
 
+    var currentPage = $("#chapterPage li.active").index()
     // Click page number button
+    if (currentPage === totalPages) {
+        $("#chapterPage li.next").addClass("disabled")
+    }
+    if (currentPage === 1) {
+        $("#chapterPage li.prev").addClass("disabled")
+    }
+
     $("#chapterPage li.number").on("click", function () {
         if ($(this).hasClass("active")) {
             return false;
