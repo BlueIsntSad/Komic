@@ -101,13 +101,46 @@ $(document).ready(function () {
 
     //
     //$(".rating-group input:checked").on("click", ratingManga())
+
+    $('#toLogin').on("click", function () {
+        window.location.href = '/login';
+    })
+
+    //
+    /* $('#follow-btn').click(function () {
+        alert(userId)
+    }) */
 });
 
+function loginCheck(event, next) {
+    event.preventDefault()
+    if (userId) { next() } else { $('#askLoginModal').modal('show') }
+}
 
-function ratingManga(userId, mangaId) {
+function ratingManga(mangaId) {
     var rateScore = $(".rating-group input:checked").val()
     //alert(rateScore)
     $.ajax({
+        type: "POST",
+        url: `/user/rating/${userId}/${mangaId}?score=${rateScore}`,
+        timeout: 10000,
+        success: function (result) {
+            if (result.isSuccess) {
+                showToast('success', "Thành công!", "Đánh giá thành công!");
+            } else {
+                showToast('error', "Không thành công!", result.message);
+            }
+        },
+        error: function (e) {
+            showToast('error', "Không thành công!", "Có lỗi xảy ra!");
+        }
+    })
+}
+
+function followManga(mangaId) {
+    alert(mangaId)
+    $('#followManga').modal('show')
+    /* $.ajax({
         type: "POST",
         url: `/user/${userId}/${mangaId}?score=${rateScore}`,
         timeout: 10000,
@@ -121,5 +154,5 @@ function ratingManga(userId, mangaId) {
         error: function (e) {
             showToast('error', "Không thành công!", "Có lỗi xảy ra!");
         }
-    })
+    }) */
 }

@@ -2,7 +2,7 @@
     <div class="section-title m-3">
         <h5>Reviews</h5>
     </div>
-    <div class="row p-3">
+    <div class="row p-3" id="comment_list">
         {{#if comments}}
         {{#each comments}}
         <div class="review-item mb-3">
@@ -18,12 +18,22 @@
             <h6 class="text-center">Chưa có bình luận nào</h6>
         </div>
         {{/if}}
+
+        <!-- Placeholder for new comment -->
+        <div class="review-item mb-3" hidden>
+            <div class="avatar me-4"><img src=""></div>
+            <div class="comment p-4">
+                <h6><strong class="userName"></strong><span class="commentTime"> - {{moment createdAt lang="vi"
+                        fromNow=null}}</span></h6>
+                <p class="commentContent"></p>
+            </div>
+        </div>
     </div>
     {{#if comments}}
     <div class="review-showmore m-3">
         <div class="row">
             <div class="col-10 showmore"><a href="javascript:void(0)">Xem thêm bình luận</a></div>
-            <div class="col-2 text-end"><span>12</span>/{{comments.length}}</div>
+            <div class="col-2 text-end"><span></span>/<span>{{comments.length}}</span></div>
         </div>
     </div>
     {{/if}}
@@ -32,8 +42,10 @@
             <h5>Bình luận của bạn</h5>
         </div>
         <form>
-            <textarea class="form-control mb-3" placeholder="Viết bình luận"></textarea>
-            <button type="submit" class="btn btn-dark"><i class="fas fa-paper-plane"></i> Comment</button>
+            <textarea id="comment-msg" class="form-control mb-3" placeholder="Viết bình luận"></textarea>
+            <button type="submit" id="btn-comment" class="btn btn-dark"
+                onclick="loginCheck(event,commentManga('{{ manga._id }}'))"><i class="fas fa-paper-plane"></i>
+                Comment</button>
         </form>
     </div>
 </div>

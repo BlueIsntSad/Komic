@@ -1,4 +1,4 @@
-const { User } = require('../models/user');
+const { User, Comment } = require('../models/user');
 const { Manga, Rating } = require('../models/manga');
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
@@ -247,6 +247,33 @@ async function bookmark(req, res, next) {
     } */
 }
 
+async function commentManga(req, res, next) {
+    const userId = req.params.uid
+    const mangaId = req.params.mid
+    const chapterId = req.query.cid;
+    const commentMsg = req.body.msg
+    console.log(commentMsg)
+
+    const comment = new Comment({
+        content: commentMsg,
+        byUser: userId,
+        onManga: mangaId,
+        onChapter: chapterId
+    })
+
+    console.log(comment)
+
+    try {
+        await comment.save();
+        var user = await User.findById(userId, 'name avatar').lean()
+        res.send({ isSuccess: true, user: user })
+        console.log('comment success')
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message })
+    }
+}
+
 async function ratingManga(req, res, next) {
     const userId = req.user.id
     const mangaId = req.params.mid
@@ -258,7 +285,7 @@ async function ratingManga(req, res, next) {
         voteBy: userId
     })
 
-    var user = await Rating.findOne({ voteBy: userId })
+    var user = await Rating.findOne({ voteBy: userId, voteFor: mangaId })
     if (!user) {
         try {
             await rating.save();
@@ -269,7 +296,7 @@ async function ratingManga(req, res, next) {
             res.send({ isSuccess: false, msg: err.message })
         }
     } else {
-        const updateRate = await Rating.findOne({ voteBy: userId });
+        const updateRate = await Rating.findOne({ voteBy: userId, voteFor: mangaId });
         updateRate.score = score;
         await updateRate.save();
     }
@@ -342,5 +369,5 @@ async function editUserProfile(req, res, next) {
 module.exports = {
     getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
     getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
-    ratingManga
+    ratingManga, commentManga
 };
