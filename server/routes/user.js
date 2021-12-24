@@ -8,6 +8,7 @@ const { forwardUser, forwardStorage} = require('../config/auth');
 // GET user profile page
 router.get('/', forwardUser,function (req, res) {})
 router.get('/storage', forwardStorage,function (req, res) {})
+
 router.route('/:uid')
     .get(controller.getUserProfile)
     .put(controller.editUserProfile)
