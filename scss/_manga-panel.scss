@@ -70,19 +70,7 @@
           width: auto;
           margin: auto 5px;
           padding: 0 0px;
-
-          option {
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            font-style: normal;
-            font-size: 15px;
-            font-size: 13px;
-            margin: 5px 0px;
-            a {
-              background-color: blue;
-              font-size: 5px;
-            }
-          }
+          font-family: $regular-font, "FontAwesome";
         }
       }
     }

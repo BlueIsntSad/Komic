@@ -1,61 +1,46 @@
-.left_sidebar {
-  width: 250px;
-  min-width: 250px;
-  background-color: $black-gray;
+.amdin_sidebar {
+  background-color: $white-color;
+
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 139.5px);
+    max-width: 250px;
+    width: 250px;
+  }
+
   .sidebar {
-    .sidebar_profile {
-      .avatar {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        img {
-          object-fit: scale-down;
-          width: 150px;
-          height: 150px;
-          border-radius: 50%;
-        }
-      }
-
-      .name {
-        text-align: center;
-        font-size: 1.2rem;
-        font-weight: 600;
-      }
-    }
-
     .sidebar_menu {
       .sidebar_menu_list {
+        list-style: none;
         padding: 0px;
         .menu_item {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          list-style: none;
-          background-color: $black-gray;
-          margin: 5px 0px;
-          padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-          color: $white-color;
-          font-size: 1rem;
-          outline-width: 0px;
-          cursor: pointer;
+          padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+          i {
+            font-size: 1.125rem;
+          }
+          border-radius: 5px;
           &:hover {
-            background-color: $black-color;
+            background-color: rgba($color: $green-color, $alpha: 0.1);
+            .menu_item_title {
+              color: $red-color;
+              font-weight: 600;
+            }
           }
-          a {
+          .menu_item_title {
+            color: $black-gray;
+            font-weight: 500;
             text-decoration: none;
-            color: $white-color;
-            background-color: transparent;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
           }
-        }
-
-        .active {
-          background-color: $black-color;
+          &.active {
+            background-color: $yelow-color;
+            .menu_item_title {
+              color: $white-color;
+            }
+          }
         }
       }
     }

@@ -1,58 +1,13 @@
-.wrap_conainer {
+.admin_page {
   height: 100%;
-  min-height: calc(100vh - 70px);
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  .main_content {
-    background-color: $background;
-    .header_content {
-      background-color: $white-color;
-      padding: 1rem 0px;
-      margin-bottom: 1rem;
-      .breadcrumb {
-        padding-left: 1rem;
-        margin: auto;
-        .breadcrumb_icon {
-          font-size: 2rem;
-          padding: 5px 10px;
-          border-top: 2px solid $black-gray;
-          border-left: 2px solid $black-gray;
-          border-bottom: 2px solid $black-gray;
-          border-radius: 5px;
-          margin-right: 1rem;
-        }
-        .breadcrumb_title {
-          .big_title {
-            font-size: 1.5rem;
-            font-weight: 600;
-          }
 
-          .small_title {
-            font-weight: 600;
-          }
-        }
-      }
-
-      .export {
-        text-align: right;
-        padding-right: 1rem;
-        margin: auto;
-        .export_button {
-          font-size: 1.5rem;
-          padding: 0px 10px;
-          border-radius: 3px;
-          border: 2px solid $black-gray;
-          background-color: $black-gray;
-          i {
-            color: $white-color;
-          }
-        }
-      }
-    }
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 142.5px);
+    max-height: calc(100vh - 142.5px);
   }
-
   .body_content {
+    max-height: 100%;
+    overflow: auto;
     background-color: $white-color;
     padding: 0rem 1rem;
     .table_header_content {
@@ -95,7 +50,6 @@
         justify-content: flex-start;
         align-items: center;
       }
-     
     }
   }
   .manga_table {

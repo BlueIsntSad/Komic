@@ -1,0 +1,25 @@
+<section class="admin_breadcrumb_section">
+  <div class="container-fluid">
+    <div class="manga-breadcrumb shadow-lg rounded-3">
+      <div class="row py-3 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/admin"><i
+                  class="fas fa-home"
+                ></i></a></li>
+            {{#if manga}}
+              <li class="breadcrumb-item"><a
+                  href="/admin/manga/"
+                >Truyện</a></li>
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+              >{{manga.title}}</li>
+            {{/if}}
+
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>

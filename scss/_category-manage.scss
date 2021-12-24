@@ -1,9 +1,13 @@
 .category_mangage_page {
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 142.5px);
+    max-height: calc(100vh - 142.5px);
+  }
   .categories_table {
     .categories_table_body {
       .category_input_field {
         text-align: center;
-        font-weight: 600;
+        font-weight: 500;
         &:disabled {
           border: 0;
           background-color: transparent;
@@ -17,6 +21,7 @@
         overflow: hidden;
         outline: none;
         border: none;
+        cursor: pointer;
       }
 
       .input_color {
@@ -25,12 +30,13 @@
         width: 30px;
         height: 30px;
         border: none;
+        cursor: pointer;
       }
 
       .icon_button {
         width: 40px;
         height: 40px;
-        font-size: 1.5rem;
+        font-size: 1.125rem;
       }
     }
   }
