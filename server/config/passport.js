@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const {User, Admin} = require('../models/user');
 
 module.exports = function(passport) {
-  passport.use(
+  passport.use('user',
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
       // Match user
       User.findOne({
@@ -27,12 +27,40 @@ module.exports = function(passport) {
       });
     })
   );
+  passport.use('admin',
+    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+      // Match user
+      Admin.findOne({
+        account: email
+      }).then(admin => {
+        if (!admin) {
+          return done(null, false, { error_msg: 'Email chưa được đăng ký' });
+        }
+
+        // Match password
+        bcrypt.compare(password, admin.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            return done(null, admin);
+          } else {
+            return done(null, false, { error_msg: 'Mật khẩu sai' });
+          }
+        });
+      });
+    })
+  );
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
-  passport.deserializeUser((id, done) => {
-    User.findById( id, (err, user) => {
-      done(err,user);
-    });
+
+  passport.deserializeUser(function(id, done) {
+
+      Admin.findById(id, function(err, admin) {
+          if (err) return done(err);
+          if (admin) return done(null, admin);
+          User.findById(id, function(err, user) {
+              done(err, user);
+          });
+      });
   });
 };

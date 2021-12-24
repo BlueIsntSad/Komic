@@ -53,6 +53,7 @@ async function getAdminPage(req, res) {
     }
 
     res.render("admin", {
+      title: `Trang chủ - Tất cả truyện | Komic`,
       mangas: mangas,
       curentPage: { current: "manga", child: "" },
       page: page,
@@ -73,6 +74,7 @@ async function getInsertPage(req, res) {
   try {
     const categories = await Category.find().lean();
     res.render("add-manga", {
+      title: `Thêm truyện mới - Quản lý | Komic`,
       categories: categories,
       curentPage: { current: "addManga" },
       cateList: res.locals.categoryList,
@@ -206,6 +208,7 @@ async function getInfoPage(req, res, next) {
       .lean();
 
     res.render("admin-manga-info", {
+      title: `${manga.title} - Quản lý | Komic`,
       categories: categories,
       manga: manga,
       curentPage: {
@@ -241,6 +244,7 @@ async function getEditPage(req, res, next) {
       .lean();
 
     res.render("admin-edit-manga", {
+      title: `${manga.title} - Quản lý | Komic`,
       categories: categories,
       manga: manga,
       curentPage: {
@@ -276,6 +280,7 @@ async function getAddChapPage(req, res, next) {
       .lean();
 
     res.render("admin-addChap", {
+      title: `${manga.title} - Thêm chương mới | Komic`,
       categories: categories,
       manga: manga,
       curentPage: {
@@ -380,6 +385,7 @@ async function getEditChap(req, res, next) {
     });
 
     res.render("admin-edit-chap", {
+      title: `${manga.title} - Chương ${chapter} - Quản lý | Komic`,
       manga: manga,
       chapter: chapter,
       curentPage: {
@@ -567,6 +573,7 @@ async function getCategoryPage(req, res) {
   try {
     const categories = await Category.find().lean().exec();
     res.render("category-manage", {
+      title: `Thể loại - Quản lý | Komic`,
       categories: categories,
       curentPage: { current: "category", child: false },
       cateList: res.locals.categoryList,
@@ -772,6 +779,7 @@ async function dasboard(req, res) {
 
     const dashboardJSONData = JSON.stringify(dashboardData);
     res.render("dashboard", {
+      title: `Báo cáo - Quản lý | Komic`,
       dashboardData: dashboardData,
       curentPage: { current: "dashboard", child: false },
       cateList: res.locals.categoryList,

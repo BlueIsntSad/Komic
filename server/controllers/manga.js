@@ -24,14 +24,6 @@ async function getCategory(req, res) {
   let sort = req.query.sort || "must_views";
   let sortQuery = initSortQuery(sort);
 
-  const newManga = await Manga.find()
-    .sort({ createdAt: -1 })
-    .limit(5)
-    .populate({
-      path: "categories",
-    })
-    .lean();
-
   const category = await Category.findOne({ slug: id }).lean();
   if (!category) return res.redirect("/manga/categories");
   let maxPage = await Manga.countDocuments({ categories: category._id });
@@ -52,6 +44,7 @@ async function getCategory(req, res) {
   category.mangas = mangas;
   category.sort = sort;
   res.render("categories", {
+    title: `${category.name} - Truyện ${category.name} | Komic`,
     categories: [category],
     topViews: topViews,
     newComment: newComment,
@@ -100,40 +93,41 @@ async function getAllCategoryPage(req, res) {
     title: "Thất bại",
     message: "Tải thông tin truyện thất bại",
   };
-  res.render("all-category", { categories, cateList: res.locals.categoryList });
+  res.render("all-category", {
+    title: `Thể loại | Komic`,
+    categories,
+    cateList: res.locals.categoryList,
+  });
 }
 
 async function getMangaDetails(req, res) {
   var mangaSlug = req.params.manga;
   var topViews = await getMangaTopviews(5);
-  await Manga.findOne({ slug: mangaSlug })
-    .lean()
-    .populate("categories")
-    .populate({
-      path: "chapters",
-      select: "index name views updatedAt",
-    })
-    .then(async function (manga) {
-      const comments = await Comment.find({ onManga: manga._id })
+  var user = req.user.id;
+  res.send(user);
+  /*await Manga.findOne({ slug: mangaSlug })
         .lean()
-        .sort("-createdAt")
-        .populate("byUser", "name avatar")
-        .exec();
-      manga.chapters.sort(function (a, b) {
-        return a.index == b.index ? 0 : a.index > b.index ? 1 : -1;
-      });
-      res.render("manga-details", {
-        manga: manga,
-        title: `${manga.title} | Komic`,
-        script: ["manga-details", "review"],
-        comments: comments,
-        topViews: topViews,
-        newCommentcateList: res.locals.categoryList,
-      });
-    })
-    .catch(function (err) {
-      console.log(err.message);
-    });
+        .populate('categories')
+        .populate({
+            path: 'chapters',
+            select: 'index name views updatedAt'
+        })
+        .then(async function (manga) {
+            const comments = await Comment.find({ onManga: manga._id }).
+                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
+            manga.chapters.sort(function (a, b) {
+                return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
+            })
+            res.render('manga-details', {
+                manga: manga,
+                title: `${manga.title} | Komic`,
+                script: ['manga-details', 'review'],
+                comments: comments,
+                topViews: topViews,
+                newCommentcateList: res.locals.categoryList
+            });
+        })
+        .catch(function (err) { console.log(err.message) });*/
 }
 
 function read(req, res) {
@@ -248,6 +242,7 @@ async function getManga(req, res) {
     mangas: mangas,
   };
   res.render("search", {
+    title: `Kết quả tìm kiếm cho ${searchString} | Komic`,
     categories: [categories],
     topViews: topViews,
     newComment: newComment,
