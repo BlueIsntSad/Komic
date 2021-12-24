@@ -56,8 +56,13 @@ function updateProfile(event, userId) {
         contentType: false,
         success: function (result) {
             if (result.isSuccess) {
-                const updateUser = result.user;
-                $('.background-profile img').atr('src', updateUser.cover)
+                var updateUser = result.user;
+                $('.background-profile img').attr('src', updateUser.cover)
+                $('.avatar-profile img').attr('src', updateUser.avatar)
+                $('.overview-profile h2 b').text(updateUser.name)
+                if (updateUser.about) { $('#about_bio').text(updateUser.about) }
+                if (updateUser.link) { $('#about_link a').attr('href', updateUser.link).text(updateUser.link) }
+                if (updateUser.address) { $('#about_address span').text(updateUser.address) }
                 showToast("success", "Cập nhật thành công", "Thông tin truyện đã được cập nhật!");
             } else {
                 showToast("error", "Không thành công", result.msg);
@@ -65,14 +70,14 @@ function updateProfile(event, userId) {
             }
             $('#savingEdit').prop("disabled", false);
             $('.spinner-border').addClass('d-none')
-            $('modal').modal('toggle');
+            $('#editInfoModal').modal('toggle');
         },
         error: function (e) {
             showToast("error", "Không thành công", "Có lỗi xảy ra trong quá trình cập nhật!");
             console.log(e.msg)
             $('#savingEdit').prop("disabled", false);
             $('.spinner-border').addClass('d-none')
-            $('modal').modal('toggle');
+            $('#editInfoModal').modal('toggle');
         }
     })
 }

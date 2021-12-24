@@ -349,7 +349,7 @@ async function editUserProfile(req, res, next) {
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 console.log(err.msg)
-                return res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+                return res.send({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
             }
 
             const newInfo = {
@@ -377,18 +377,18 @@ async function editUserProfile(req, res, next) {
             User.findByIdAndUpdate(userId, newInfo, { new: true }, function (err, docs) {
                 if (err) {
                     console.log(err.message)
-                    res.json({ isSuccess: false, message: "Cập nhật không thành công!" })
+                    res.send({ isSuccess: false, message: "Cập nhật không thành công!" })
                 }
                 else {
                     console.log("Updated User ", docs._id);
-                    res.json({ isSuccess: true, message: "Cập nhật thông tin thành công!", user: docs })
+                    res.send({ isSuccess: true, message: "Cập nhật thông tin thành công!", user: docs })
                 }
             })
         });
     }
     catch (err) {
         console.log(err.msg);
-        res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+        res.send({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
     }
 }
 
