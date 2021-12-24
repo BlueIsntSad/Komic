@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
+/*var uid = req.user.id;
+console.log(uid);*/
 // Require controller
 const controller = require('../controllers/user');
-const { forwardAuthenticated} = require('../config/auth');
+const { forwardUser} = require('../config/auth');
 // GET user profile page
-router.get('/', forwardAuthenticated,function (req, res) {
+router.get('/', forwardUser,function (req, res) {
     res.redirect('/login');
 })
 
