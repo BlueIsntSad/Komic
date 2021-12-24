@@ -17,13 +17,6 @@ module.exports = {
           return next();
         }
         return res.redirect('/');
-        /*Admin.findById(req.user.id, function(err,admin){
-          if (err){
-            console.log(req.user.id);
-            return res.redirect('/');
-          }
-          return next();
-        })*/
         /*if ( req.params.uid === req.user.id) {return next();}
         else res.redirect('/user')*/
       }
@@ -46,7 +39,6 @@ module.exports = {
     forwardStorage: function(req, res, next) {
       if (req.isAuthenticated()) {
         if (req.user.name == 'admin_test'){
-          console.log(req.user.name);
           return res.redirect('/admin');
         }
         return res.redirect('/user/' + req.user.id +'/storage');

@@ -44,7 +44,7 @@
         <form>
             <textarea id="comment-msg" class="form-control mb-3" placeholder="Viết bình luận"></textarea>
             <button type="submit" id="btn-comment" class="btn btn-dark"
-                onclick="loginCheck(event,commentManga('{{ manga._id }}'))"><i class="fas fa-paper-plane"></i>
+                onclick="loginCheck(event,'{{ manga._id }}',commentManga)"><i class="fas fa-paper-plane"></i>
                 Comment</button>
         </form>
     </div>

@@ -99,22 +99,22 @@ $(document).ready(function () {
         }
     })
 
-    //
-    //$(".rating-group input:checked").on("click", ratingManga())
-
+    // To login
     $('#toLogin').on("click", function () {
         window.location.href = '/login';
     })
 
-    //
-    /* $('#follow-btn').click(function () {
+    // Following
+    $('#follow-btn').click(function () {
         alert(userId)
-    }) */
+    })
 });
 
-function loginCheck(event, next) {
+function loginCheck(event, mangaId, next) {
     event.preventDefault()
-    if (userId) { next() } else { $('#askLoginModal').modal('show') }
+    if (!userId) {
+        $('#askLoginModal').modal('show')
+    } else { next(mangaId) }
 }
 
 function ratingManga(mangaId) {
