@@ -10,6 +10,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 require('./server/config/passport')(passport);
+const { ensureAuthenticated, checkUser} = require('./server/config/auth');
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
@@ -85,12 +86,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Page routing
+app.use('/', authRoute);
 app.get('*', navMW.getCategories)
 app.use('/', route)
 app.use('/manga', mangaRoute)
 app.use('/admin', adminRouter)
-app.use('/user', userRoute)
-app.use('/', authRoute);
+app.use('/user', checkUser ,userRoute)
+
 
 app.use((req, res) => { res.status(404).render('error', { layout: false }) });
 
