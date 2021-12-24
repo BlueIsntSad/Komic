@@ -1,0 +1,71 @@
+
+<div class="manga_info_page d-flex flex-column flex-sm-column  flex-md-row align-items-stretch" >
+    {{> admin-sidebar curentPage }}
+    <div class="wraper pt-1">
+         {{> admin-breadcrumb this}}
+        <div class="container-fluid wrap_content">
+            <div class="row content">
+                <div class="col-md-12 col-lg-3 image_content pt-3"  >
+                    <img id="cover_img" src="{{manga.cover}}">
+                    <div class="image_button_area mt-3">
+                        <a href="/admin/manga/{{manga._id}}/addChap" class="add_chapter_button">Thêm chương mới</a>
+                        <a href="/admin/manga/{{manga._id}}/edit" class="edit_manga_button"><i class="fas fa-edit"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-9 pt-3">
+                    <h4>{{manga.title}}</h4>
+                    <h6>{{manga.title_org}}</h6>
+                    <div class="mt-4">
+                        <span >{{manga.description}}</span>
+                    </div>              
+                    <ul class="d-flex flex-row justify-content-start ps-0 mt-4">
+                        <li class="me-4 text-start" style="list-style: none"> Ngày tạo: {{#convertDateString manga.createdAt}}{{/convertDateString}}</li>
+                        <li class="me-4 text-start" style="list-style: none">Tổng số chương: {{manga.total}}</li>
+                        <li class="me-4 text-start" style="list-style: none">Đã hoàn thành: {{manga.total}}</li>
+                        <li class="me-4 text-start" style="list-style: none">Lượt xem: {{manga.views}}</li>
+                    </ul>
+
+                    <div class="mt-4 chapter_table conainter-fluid">
+                        <h5>Danh sách chương</h5>
+                        <table class="table table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th>STT Chương</th>
+                                    <th>Tên chương</th>
+                                    <th>Lượt xem</th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                {{#each manga.chapters}}
+                                    <tr class="row_chapter">
+                                        <td >{{this.index}}</td>
+                                        <td >{{this.name}}</td>
+                                        <td >{{this.views}}</td>
+                                        <td >
+                                            <div class="button_area">
+                                                <a class="link_button" href="/manga/{{../manga.slug}}/chapter-{{this.index}}">Xem</a>
+                                                <a class="link_button" href="/admin/manga/{{../this.manga._id}}/chap/{{this._id}}">Sửa</a>
+                                                <button class="link_button" ref="/admin/manga/{{../this.manga._id}}/chap/{{this._id}}" onclick="deleteChap(event)">Xoá</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div style="max-width: 400px; width: 400px;  position: fixed;" id="move" class="d-none">
+        <img src="" style="max-width: 100%; width: 100%;  border: 1px solid #000;"></img>  
+    </div>
+    <div class="spinner-border text-secondary d-none" style="position: fixed;" role="status" id="loading_cursor">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<script src="/js/adminMangaInfo.js"></script>

@@ -1,11 +1,24 @@
 .admin_dashboard_page {
-    .chart_item{
-        width: 500px;
-        max-width: 100%;
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 142.5px);
+    max-height: calc(100vh - 142.5px);
+  }
+  .main_content {
+    max-height: 100%;
+    overflow: scroll;
+    .chart_item {
+      width: 500px;
+      max-width: 100%;
     }
     .total_item {
-        background-color: aqua;
-        padding: 1rem 2rem;
+      background-color: #a1a1c2;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      .total_item_title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
+  }
 }
-

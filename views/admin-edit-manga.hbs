@@ -1,0 +1,140 @@
+<div class="edit_manga_page" >
+    {{> admin-sidebar curentPage }}
+    <div class="wraper">
+        <div class="main_content container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-10">
+                    <h4 class="text-start mt-2 mb-3 text-start">{{manga.title}}</h4>    
+                </div>
+            </div>
+            
+            <form
+                class="new_info_container container-fluid"
+                method="PUT"
+                enctype="multipart/form-data"
+                action="/admin/manga/{{manga._id}}"
+                onsubmit="submitEditInfo(event)"
+            >
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row flex-md-row flex-column-reverse">
+                            <div class="col-12 col-md-8">
+                                <div class="input_control row mb-2">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Tên Truyện *</span>
+                                    <div class="col-12 col-md-9">
+                                        <input value="{{manga.title}}"  class="form-control" type="text" placeholder="Tên truyện" name="title" required />
+                                    </div>
+                                </div>
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3 align-text-bottom text-sm-start text-md-end">Tên khác</span>
+                                    <div class="col-12 col-md-9">
+                                        <input value="{{manga.title_org}}" class="form-control" type="text" placeholder="Tên truyện gốc" name="title_org"  />
+                                    </div>
+                                </div>
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Tác giả *</span>
+                                    <div class="col-12 col-md-9">
+                                        <input value="{{manga.author}}" class="form-control" type="text" placeholder="Tác giả" name="author" required />
+                                    </div>
+                                </div>
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Dịch giả*</span>
+                                    <div class="col-12 col-md-9">
+                                        <input value="{{manga.translator}}" class="form-control" type="text" placeholder="Dịch giả" name="translator" required />
+                                    </div>
+                                </div>
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Tình trạng *</span>
+                                    <div class="col-12 col-md-9">
+                                        <select value="{{manga.status}}" class="form-select info_input" placeholder="Trạng thái" name="status" required>
+                                            <option value="Sắp ra mắt">Sắp ra mắt</option>
+                                            <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                            <option value="Đang tiến hành">Đang tiến hành</option>
+                                            <option value="Drop">Drop</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Ngày ra mắt *</span>
+                                    <div class="col-12 col-md-9">
+                                        <input  value="{{convertDateString manga.releaseDay}}" class="form-control" type="date" placeholder="Ngày xuất bản" name="releaseDay"  required />
+                                    </div>
+                                </div>
+
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-3  align-text-bottom text-sm-start text-md-end">Tổng số chương *</span>
+                                    <div class="col-12 col-md-9">
+                                        <input value="{{manga.total}}" class="form-control" type="number" placeholder="Tổng số chương" name="total"  required />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-md-4 d-flex flex-column justify-content-center">
+                                <div class="cover">
+                                    <div class="img_background">
+                                        <img class="preview_img" id="newManga_preview_img" src="{{manga.cover}}">
+                                        <button type="button" class="icon_button" style="font-size: 1.5rem;" onclick="cancelPreview(event)"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    <div class="add_cover">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Chọn ảnh...</span>
+                                        <span>JPG 400*565</span>
+                                        <input id="newManga_cover_img" name="coverImage" accept="image/*" type="file" width="400" height="566" onchange="showPreviewImg(event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input_control row mb-4">
+                                    <span class="col-12 col-md-2 text-sm-start text-md-end">Mô tả ngắn *</span>
+                                    <div class="col-12 col-md-10 col-lg-8">
+                                        <textarea class="form-control" name="description" type="text" name="name" placeholder="mô tả ngắn" required  style="min-height: 105px;">{{manga.description}}</textarea>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row mb-4">
+                                    <span class="col-12 col-md-2 text-sm-start text-md-end">Thể loại *</span>
+                                    <div class="col-12 col-md-10 col-lg-8">
+                                        <div class="row">
+                                            {{#each this.categories}}
+                                                <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                                    <input 
+                                                        type="checkbox" 
+                                                        class="input_category" 
+                                                        id="category_{{this._id}}" 
+                                                        name="categories" 
+                                                        value="{{this._id}}"
+                                                        title="{{this.name}}"  
+                                                        {{itemChecked this ../this.manga.categories "checked"}}                                                              
+                                                    >
+                                                    <label class="form-check-label" for="category_{{this._id}}">{{this.name}}</label>                                              
+                                            </div>
+                                        {{/each}}
+                                        </div>
+                                    
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-1">
+                        <a href="/admin/manga/{{manga._id}}" class="prev_btn mx-2">Quay lại</a>
+                        <button type="submit" class="add_manga_btn mx-2">Lưu chỉnh sửa</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div style="max-width: 400px; width: 400px;  position: fixed;" id="move" class="d-none">
+        <img src="" style="max-width: 100%; width: 100%;  border: 1px solid #000;"></img>  
+    </div>
+    <div class="spinner-border text-secondary d-none" style="position: fixed;" role="status" id="loading_cursor">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<script src="/js/editManga.js"></script>

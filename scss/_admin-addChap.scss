@@ -1,0 +1,96 @@
+.add_chap_page {
+  @media (min-width: 768px) {
+    min-height: calc(100vh - 142.5px);
+    max-height: calc(100vh - 142.5px);
+  }
+  .main_content {
+    max-height: 100%;
+    overflow: auto;
+    .back_button {
+      text-decoration: none;
+      color: $yelow-color;
+      font-size: 1.25rem;
+    }
+    .input_area {
+      width: 100%;
+      height: 150px;
+      border: 1px dashed $black-gray;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      .upload_button {
+        background-color: rgba($color: $green-color, $alpha: 0.35);
+        padding: 0.5rem 1rem;
+        width: 200px;
+        text-align: center;
+        border-radius: 5px;
+      }
+      span {
+        color: $black-gray;
+      }
+      input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+    }
+
+    .submit_button {
+      width: 150px;
+      padding: 0.35rem;
+      background-color: rgba($color: $green-color, $alpha: 0.75);
+      border-radius: 3px;
+      border: none;
+      color: $white-color;
+      z-index: 3;
+    }
+    .section_item {
+      position: relative;
+      &::before {
+        content: "";
+        display: block;
+        padding: 142%;
+        width: 100%;
+        position: absolute;
+      }
+      .section_preview {
+        min-height: 100%;
+        max-height: 100%;
+        height: 100%;
+        max-width: 100%;
+        position: relative;
+        .section_img {
+          max-width: 100%;
+          min-width: 100%;
+          min-height: 100%;
+          max-height: 100%;
+          object-fit: cover;
+        }
+        button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 0.35rem;
+          opacity: 0;
+        }
+        &:hover {
+          button {
+            background-color: rgba($color: $black-color, $alpha: 0.75);
+            i {
+              font-size: 1.25rem;
+              color: #ffffff;
+            }
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
