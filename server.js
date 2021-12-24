@@ -10,7 +10,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 require('./server/config/passport')(passport);
-const { ensureAuthenticated, checkUser} = require('./server/config/auth');
+const { ensureAuthenticated, checkAdmin} = require('./server/config/auth');
 // Router
 const route = require('./server/routes/index')
 const mangaRoute = require('./server/routes/manga')
@@ -59,6 +59,7 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
   if(req.isAuthenticated) res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.session = req.session;
+  //console.log(req.session)
   next();
 });
 // View engine
@@ -90,8 +91,8 @@ app.use('/', authRoute);
 app.get('*', navMW.getCategories)
 app.use('/', route)
 app.use('/manga', mangaRoute)
-app.use('/admin', adminRouter)
-app.use('/user', checkUser ,userRoute)
+app.use('/admin', checkAdmin,adminRouter)
+app.use('/user', ensureAuthenticated ,userRoute)
 
 
 app.use((req, res) => { res.status(404).render('error', { layout: false }) });

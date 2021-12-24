@@ -2,7 +2,7 @@
 @import "variables";
 #login {
 
-    background-image: url('https://images.alphacoders.com/736/thumb-1920-736461.png');
+    background-image: url('../img/background-login.png');
     background-size: cover;
     background-repeat: no-repeat;
     height: 900px;
@@ -21,21 +21,9 @@
     background-color: rgba(0,0,0,0.5) !important;
     }
 
-    .social_icon span{
-    font-size: 60px;
-    margin-left: 10px;
-    color: #FFC312;
-    }
-
-    .social_icon span:hover{
-    color: white;
-    cursor: pointer;
-    }
-
     .card-header h3{
     color: white;
     }
-
     .social_icon{
     position: absolute;
     right: 20px;
@@ -44,11 +32,13 @@
     .input-group{
         margin: 5px;
     }
+    
     .fas{
         margin-left: 5px;
     }
     .input-group-prepend span{
-    margin: 5px;
+    margin: 0px 5px 0px 0px;
+    height: 37px !important;
     width: 50px;
     background-color: #FFC312;
     color: black;
