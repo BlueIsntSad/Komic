@@ -50,7 +50,7 @@ async function getUserProfile(req, res, next) {
 async function getUserLibrary(req, res, next) {
     try {
         const tab = req.query.tab || 'history';
-        const userId = req.params.uid;
+        const userId = req.user.id;
 
         const user = await User.findById(userId, 'name library -_id following')
             .populate('library.history.mangaCollect.manga',
@@ -77,7 +77,7 @@ async function getUserLibrary(req, res, next) {
 
 // History API
 async function deleteHistory(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const hisId = req.params.hid
 
     try {
@@ -102,7 +102,7 @@ async function deleteHistory(req, res, next) {
 // User collection detail page
 async function getCollection(req, res, next) {
     try {
-        const userId = req.params.uid;
+        const userId = req.user.id;
         const collectId = req.query.cid;
         const user = await User.findById(userId, 'name library')
             .populate('library.collections.collect.mangaCollect.manga',
@@ -120,7 +120,7 @@ async function getCollection(req, res, next) {
 
 // Collection API
 async function addCollection(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const newCollection = {
         title: req.body.title,
         total: 0,
@@ -149,7 +149,7 @@ async function addCollection(req, res, next) {
 }
 
 async function editCollection(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const collectId = req.body.cid
     console.log(collectId)
     //res.send('connect')
@@ -173,7 +173,7 @@ async function editCollection(req, res, next) {
 }
 
 async function deleteCollection(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const collectId = req.params.cid
 
     try {
@@ -196,7 +196,7 @@ async function deleteCollection(req, res, next) {
 }
 
 async function deleteCollectionItem(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const collectId = req.params.cid
     const mangaId = req.params.mid
 
@@ -222,7 +222,7 @@ async function deleteCollectionItem(req, res, next) {
 }
 
 async function bookmark(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const collectId = req.params.cid
     const mangaId = req.params.mid
 
@@ -248,7 +248,7 @@ async function bookmark(req, res, next) {
 }
 
 async function ratingManga(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const mangaId = req.params.mid
     const score = req.query.score;
 
@@ -278,18 +278,18 @@ async function ratingManga(req, res, next) {
 }
 
 async function unrateManga(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const mangaId = req.params.mid
 }
 
 async function rerateManga(req, res, next) {
-    const userId = req.params.uid
+    const userId = req.user.id
     const mangaId = req.params.mid
 }
 
 async function editUserProfile(req, res, next) {
     console.log('server get req')
-    const userId = req.params.uid;
+    const userId = req.user.id;
     const form = formidable({ multiples: true });
     console.log(form)
     try {

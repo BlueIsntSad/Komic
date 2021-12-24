@@ -9,6 +9,9 @@ const { forwardUser} = require('../config/auth');
 router.get('/', forwardUser,function (req, res) {
     res.redirect('/login');
 })
+router.get('/', forwardUser,function (req, res) {
+    res.redirect('/login');
+})
 
 router.route('/:uid')
     .get(controller.getUserProfile)
