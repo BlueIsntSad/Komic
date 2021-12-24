@@ -8,13 +8,13 @@
                 </h4>
                 <h5 class="col-lg-4 col-md-4 col-sm-12 section_link">
                     <a href="/manga/categories/{{this.slug}}">
-                        view all
+                        Tất cả
                     </a>
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </h5>
                 <div class="col-lg-4 col-md-4 col-sm-12 section_sort">
                     <h5 class="section_sort_title">
-                        Order by:
+                        Sắp xếp:
                     </h5>
                     <form action="/manga/categories/{{this.slug}}" method="GET" id="submit_sort" class="section_sort_form">
                         <select name="sort" id="sort" class="section_sort_select">
@@ -23,28 +23,28 @@
                                 {{#selectedItem "namea_z" this.sort}}{{/selectedItem}} 
                                 class="sort_select_option"
                             >
-                                A-Z
+                                Tên A-Z
                             </option>
                             <option 
                                 value="namez_a" 
                                 {{#selectedItem "namez_a" this.sort}}{{/selectedItem}} c
                                 lass="sort_select_option"
                             >
-                                Z-A
+                                Tên Z-A
                             </option>
                             <option
                                 value="must_views" 
                                 {{#selectedItem "must_views" this.sort}}{{/selectedItem}} 
                                 class="sort_select_option must_views"
                             >
-                                Views  &#xf062;
+                                Lượt xem  &#xf062;
                             </option>
                             <option 
                                 value="least_views" 
                                 {{#selectedItem "least_views" this.sort}}{{/selectedItem}} 
                                 class="sort_select_option"
                             >
-                                Views  &#xf063;
+                                Lượt xem  &#xf063;
                             </option>
                         </select>
                     </form>

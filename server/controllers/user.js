@@ -26,7 +26,7 @@ async function uploadImage(path) {
 
 // User profile page
 async function getUserProfile(req, res, next) {
-    let userId = req.params.uid;
+    let userId = req.user.id;
     await User.findById(userId)
         .lean()
         .populate('library.history.mangaCollect.manga',

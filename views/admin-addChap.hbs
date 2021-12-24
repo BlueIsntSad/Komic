@@ -1,0 +1,107 @@
+<div class="add_chap_page d-flex flex-column flex-sm-column  flex-md-row align-items-stretch" >
+    {{> admin-sidebar curentPage }}
+    <div class="main_content container-fluid">
+        <form action="/admin/manga/{{manga._id}}/addChap"            
+            method="POST"
+            enctype="multipart/form-data"
+            onsubmit="submitAddNewChap(event)" 
+            class=""
+        >
+            <div class="container d-flex flex-row justify-content-center">
+                <div class="col-12 col-md-12 col-lg-8 pt-3">
+                    <div class="row flex-nowrap">
+                        <div class="col-8 col-md-6">
+                            <h4>
+                            Thêm chương mới
+                            </h4>
+                        </div>
+                        <div class="col-4 col-md-6 d-flex flex-row justify-content-end align-items-center">
+                            <a href="/admin/manga/{{manga._id}}" class="back_button">
+                                <i class="fas fa-arrow-left"></i>
+                                Truyện
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-3 d-flex flex-column">
+                            <label for="new_chap_index">
+                            STT chương
+                            </label>
+                            <input
+                            class="form-control"
+                            type="text"
+                            name="index"
+                            id="new_chap_index"
+                            placeholder="STT"
+                            required
+                            />
+                        </div>
+                        <div class="col-12 col-md-9 d-flex flex-column">
+                            <label for="new_chap_name">
+                            Tên chương
+                            </label>
+                            <input
+                            class="form-control"
+                            type="text"
+                            name="name"
+                            id="new_chap_name"
+                            placeholder="Tên chương"
+                            required
+                            />
+                        </div>
+                    </div>
+                    <div class="row mt-4"> 
+                        <h5>Tải ảnh lên</h5>
+                        <div class="col-12">
+                            <div class="input_area">
+                                <div class="upload_button">Tải lên ảnh</div>
+                                <span class="mt-3">Nhấn để tải ảnh lên hoặc kéo - thả ảnh vào khung</span>
+                                <input
+                                    id="new_chap_sections"
+                                    name="sections_temp"
+                                    type="file"
+                                    class=""
+                                    multiple
+                                    onchange="addSections(event)"
+                                />
+                            </div>    
+                        </div>                
+                    </div>
+                    <div class="row mt-4"> 
+                        <h5>Xem trước</h5>
+                        <div class="col-12">
+                            <div class="row preview_area" id="sections_preview_area">
+
+                            </div>  
+                        </div>        
+                    </div>
+                     <div class="d-flex flex-row justify-content-center mt-4"> 
+                        <button class="submit_button" type="submit"><i class="far fa-paper-plane"></i>  Thêm chương</button>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+       
+    </div>
+
+    <div style="max-width: 400px; width: 400px;  position: fixed;" id="move" class="d-none">
+        <img src="" style="max-width: 100%; width: 100%;  border: 1px solid #000;"></img>  
+    </div>
+    <div class="spinner-border text-secondary d-none" style="position: fixed;" role="status" id="loading_cursor">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="col-4 col-md-3 col-lg-2 px-1 py-2 section_item d-none " id="template_preview_section">
+    <input class="d-none" type="file" name="sections" id="" />
+    <div class="section_preview">
+        <img class="section_img" src="" alt="" />
+        <button type="button" class="icon_button" onclick="deleteSection(event)">
+        <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+
+<script src="/js/addChap.js"></script>
