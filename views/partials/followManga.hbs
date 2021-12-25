@@ -6,12 +6,20 @@
                     <h5 class="modal-title">Thêm vào bộ sưu tập</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    Bạn cần đăng nhập để thực hiện hành động này
+                <div class="modal-body d-flex flex-column justify-content-center">
+                    <select id="collectionPick" class="selectpicker height-fix" data-width="400px"></select>
+                    <input type="text" class="form-control" id="collectionNew" placeholder="Thêm truyện vào bộ sưu tập mới">
+                    <div class="invalid-feedback">Bộ sưu tập của bạn cần có tiêu đề</div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-                    <button id="toLogin" type="button" class="btn btn-login">Thêm</button>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="">
+                        <button class="btn" id="addCollect">Bộ sưu tập mới<i class="fas fa-plus-circle"></i></button>
+                        <button class="btn" id="selectCollect"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Đóng</button>
+                        <button id="addFollowing" type="button" class="btn btn-login" onclick="followManga('{{manga._id}}')">Thêm</button>
+                    </div>
                 </div>
             </form>
         </div>

@@ -1,5 +1,6 @@
 const { User, Comment } = require('../models/user');
 const { Manga, Rating } = require('../models/manga');
+const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 const formidable = require('formidable');
 
@@ -114,7 +115,22 @@ async function getCollection(req, res, next) {
             collection: JSON.parse(JSON.stringify(collect)),
             userId: userId,
             cateList: res.locals.categoryList
-        });
+        })
+    } catch (err) { console.log(err.message) }
+}
+
+async function getCollectionsJSON(req, res, next) {
+    try {
+        const userId = req.params.uid;
+        const user = await User.findById(userId, 'library')
+        //.populate('library.collections.collect')
+
+        console.log(user.library.collections)
+        res.send(user.library.collections)
+
+        //res.send({ collection: JSON.parse(JSON.stringify(collect)) })
+
+
     } catch (err) { console.log(err.message) }
 }
 
@@ -125,6 +141,11 @@ async function addCollection(req, res, next) {
         title: req.body.title,
         total: 0,
         mangaCollect: []
+    }
+    if (req.body.mangaId) {
+        newCollection.mangaCollect = [
+            { manga: mongoose.Types.ObjectId(req.body.mangaId) }
+        ]
     }
     //res.send('connect')
     try {
@@ -155,7 +176,12 @@ async function editCollection(req, res, next) {
     //res.send('connect')
     try {
         const user = await User.findById(userId)
-        user.library.collections.collect.id(collectId).title = req.body.title
+        if (req.body.mid) {
+            var newManga = { manga: mongoose.Types.ObjectId(req.body.mid) }
+            user.library.collections.collect.id(collectId).mangaCollect.push(newManga)
+        } else {
+            user.library.collections.collect.id(collectId).title = req.body.title
+        }
         console.log(user.library.collections.collect.id(collectId))
         await user.save(function (err) {
             if (err) {
@@ -323,7 +349,7 @@ async function editUserProfile(req, res, next) {
         form.parse(req, async (err, fields, files) => {
             if (err) {
                 console.log(err.msg)
-                return res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+                return res.send({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
             }
 
             const newInfo = {
@@ -351,23 +377,23 @@ async function editUserProfile(req, res, next) {
             User.findByIdAndUpdate(userId, newInfo, { new: true }, function (err, docs) {
                 if (err) {
                     console.log(err.message)
-                    res.json({ isSuccess: false, message: "Cập nhật không thành công!" })
+                    res.send({ isSuccess: false, message: "Cập nhật không thành công!" })
                 }
                 else {
                     console.log("Updated User ", docs._id);
-                    res.json({ isSuccess: true, message: "Cập nhật thông tin thành công!", user: docs })
+                    res.send({ isSuccess: true, message: "Cập nhật thông tin thành công!", user: docs })
                 }
             })
         });
     }
     catch (err) {
         console.log(err.msg);
-        res.json({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
+        res.send({ isSuccess: false, message: "Chỉnh sửa không thành công!" });
     }
 }
 
 module.exports = {
     getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
     getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
-    ratingManga, commentManga
+    ratingManga, commentManga, getCollectionsJSON
 };

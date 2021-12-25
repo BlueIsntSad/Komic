@@ -42,9 +42,9 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="info shadow rounded-3 p-4 mb-4 d-flex flex-column gap-1">
                         <h4 class="mb-3"><b>About</b></h4>
-                        {{#if user.about}}<p>{{user.about}}</p>{{/if}}
-                        {{#if user.link}}<p><i class="fas fa-link"></i><a href="{{user.link}}">{{user.link}}</a></p>{{/if}}
-                        {{#if user.address}}<p><i class="fas fa-map-marker-alt"></i>{{user.address}}</p>{{/if}}
+                        <p id="about_bio">{{#if user.about}}{{user.about}}{{/if}}</p>
+                        <p id="about_link"><i class="fas fa-link"></i><a href="{{#if user.link}}{{user.link}}{{/if}}">{{#if user.link}}{{user.link}}{{/if}}</a></p>
+                        <p id="about_address"><i class="fas fa-map-marker-alt"></i><span>{{#if user.address}}{{user.address}}{{/if}}</span></p>
                         <p><i class="fas fa-clock"></i>
                             Tham gia vào {{moment user.createdAt format="DD [tháng] MM [năm] YYYY"}}</p>
                     </div>
