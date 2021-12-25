@@ -206,7 +206,9 @@ async function getInfoPage(req, res, next) {
         },
       })
       .lean();
-
+    manga.chapters.sort(function (a, b) {
+      return compareIndex(a.index, b.index);
+    });
     res.render("admin-manga-info", {
       title: `${manga.title} - Quản lý | Komic`,
       categories: categories,
