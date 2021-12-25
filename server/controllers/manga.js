@@ -185,7 +185,7 @@ async function readChapter(req, res) {
     .populate("chapters", "_id index")
     .then(async function (manga) {
       manga.chapters.sort(function (a, b) {
-        return a.index == b.index ? 0 : a.index > b.index ? 1 : -1;
+        return compareIndex(a.index, b.index);
       });
       var chapter = manga.chapters.filter(function (chapter) {
         return chapter.index === chapterIndex;
