@@ -9,9 +9,9 @@ const { forwardAuthenticated } = require('../config/auth');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login',{title: 'Login | Komic', cateList: res.locals.categoryList }));
-router.get('/admin/login', forwardAuthenticated, (req, res) => res.render('login', { title: 'Admin Login | Komic',cateList: res.locals.categoryList }));
+router.get('/admin/login', forwardAuthenticated, (req, res) => res.render('login', { title: 'Admin Login | Komic', cateList: res.locals.categoryList }));
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('register', { title: 'Register',cateList: res.locals.categoryList }));
+router.get('/register', forwardAuthenticated, (req, res) => res.render('register', { title: 'Register', cateList: res.locals.categoryList}));
 
 // Register
 router.route('/register')

@@ -1,4 +1,16 @@
 const { User ,Admin } = require('../models/user');
+
+/*async function isAdmin() {
+  Admin.findById(req.user.id.toString(), function (err, req, res) {
+    if (err){
+        return false;
+    }
+    else{
+        return true;
+    }
+  });
+}*/
+
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
 
@@ -12,17 +24,24 @@ module.exports = {
     },
     checkAdmin: function(req, res, next) {
       if (req.isAuthenticated()) {
-        if (req.user.name = 'admin_test'){
+        if (req.user.name == 'admin_test'){
           console.log(req.user.name);
           return next();
         }
         return res.redirect('/');
-        /*if ( req.params.uid === req.user.id) {return next();}
-        else res.redirect('/user')*/
       }
       req.flash('error_msg', 'Đăng nhập để tiếp tục');
       res.redirect('/login');
     },
+    /*checkAdmin: function(req, res, next) {
+      if (req.isAuthenticated()) {
+        if (isAdmin){
+          return next();
+        } return res.redirect('/');
+      }
+      req.flash('error_msg', 'Đăng nhập để tiếp tục');
+      res.redirect('/login');
+    },*/
     forwardUser: function(req, res, next) {
       if (req.isAuthenticated()) {
         if (req.user.name == 'admin_test'){
