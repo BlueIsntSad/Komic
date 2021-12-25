@@ -3,7 +3,11 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
-                    <h3>Đăng nhập</h3>
+                    {{#if (eq title 'Admin Login | Komic')}}
+                    <h3> Đăng nhập Admin</h3>
+                    {{else}}
+                    <h3> Đăng nhập</h3>
+                    {{/if}}
                     {{>messages }}
                 </div>
                 <div class="card-body">
@@ -12,7 +16,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
+                            {{#if (eq title 'Admin Login | Komic')}}
                             <input type="text" id="email" name="email" class="form-control" placeholder="abc@gmail.com">
+                            {{else}}
+                            <input type="email" id="email" name="email" class="form-control" placeholder="abc@gmail.com">
+                            {{/if}}
                             
                         </div>
                         <div class="input-group form-group">
@@ -27,12 +35,17 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                        Chưa có tài khoản?<a href="/register">Đăng ký</a>
-                    </div>
+                    {{#if (eq title 'Admin Login | Komic')}}
+                        <div class="d-flex justify-content-center links">
+                            Đăng ký admin mới?<a href="/register">Đăng ký</a>
+                        </div>
+                    {{else}}
+                        <div class="d-flex justify-content-center links">
+                            Chưa có tài khoản?<a href="/register">Đăng ký</a>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         </div>
     </div>
 <div>
-<script type="text/javascript" src="js/login.js"></script>

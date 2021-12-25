@@ -1,11 +1,7 @@
-const { User ,Admin } = require('../models/user');
-
-
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
 
       if (req.isAuthenticated()) {
-        console.log(req.user.name);
         return next();
       }
       req.flash('error_msg', 'Đăng nhập để tiếp tục');
@@ -26,7 +22,7 @@ module.exports = {
     },
     forwardUser: function(req, res, next) {
       if (req.isAuthenticated()) {
-        if (req.user.name == 'admin_test'){
+        if (req.user.role == 'admin'){
           console.log(req.user.name);
           return res.redirect('/admin');
         }
