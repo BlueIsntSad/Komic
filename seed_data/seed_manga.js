@@ -102,8 +102,8 @@ new Promise((resolve) => {
           views: faker.datatype.number(),
           categories: categories,
           chapters: chapters,
-          total: totalChap + faker.datatype.number(20),
-          finished: totalChap,
+          total: totalChap,
+          finished: totalChap + faker.datatype.number(20),
           rate: faker.datatype.number(5),
           totalRate: faker.datatype.number(),
         });

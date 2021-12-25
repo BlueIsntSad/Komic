@@ -27,7 +27,7 @@ new Promise((resolve) => {
 }).then((results) => {
     return new Promise((resolve) => {
         var comments = [];
-        for (i = 0; i < 100; i++) {
+        for (i = 0; i < 200; i++) {
             comments.push(
                 {
                     content: faker.lorem.sentences(faker.datatype.number({ 'min': 1, 'max': 3 })),
