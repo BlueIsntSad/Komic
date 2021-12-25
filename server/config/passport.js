@@ -50,15 +50,18 @@ module.exports = function(passport) {
     })
   );
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.id );
   });
 
   passport.deserializeUser(function(id, done) {
 
       Admin.findById(id, function(err, admin) {
           if (err) return done(err);
-          if (admin) return done(null, admin);
+          if (admin) {
+            admin.role = 'admin';
+            return done(null, admin)};
           User.findById(id, function(err, user) {
+              user.role = 'user';
               done(err, user);
           });
       });

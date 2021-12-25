@@ -1,20 +1,11 @@
 const { User ,Admin } = require('../models/user');
 
-/*async function isAdmin() {
-  Admin.findById(req.user.id.toString(), function (err, req, res) {
-    if (err){
-        return false;
-    }
-    else{
-        return true;
-    }
-  });
-}*/
 
 module.exports = {
     ensureAuthenticated: function(req, res, next) {
 
       if (req.isAuthenticated()) {
+        console.log(req.user.name);
         return next();
       }
       req.flash('error_msg', 'Đăng nhập để tiếp tục');
@@ -24,8 +15,8 @@ module.exports = {
     },
     checkAdmin: function(req, res, next) {
       if (req.isAuthenticated()) {
-        if (req.user.name == 'admin_test'){
-          console.log(req.user.name);
+        if (req.user.role == 'admin'){
+          console.log(req.user.role);
           return next();
         }
         return res.redirect('/');
@@ -33,15 +24,6 @@ module.exports = {
       req.flash('error_msg', 'Đăng nhập để tiếp tục');
       res.redirect('/login');
     },
-    /*checkAdmin: function(req, res, next) {
-      if (req.isAuthenticated()) {
-        if (isAdmin){
-          return next();
-        } return res.redirect('/');
-      }
-      req.flash('error_msg', 'Đăng nhập để tiếp tục');
-      res.redirect('/login');
-    },*/
     forwardUser: function(req, res, next) {
       if (req.isAuthenticated()) {
         if (req.user.name == 'admin_test'){
@@ -57,7 +39,7 @@ module.exports = {
     },
     forwardStorage: function(req, res, next) {
       if (req.isAuthenticated()) {
-        if (req.user.name == 'admin_test'){
+        if (req.user.role == 'admin'){
           return res.redirect('/admin');
         }
         return res.redirect('/user/' + req.user.id +'/storage');

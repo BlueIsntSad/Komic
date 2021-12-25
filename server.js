@@ -59,7 +59,6 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
   if(req.isAuthenticated) res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.session = req.session;
-  //console.log(req.session)
   next();
 });
 // View engine
