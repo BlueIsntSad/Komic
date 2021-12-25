@@ -790,6 +790,62 @@ async function dasboard(req, res) {
   }
 }
 
+//compare index
+function compareIndex(index1, index2) {
+  try {
+    var numList1 = index1.match(/[+-]?\d+(\.\d+)?/g);
+    var numList2 = index2.match(/[+-]?\d+(\.\d+)?/g);
+    var strList1 = index1.match(/[a-zA-Z]+/g);
+    var strList2 = index2.match(/[a-zA-Z]+/g);
+
+    if (numList1 == null || numList2 == null) {
+      if (strList1[0] < strList2[0]) return -1;
+      else if (strList1[0] > strList2[2]) return 1;
+      else if (numList1 == null) return -1;
+      else return 1;
+    }
+
+    if (strList1 == null || strList2 == null) {
+      if (parseFloat(numList1[0]) < parseFloat(numList2[0])) return -1;
+      else if (parseFloat(numList1[0]) > parseFloat(numList2[0])) return 1;
+      else if (strList1 == null) return -1;
+      else return 1;
+    }
+
+    var isStartByNum1 = !index1.indexOf(numList1[0]);
+    var isStartByNum2 = !index2.indexOf(numList2[0]);
+    if (isStartByNum1 != isStartByNum2) {
+      if (index1 < index2) return -1;
+      else return 1;
+    }
+
+    var maxIndex = Math.max(
+      strList1.length + numList1.length,
+      strList2.length + numList2.length
+    );
+
+    for (var i = 0; i < maxIndex; i++) {
+      if ((isStartByNum1 && i % 2 == 0) || (!isStartByNum1 && i % 2 == 1)) {
+        var j = isStartByNum1 ? i / 2 : (i - 1) / 2;
+        if (numList1[j] == undefined) return -1;
+        else if (numList2[j] == undefined) return 1;
+        else if (parseFloat(numList1[j]) < parseFloat(numList2[j])) return -1;
+        else if (parseFloat(numList1[j]) > parseFloat(numList2[j])) return 1;
+      } else {
+        var j = isStartByNum1 ? (i - 1) / 2 : i / 2;
+        if (strList1[j] == undefined) return -1;
+        else if (strList2[j] == undefined) return 1;
+        if (strList1[j] < strList2[j]) {
+          return -1;
+        } else if (strList1[j] > strList2[j]) return 1;
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
+
 module.exports = {
   getAdminPage,
   getInsertPage,
@@ -811,6 +867,7 @@ module.exports = {
   dasboard,
   getEditChap,
   editChapter,
+  compareIndex,
 };
 
 //--------------ADMIN SERVICE------------------//
@@ -1087,58 +1144,6 @@ async function updateChapter(
       chapter: null,
       mangaId: mangaId,
     };
-  }
-}
-
-//compare index
-function compareIndex(index1, index2) {
-  var numList1 = index1.match(/[+-]?\d+(\.\d+)?/g);
-  var numList2 = index2.match(/[+-]?\d+(\.\d+)?/g);
-  var strList1 = index1.match(/[a-zA-Z]+/g);
-  var strList2 = index2.match(/[a-zA-Z]+/g);
-
-  if (numList1 == null || numList2 == null) {
-    if (strList1[0] < strList2[0]) return -1;
-    else if (strList1[0] > strList2[2]) return 1;
-    else if (numList1 == null) return -1;
-    else return 1;
-  }
-
-  if (strList1 == null || strList2 == null) {
-    if (parseFloat(numList1[0]) < parseFloat(numList2[0])) return -1;
-    else if (parseFloat(numList1[0]) > parseFloat(numList2[0])) return 1;
-    else if (strList1 == null) return -1;
-    else return 1;
-  }
-
-  var isStartByNum1 = !index1.indexOf(numList1[0]);
-  var isStartByNum2 = !index2.indexOf(numList2[0]);
-  if (isStartByNum1 != isStartByNum2) {
-    if (index1 < index2) return -1;
-    else return 1;
-  }
-
-  var maxIndex = Math.max(
-    strList1.length + numList1.length,
-    strList2.length + numList2.length
-  );
-
-  for (var i = 0; i < maxIndex; i++) {
-    if ((isStartByNum1 && i % 2 == 0) || (!isStartByNum1 && i % 2 == 1)) {
-      var j = isStartByNum1 ? i / 2 : (i - 1) / 2;
-      if (numList1[j] == undefined) return -1;
-      else if (numList2[j] == undefined) return 1;
-      else if (parseFloat(numList1[j]) < parseFloat(numList2[j])) return -1;
-      else if (parseFloat(numList1[j]) > parseFloat(numList2[j])) return 1;
-    } else {
-      var j = isStartByNum1 ? (i - 1) / 2 : i / 2;
-      console.log("numm>>", i, j, strList1[j], strList2[j]);
-      if (strList1[j] == undefined) return -1;
-      else if (strList2[j] == undefined) return 1;
-      if (strList1[j] < strList2[j]) {
-        return -1;
-      } else if (strList1[j] > strList2[j]) return 1;
-    }
   }
 }
 
