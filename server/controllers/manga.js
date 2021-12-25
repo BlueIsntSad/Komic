@@ -4,6 +4,7 @@ const Chapter = require("../models/chapter");
 const category = require("../models/category");
 const { User, Comment } = require("../models/user");
 const { manga } = require("../models/manga");
+const { compareIndex } = require("./admin");
 
 async function getTopView(req, res) {
   const param = req.params["id"];
@@ -101,35 +102,39 @@ async function getAllCategoryPage(req, res) {
 }
 
 async function getMangaDetails(req, res) {
+  var mangaSlug = req.params.manga;
+  var mangaSlug = req.params.manga;
+  var topViews = await getMangaTopviews(5);
 
-    var mangaSlug = req.params.manga;
-    var mangaSlug = req.params.manga;
-    var topViews = await getMangaTopviews(5);
-
-    await Manga.findOne({ slug: mangaSlug })
+  await Manga.findOne({ slug: mangaSlug })
+    .lean()
+    .populate("categories")
+    .populate({
+      path: "chapters",
+      select: "index name views updatedAt",
+    })
+    .then(async function (manga) {
+      const comments = await Comment.find({ onManga: manga._id })
         .lean()
-        .populate('categories')
-        .populate({
-            path: 'chapters',
-            select: 'index name views updatedAt'
-        })
-        .then(async function (manga) {
-            const comments = await Comment.find({ onManga: manga._id }).
-                lean().sort('-createdAt').populate('byUser', 'name avatar').exec()
-            manga.chapters.sort(function (a, b) {
-                return ((a.index == b.index) ? 0 : ((a.index > b.index) ? 1 : -1));
-            })
-            res.render('manga-details', {
-                userId: (req.isAuthenticated()) ? req.user.id : null,
-                manga: manga,
-                title: `${manga.title} | Komic`,
-                script: ['manga-details', 'review'],
-                comments: comments,
-                topViews: topViews,
-                newCommentcateList: res.locals.categoryList
-            });
-        })
-        .catch(function (err) { console.log(err.message) });
+        .sort("-createdAt")
+        .populate("byUser", "name avatar")
+        .exec();
+      manga.chapters.sort(function (a, b) {
+        return compareIndex(a.index, b.index);
+      });
+      res.render("manga-details", {
+        userId: req.isAuthenticated() ? req.user.id : null,
+        manga: manga,
+        title: `${manga.title} | Komic`,
+        script: ["manga-details", "review"],
+        comments: comments,
+        topViews: topViews,
+        newCommentcateList: res.locals.categoryList,
+      });
+    })
+    .catch(function (err) {
+      console.log(err.message);
+    });
 }
 
 function read(req, res) {
