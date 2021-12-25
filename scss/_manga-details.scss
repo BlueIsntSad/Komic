@@ -21,6 +21,19 @@
 		}
 	}
 
+	.anime_details_pic {
+		.wrap {
+			//max-height: 400px;
+			//width: 100%;
+			//object-fit: cover;
+			img {
+				width: 100%;
+				min-height: 460px;
+				object-fit: cover;
+			}
+		}
+	}
+
 	.manga_details_content {
 		background: #fff;
 		.categories {
@@ -269,16 +282,24 @@
 	}
 
 	#addCollect {
-		&:hover { text-decoration: underline }
-        i { margin-left: 8px }
-    }
+		&:hover {
+			text-decoration: underline;
+		}
+		i {
+			margin-left: 8px;
+		}
+	}
 
 	#selectCollect {
 		display: none;
 		color: #000;
-        background-color: $primary-color;
-        i { margin-left: 0px }
-    }
+		background-color: $primary-color;
+		i {
+			margin-left: 0px;
+		}
+	}
 
-	#collectionNew { display: none }
+	#collectionNew {
+		display: none;
+	}
 }
