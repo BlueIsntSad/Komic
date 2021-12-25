@@ -55,8 +55,8 @@ function submitAddNewManga(event) {
     processData: false,
     contentType: false,
     success: function (result) {
-      window.location = `/admin/manga/${result.id}`;
       if (result.success) {
+        window.location = `/admin/manga/${result.id}`;
         showToast("success", "Thành công", "Thêm truyện mới thành công!");
       } else {
         showToast("error", "Không thành công", result.message);
