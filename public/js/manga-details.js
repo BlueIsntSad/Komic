@@ -112,6 +112,19 @@ $(document).ready(function () {
         window.location.href = '/login';
     })
 
+    // Rating start on click
+    const rate_default = Math.round($('.rating-group').data('default')).toString()
+    $('.rating__input').each(function () {
+        if ($(this).val() == rate_default) {
+            $(this).prop('checked', true)
+        }
+    })
+
+    /* $('.rating__input').on('click', function (e, this) {
+        $('.rating__input').attr('checked', false)
+        $(this).attr('checked', true)
+    }) */
+
     // Following
     $('#follow-btn').click(function () {
         //alert(`userId: ${userId}`)
@@ -143,22 +156,23 @@ $(document).ready(function () {
 
 function loginCheck(event, mangaId, next) {
     event.preventDefault()
-    //userId = '61c56abdae7b775d7cdc0ba7'
+    userId = '61c56abdae7b775d7cdc0ba7'
     if (!userId) {
         $('#askLoginModal').modal('show')
     } else { next(mangaId) }
 }
 
 function ratingManga(mangaId) {
-    var rateScore = $(".rating-group input:checked").val()
-    //alert(rateScore)
-    showLoading()
+    var rateScore = $(".rating__input:checked").val()
+    alert(rateScore)
+    /* showLoading()
     $.ajax({
         type: "POST",
         url: `/user/rating/${userId}/${mangaId}?score=${rateScore}`,
         timeout: 10000,
         success: function (result) {
             if (result.isSuccess) {
+                $("#rate_count span:first").text(result.totalRate)
                 showToast('success', "Thành công!", "Đánh giá thành công!");
             } else {
                 showToast('error', "Không thành công!", result.message);
@@ -168,7 +182,7 @@ function ratingManga(mangaId) {
             showToast('error', "Không thành công!", "Có lỗi xảy ra!");
         }
     })
-    hideLoading()
+    hideLoading() */
 }
 
 function followMangaForm(mangaId) {
@@ -181,7 +195,7 @@ function followManga(mangaId) {
     //alert(`mangaId: ${mangaId}`)
     if ($('#addCollect:visible').length == 0) {
         var title = $('#collectionNew').val()
-        alert(title)
+        //alert(title)
         if (title === '') {
             $('#collectionNew').addClass('is-invalid')
             return 0
@@ -189,7 +203,7 @@ function followManga(mangaId) {
         addMangaToNewCollection(mangaId, title)
     } else {
         var idSelected = $('#collectionPick option:selected').val()
-        alert(idSelected)
+        //alert(idSelected)
         if (idSelected === 0) {
             $('#collectionPick').addClass('is-invalid')
             return 0
@@ -273,7 +287,7 @@ function insertCollections(collections) {
         })
     } else {
         const option = `<option value="0">Chưa có bộ sưu tập nào</option>`
-        $("#collectionPick").append(option);
+        $("#collectionPick").html(option);
         $("#collectionPick").selectpicker('reloadLi')
         $("#collectionPick").selectpicker('refresh')
         $("#collectionPick").selectpicker()

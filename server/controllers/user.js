@@ -354,7 +354,9 @@ async function ratingManga(req, res, next) {
     if (!user) {
         try {
             await rating.save();
-            res.send({ isSuccess: true })
+            var manga = await Manga.findById(mangaId, 'totalRate -_id').lean()
+            //console.log(manga)
+            res.send({ isSuccess: true, totalRate: manga.total_rate })
             console.log('rate success')
         } catch (err) {
             console.log(err.message)

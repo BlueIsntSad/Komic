@@ -3,6 +3,7 @@
 
 <script>
   var userId = "{{ userId }}"
+  const mangaId = "{{ manga._id }}"
 </script>
 
 <!--Manga section-->
@@ -13,7 +14,7 @@
         <div class="col-md-12 col-lg-4 col-xl-3 pe-3">
           <div class="anime_details_pic">
             <div class="wrap rounded-3">
-              <img src={{manga.cover}} class="rounded-3"/>
+              <img src={{manga.cover}} class="rounded-3" />
             </div>
           </div>
         </div>
@@ -26,8 +27,8 @@
             <div class="col-lg-12 col-xl-3 manga_details_rating d-flex">
               <div>
                 <div class="stars-rating" onclick="loginCheck(event,'{{ manga._id }}',ratingManga)">
-                  <form onchange="ratingManga()">
-                    <div class="rating-group" data-default={{rate}}>
+                  <div class="rating-group" data-default={{ manga.rate }}>
+                    <form class="" onchange="ratingManga('{{ manga._id }}')">
                       <label aria-label="1 star" class="rating__label" for="star-1">
                         <i class="rating__icon rating__icon--star fa fa-star"></i></label>
                       <input class="rating__input" name="star" id="star-1" value="1" type="radio">
@@ -39,14 +40,14 @@
                       <input class="rating__input" name="star" id="star-3" value="3" type="radio">
                       <label aria-label="4 stars" class="rating__label" for="star-4">
                         <i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                      <input class="rating__input" name="star" id="star-4" value="4" type="radio" checked>
+                      <input class="rating__input" name="star" id="star-4" value="4" type="radio">
                       <label aria-label="5 stars" class="rating__label" for="star-5">
                         <i class="rating__icon rating__icon--star fa fa-star"></i></label>
                       <input class="rating__input" name="star" id="star-5" value="5" type="radio">
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
-                <div class="d-flex flex-row justify-content-center gap-1">
+                <div id="rate_count" class="d-flex flex-row justify-content-center gap-1">
                   {{#eq manga.totalRate 0}}
                   <span>Chưa có đánh giá</span>
                   {{else}}

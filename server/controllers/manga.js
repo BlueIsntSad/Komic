@@ -123,7 +123,7 @@ async function getMangaDetails(req, res) {
                 userId: (req.isAuthenticated()) ? req.user.id : null,
                 manga: manga,
                 title: `${manga.title} | Komic`,
-                script: ['manga-details', 'review'],
+                script: ['manga-details', 'review', 'loading'],
                 comments: comments,
                 topViews: topViews,
                 newCommentcateList: res.locals.categoryList
