@@ -199,6 +199,7 @@ async function addCollection(req, res, next) {
                 res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
             } else {
                 console.log('Success!');
+                //updateFollowManga(req.body.mangaId)
                 res.send({ isSuccess: true, newCollection: newCollect }) //{ success: true, message: "Cập nhật thông tin truyện thành công!", newManga: result }
             }
         });
@@ -206,6 +207,24 @@ async function addCollection(req, res, next) {
         console.log(err.message)
         res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Xoá lịch sử không thành công!"}
     }
+}
+
+async function updateFollowManga(mangaId) {
+    const data = await User.aggregate([
+        { $match: { 'library': { 'collections': {'collect':{'mangaCollect':{ '_id': mongoose.Types.ObjectId(mangaId) }}} } } },
+        {
+            $group: {
+                "_id": "$manga",
+                "totalRate": { "$sum": 1 },
+                "avgRate": { $avg: "$score" }
+            }
+        }
+    ])
+    console.log(data[0])
+    await mangaS.updateOne(
+        { _id: mangaId },
+        { rate: data[0].avgRate, totalRate: data[0].totalRate }
+    )
 }
 
 async function editCollection(req, res, next) {

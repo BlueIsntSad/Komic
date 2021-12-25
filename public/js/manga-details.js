@@ -156,7 +156,7 @@ $(document).ready(function () {
 
 function loginCheck(event, mangaId, next) {
     event.preventDefault()
-    userId = '61c56abdae7b775d7cdc0ba7'
+    //userId = '61c56abdae7b775d7cdc0ba7'
     if (!userId) {
         $('#askLoginModal').modal('show')
     } else { next(mangaId) }
