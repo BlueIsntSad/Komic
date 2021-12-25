@@ -46,9 +46,13 @@
               <i class="fas fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-              <li><a class="dropdown-item" href="/user">Thông tin</a></li>
-              <li><a class="dropdown-item" href="/user/storage">Kho lưu trữ</a></li>
-              <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+              {{#if (eq role 'admin')}}
+                <li><a class="dropdown-item" href="/user/storage">Quản lý</a></li>
+              {{else}}
+                <li><a class="dropdown-item" href="/user">Thông tin</a></li>
+                <li><a class="dropdown-item" href="/user/storage">Kho lưu trữ</a></li>
+              {{/if}}
+              <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>      
             </ul>
           </li>
         </ul>

@@ -36,16 +36,12 @@ module.exports = function(passport) {
         if (!admin) {
           return done(null, false, { error_msg: 'Email chưa được đăng ký' });
         }
-
         // Match password
-        bcrypt.compare(password, admin.password, (err, isMatch) => {
-          if (err) throw err;
-          if (isMatch) {
-            return done(null, admin);
-          } else {
-            return done(null, false, { error_msg: 'Mật khẩu sai' });
-          }
-        });
+        if (password == admin.password) {
+          return done(null, admin);
+        } else {
+          return done(null, false, { error_msg: 'Mật khẩu sai' });
+        };
       });
     })
   );
