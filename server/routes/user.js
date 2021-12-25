@@ -24,6 +24,9 @@ router.route('/:uid/collectionJSON')
 router.route('/:uid/storage/deleteHistory/:hid')
     .put(controller.deleteHistory)
 
+router.route('/:uid/storage/addHistory/:mid')
+    .put(controller.addHistory)
+
 router.route('/:uid/storage/collection')
     .get(controller.getCollection)
     .put(controller.editCollection)

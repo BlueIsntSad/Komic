@@ -1,3 +1,4 @@
+addHistory(mangaId, userId)
 $(document).ready(function () {
     $('.chapter_control select').selectpicker();
     $('.manga_sidebar_topviews').removeClass('mt-4').removeClass('my-5')
@@ -39,3 +40,23 @@ $(document).ready(function () {
         }
     })
 })
+
+function addHistory(mangaId, userId) {
+    $.ajax({
+        type: "PUT",
+        url: `/user/${userId}/storage/addHistory/${mangaId}`,
+        timeout: 10000,
+        success: function (result) {
+            console.log('update user histories')
+            /* if (result.isSuccess) {
+                showToast('success', "Thành công!", "Đánh giá thành công!");
+            } else {
+                showToast('error', "Không thành công!", result.message);
+            } */
+        },
+        error: function () {
+            //showToast('error', "Không thành công!", "Có lỗi xảy ra!");
+            console.log('Some issue detect at add/update user history')
+        }
+    })
+}

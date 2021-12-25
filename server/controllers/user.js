@@ -100,6 +100,44 @@ async function deleteHistory(req, res, next) {
     }
 }
 
+async function addHistory(req, res, next) {
+    const userId = req.user.id
+    const mangaId = req.params.mid
+
+    try {
+        const user = await User.findById(userId)
+        var exist = 0
+        var pos = 0
+        for (var i = 0; i < user.library.history.mangaCollect.length; i++) {
+            if (user.library.history.mangaCollect[i].manga == mangaId) {
+                console.log('already read')
+                exist = 1
+                pos = i
+            }
+        }
+        console.log(`exist ${exist}`)
+        if (exist) {
+            user.library.history.mangaCollect[pos].lastRead = Date.now()
+            console.log('update his')
+        } else {
+            user.library.history.mangaCollect.push({ manga: mangaId })
+            console.log('add his')
+        }
+        await user.save(function (err) {
+            if (err) {
+                console.log(err.message)
+                res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Thêm lịch sử không thành công!"}
+            } else {
+                console.log('Success! Add his');
+                res.send({ isSuccess: true }) //{ success: true, message: "Cập lịch sử thành công!", newManga: result }
+            }
+        })
+    } catch (err) {
+        console.log(err.message)
+        res.send({ isSuccess: false, msg: err.message }) //{ success: false, message: "Thêm lịch sử không thành công!"}
+    }
+}
+
 // User collection detail page
 async function getCollection(req, res, next) {
     try {
@@ -393,7 +431,7 @@ async function editUserProfile(req, res, next) {
 }
 
 module.exports = {
-    getUserProfile, editUserProfile, getUserLibrary, deleteHistory,
+    getUserProfile, editUserProfile, getUserLibrary, deleteHistory, addHistory,
     getCollection, deleteCollectionItem, deleteCollection, addCollection, editCollection,
     ratingManga, commentManga, getCollectionsJSON
 };

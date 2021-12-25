@@ -198,6 +198,7 @@ async function readChapter(req, res) {
         .populate("sections", "url")
         .then(function (chapter) {
           res.render("manga-reading", {
+            userId: (req.isAuthenticated()) ? req.user.id : null,
             chapter: chapter,
             manga: manga,
             comments: comments,
