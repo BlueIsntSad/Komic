@@ -46,14 +46,14 @@
                             <label for="bio">Giới thiệu</label>
                         </div>
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" id="location" name="address"
-                                value="{{#if user.address}}{{user.address}}{{/if}}">
-                            <label for="location"><i class="fas fa-map-marker-alt"></i>Địa chỉ</label>
-                        </div>
-                        <div class="mb-3 form-floating">
                             <input type="text" class="form-control" id="link" name="link"
                                 value="{{#if user.link}}{{user.link}}{{/if}}">
                             <label for="link"><i class="fas fa-link"></i>Liên kết</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" id="location" name="address"
+                                value="{{#if user.address}}{{user.address}}{{/if}}">
+                            <label for="location"><i class="fas fa-map-marker-alt"></i>Địa chỉ</label>
                         </div>
                     </div>
                 </form>

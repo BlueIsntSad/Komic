@@ -36,6 +36,7 @@ async function getUserProfile(req, res, next) {
             'cover slug title views follower finished')
         .then(userDoc => {
             res.render('profile', {
+                userId: userDoc._id,
                 user: userDoc,
                 title: `${userDoc.name} | Komic`,
                 script: ['profile'],
